@@ -32,7 +32,6 @@ class People:
     favorite_people_count: int
     casts_count: int
     staffs_count: int
-    # prefecture: Optional[Dict[str, Union[int, str]]]
     prefecture: Optional[Dict[str, Union[int, str]]] = None
 
     def __post_init__(self) -> None:
