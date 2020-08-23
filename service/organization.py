@@ -28,6 +28,5 @@ class OrganizationService:
             res = self.api.organizations(params=params)
             page = res["next_page"]
             for o in res["organizations"]:
-                print(o)
                 organizations.append(Organization(**o))
         return organizations
