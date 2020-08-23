@@ -43,4 +43,4 @@ class Peoples:
             raise TypeError("data is not people")
 
     def to_dict(self) -> list:
-        return [dataclasses.asdict(l) for l in self._list]
+        return [l.to_dict() for l in self._list]
