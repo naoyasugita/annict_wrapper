@@ -22,7 +22,8 @@ class WorkService:
         api = ApiRequests()
         per_page = 50  # limit_count
         page = 1  # init_page
-        while page is not None:
+        # while page is not None:
+        while page < 2:
             params = WorkRequestParams(per_page=per_page, page=page).to_dict()
             res = api.works(params=params)
             page = res["next_page"]
