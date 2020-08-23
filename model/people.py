@@ -6,6 +6,12 @@ from typing import Union
 
 
 @dataclasses.dataclass
+class Prefecture:
+    id: int
+    name: str
+
+
+@dataclasses.dataclass
 class People:
     id: int
     name: str
@@ -26,7 +32,12 @@ class People:
     favorite_people_count: int
     casts_count: int
     staffs_count: int
-    prefecture: Optional[Dict[str, Union[int, str]]]
+    # prefecture: Optional[Dict[str, Union[int, str]]]
+    prefecture: Optional[Dict[str, Union[int, str]]] = None
+
+    def __post_init__(self) -> None:
+        if self.prefecture is not None:
+            self.prefecture = Prefecture(**self.prefecture)
 
     def to_dict(self) -> dict:
         return dataclasses.asdict(self)
