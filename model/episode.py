@@ -1,11 +1,13 @@
+import dataclasses
 from typing import Dict
 from typing import Optional
 from typing import Union
-import dataclasses
+
+from model.work import Work
 
 
 @dataclasses.dataclass
-class Episodes:
+class Episode:
     id: int
     number: Optional[int]
     number_text: str
@@ -16,7 +18,9 @@ class Episodes:
     work: Dict[str, Union[int, str]]
     prev_episode: Dict[str, Optional[Union[int, str]]]
     next_episode: Optional[int]
-    prefecture: Optional[Dict[str, Union[int, str]]]
+
+    def __post_init__(self):
+        self.work = Work(**self.work)
 
     def to_dict(self) -> dict:
         return dataclasses.asdict(self)
