@@ -12,7 +12,10 @@ class OrganizationService:
         api = ApiRequests()
         params = OrganizationRequestParams(filter_ids=organization_id).to_dict()
         res = api.organizations(params=params)
-        return Organization(**res["organizations"][0])
+        try:
+            return Organization(**res["organizations"][0])
+        except Exception as e:
+            raise e
 
     def find_all_organization_info(self) -> Organizations:
         # TODO データ永続化処理で使用する

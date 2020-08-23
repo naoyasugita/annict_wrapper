@@ -14,7 +14,10 @@ class WorkService:
         api = ApiRequests()
         params = WorkRequestParams(filter_ids=work_id).to_dict()
         res = api.works(params=params)
-        return Work(**res["works"][0])
+        try:
+            return Work(**res["works"][0])
+        except Exception as e:
+            raise e
 
     def find_all_work_info(self) -> Works:
         # TODO データ永続化処理で使用する

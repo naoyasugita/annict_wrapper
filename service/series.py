@@ -11,4 +11,7 @@ class SeriesService:
         api = ApiRequests()
         params = SeriesRequestParams(filter_ids=series_id).to_dict()
         res = api.series(params=params)
-        return Series(**res["series"][0])
+        try:
+            return Series(**res["series"][0])
+        except Exception as e:
+            raise e

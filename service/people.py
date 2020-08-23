@@ -12,7 +12,10 @@ class PeopleService:
         api = ApiRequests()
         params = PeopleRequestParams(filter_ids=people_id).to_dict()
         res = api.people(params=params)
-        return People(**res["people"][0])
+        try:
+            return People(**res["people"][0])
+        except Exception as e:
+            raise e
 
     def find_all_people_info(self) -> Peoples:
         # TODO データ永続化処理で使用する
