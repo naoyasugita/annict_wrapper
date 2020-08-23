@@ -17,13 +17,10 @@ class PeopleService:
     def find_all_people_info(self) -> Peoples:
         # TODO データ永続化処理で使用する
         peoples = Peoples()
-        count = 0
         api = ApiRequests()
         per_page = 50  # limit_count
         page = 1  # init_page
         while page is not None:
-            count += 1
-            print(count)
             params = PeopleRequestParams(per_page=per_page, page=page).to_dict()
             res = api.people(params=params)
             page = res["next_page"]
