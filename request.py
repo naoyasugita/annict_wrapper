@@ -60,3 +60,13 @@ class ApiRequests:
             return res.json()
         except Exception as e:
             return e
+
+    def programs(self, params: dict = {}) -> dict:
+        """放送予定を取得することができます"""
+        # NOTE 今はレスポンスが無いみたい。。。
+        try:
+            url = self.base_url + f"me/programs?access_token={self.access_token}"
+            res = requests.get(url, params=params)
+            return res.json()
+        except Exception as e:
+            return e

@@ -1,4 +1,5 @@
 import dataclasses
+from datetime import datetime
 from typing import Optional
 
 from utils import delete_none_for_dict
@@ -82,6 +83,25 @@ class StaffRequestParams:
     per_page: Optional[int] = None  # max 50
     sort_id: Optional[str] = None  # desc or asc
     sort_sort_number: Optional[str] = None  # desc or asc
+
+    def to_dict(self):
+        return delete_none_for_dict(dataclasses.asdict(self))
+
+
+@dataclasses.dataclass
+class ProgramRequestParams:
+    fields: Optional[str] = None
+    filter_ids: Optional[int] = None
+    filter_channel_ids: Optional[int] = None
+    filter_work_ids: Optional[int] = None
+    filter_started_at_gt: Optional["datatime"] = None
+    filter_started_at_lt: Optional["datatime"] = None
+    filter_unwatched: Optional[bool] = None
+    filter_rebroadcast: Optional[bool] = None
+    page: Optional[int] = None
+    per_page: Optional[int] = None  # max 50
+    sort_id: Optional[str] = None  # desc or asc
+    sort_started_at: Optional[str] = None  # desc or asc
 
     def to_dict(self):
         return delete_none_for_dict(dataclasses.asdict(self))
