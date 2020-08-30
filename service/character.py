@@ -13,7 +13,6 @@ class CharacterService:
     def find_character_info(self, character_id: int) -> Character:
         params = CharacterRequestParams(filter_ids=character_id).to_dict()
         res = self.api.characters(params=params)
-        print(res)
         try:
             return Character(**res["characters"][0])
         except Exception as e:
