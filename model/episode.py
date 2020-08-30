@@ -16,8 +16,8 @@ class Episode:
     records_count: int
     record_comments_count: int
     work: Dict[str, Union[int, str]]
-    prev_episode: Optional[Dict[str, Optional[Union[int, str]]]]
-    next_episode: Optional[Dict[str, Optional[Union[int, str]]]]
+    prev_episode: Optional[Dict[str, Optional[Union[int, str]]]] = None
+    next_episode: Optional[Dict[str, Optional[Union[int, str]]]] = None
 
     def __post_init__(self) -> None:
         self.work = Work(**self.work)
