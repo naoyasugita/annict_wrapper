@@ -1,6 +1,7 @@
 import dataclasses
 from typing import Dict
 from typing import List
+from typing import Optional
 from typing import Union
 
 from model.series import Series
@@ -33,10 +34,11 @@ class Character:
     description_source: str
     description_source_en: str
     favorite_characters_count: int
-    series: Dict[str, Union[int, str]]
+    series: Optional[Dict[str, Union[int, str]]] = None
 
     def __post_init__(self) -> None:
-        self.series = Series(**self.series)
+        if self.series is not None:
+            self.series = Series(**self.series)
 
     def to_dict(self) -> dict:
         return dataclasses.asdict(self)
