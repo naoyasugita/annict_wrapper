@@ -70,3 +70,11 @@ class ApiRequests:
             return res.json()
         except Exception as e:
             return e
+    def characters(self, params: dict = {}) -> dict:
+        """Annictに登録されているキャラクター情報を取得することができます。"""
+        try:
+            url = self.base_url + f"characters?access_token={self.access_token}"
+            res = requests.get(url, params=params)
+            return res.json()
+        except Exception as e:
+            return e
