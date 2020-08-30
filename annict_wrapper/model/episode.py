@@ -3,7 +3,7 @@ from typing import Dict
 from typing import Optional
 from typing import Union
 
-from model.work import Work
+from annict_wrapper.model.work import Work
 
 
 @dataclasses.dataclass

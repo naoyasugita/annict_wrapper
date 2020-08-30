@@ -1,9 +1,9 @@
 import dataclasses
 
-from model.character import Character
-from model.character import Characters
-from request import ApiRequests
-from request_filter import CharacterRequestParams
+from annict_wrapper.model.character import Character
+from annict_wrapper.model.character import Characters
+from annict_wrapper.request import ApiRequests
+from annict_wrapper.request_filter import CharacterRequestParams
 
 
 @dataclasses.dataclass

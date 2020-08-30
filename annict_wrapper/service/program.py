@@ -1,9 +1,9 @@
 import dataclasses
 
-from model.program import Program
-from model.program import Programs
-from request import ApiRequests
-from request_filter import ProgramRequestParams
+from annict_wrapper.model.program import Program
+from annict_wrapper.model.program import Programs
+from annict_wrapper.request import ApiRequests
+from annict_wrapper.request_filter import ProgramRequestParams
 
 
 @dataclasses.dataclass

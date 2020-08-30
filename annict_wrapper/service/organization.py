@@ -1,9 +1,9 @@
 import dataclasses
 
-from model.organization import Organization
-from model.organization import Organizations
-from request import ApiRequests
-from request_filter import OrganizationRequestParams
+from annict_wrapper.model.organization import Organization
+from annict_wrapper.model.organization import Organizations
+from annict_wrapper.request import ApiRequests
+from annict_wrapper.request_filter import OrganizationRequestParams
 
 
 @dataclasses.dataclass

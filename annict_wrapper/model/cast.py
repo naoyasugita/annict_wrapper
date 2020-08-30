@@ -4,9 +4,9 @@ from typing import List
 from typing import Optional
 from typing import Union
 
-from model.character import Character
-from model.people import People
-from model.work import Work
+from annict_wrapper.model.character import Character
+from annict_wrapper.model.people import People
+from annict_wrapper.model.work import Work
 
 
 @dataclasses.dataclass

@@ -2,7 +2,7 @@ import dataclasses
 from datetime import datetime
 from typing import Optional
 
-from utils import delete_none_for_dict
+from annict_wrapper.utils import delete_none_for_dict
 
 
 @dataclasses.dataclass

@@ -1,8 +1,8 @@
 import dataclasses
 
-from model.episode import Episode
-from request import ApiRequests
-from request_filter import EpisodeRequestParams
+from annict_wrapper.model.episode import Episode
+from annict_wrapper.request import ApiRequests
+from annict_wrapper.request_filter import EpisodeRequestParams
 
 
 @dataclasses.dataclass

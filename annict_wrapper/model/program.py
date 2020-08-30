@@ -4,8 +4,8 @@ from typing import Dict
 from typing import List
 from typing import Union
 
-from model.episode import Episode
-from model.work import Work
+from annict_wrapper.model.episode import Episode
+from annict_wrapper.model.work import Work
 
 
 @dataclasses.dataclass

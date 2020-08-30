@@ -1,4 +1,4 @@
-from model.work import Cool
+from annict_wrapper.model.work import Cool
 
 
 def delete_none_for_dict(dic: dict):

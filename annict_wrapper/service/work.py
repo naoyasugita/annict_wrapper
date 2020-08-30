@@ -1,11 +1,11 @@
 import dataclasses
 
-from model.work import Cool
-from model.work import Work
-from model.work import Works
-from request import ApiRequests
-from request_filter import WorkRequestParams
-from utils import create_season_by_year_and_cool
+from annict_wrapper.model.work import Cool
+from annict_wrapper.model.work import Work
+from annict_wrapper.model.work import Works
+from annict_wrapper.request import ApiRequests
+from annict_wrapper.request_filter import WorkRequestParams
+from annict_wrapper.utils import create_season_by_year_and_cool
 
 
 @dataclasses.dataclass

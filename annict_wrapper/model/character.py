@@ -4,7 +4,7 @@ from typing import List
 from typing import Optional
 from typing import Union
 
-from model.series import Series
+from annict_wrapper.model.series import Series
 
 
 @dataclasses.dataclass
