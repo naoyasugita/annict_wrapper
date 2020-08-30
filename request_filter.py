@@ -108,6 +108,20 @@ class ProgramRequestParams:
 
 
 @dataclasses.dataclass
+class CastRequestParams:
+    fields: Optional[str] = None
+    filter_ids: Optional[int] = None
+    filter_work_id: Optional[int] = None
+    page: Optional[int] = None
+    per_page: Optional[int] = None  # max 50
+    sort_id: Optional[str] = None  # desc or asc
+    sort_sort_number: Optional[str] = None  # desc or asc
+
+    def to_dict(self):
+        return delete_none_for_dict(dataclasses.asdict(self))
+
+
+@dataclasses.dataclass
 class CharacterRequestParams:
     fields: Optional[str] = None
     filter_ids: Optional[int] = None
