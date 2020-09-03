@@ -45,4 +45,3 @@ class TestWorksModel:
         works.append(fixture_work_movie["work"])  # movie
 
         assert len(works.find_by_media("tv")) == 3
-
