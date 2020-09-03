@@ -11,12 +11,10 @@ class TestCharacterModel:
 
 
 class TestCharactersModel:
-    def test_characters_append_when_type_ok(
-        self, fixture_character, fixture_character_2
-    ):
+    def test_characters_append_when_type_ok(self, fixture_character):
         characters = Characters()
         character = fixture_character["character"]
-        character_2 = fixture_character_2["character"]
+        character_2 = fixture_character["character"]
         characters.append(character)
         characters.append(character_2)
         assert len(characters._list) == 2

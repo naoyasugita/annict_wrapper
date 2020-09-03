@@ -11,10 +11,10 @@ class TestCastModel:
 
 
 class TestCastsModel:
-    def test_casts_append_when_type_ok(self, fixture_cast, fixture_cast_2):
+    def test_casts_append_when_type_ok(self, fixture_cast):
         casts = Casts()
         cast = fixture_cast["cast"]
-        cast_2 = fixture_cast_2["cast"]
+        cast_2 = fixture_cast["cast"]
         casts.append(cast)
         casts.append(cast_2)
         assert len(casts._list) == 2
