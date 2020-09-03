@@ -6,6 +6,7 @@ from annict_wrapper.model.episode import Episode
 from annict_wrapper.model.episode import NextEpisode
 from annict_wrapper.model.episode import PrevEpisode
 from annict_wrapper.model.organization import Organization
+from annict_wrapper.model.people import People
 
 
 @pytest.fixture
@@ -365,3 +366,31 @@ def fixture_organization():
     }
     organization = Organization(**organization_dict)
     yield {"organization": organization, "organization_dict": organization_dict}
+
+
+@pytest.fixture
+def fixture_people():
+    people_dict = {
+        "id": 1234,
+        "name": "テスト",
+        "name_kana": "てすと",
+        "name_en": "te, suto",
+        "nickname": "てすとん",
+        "nickname_en": "",
+        "gender_text": "女性",
+        "url": "hogehoge1234.html",
+        "url_en": "",
+        "wikipedia_url": "http://hogehoge/%E6%9D%B1%E5%B1%B1%E5%A5%88%E5%A4%AE",
+        "wikipedia_url_en": "",
+        "twitter_username": "test",
+        "twitter_username_en": "",
+        "birthday": "1995-12-02",
+        "blood_type": "b",
+        "height": 154,
+        "favorite_people_count": 74,
+        "casts_count": 58,
+        "staffs_count": 0,
+        "prefecture": {"id": 13, "name": "東京都"},
+    }
+    people = People(**people_dict)
+    yield {"people": people, "people_dict": people_dict}
