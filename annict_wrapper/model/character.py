@@ -34,6 +34,7 @@ class Character:
     description_source: str
     description_source_en: str
     favorite_characters_count: int
+    kind: Optional[str] = None
     series: Optional[Dict[str, Union[int, str]]] = None
 
     def __post_init__(self) -> None:
