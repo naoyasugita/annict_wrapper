@@ -37,13 +37,13 @@ class Work:
     wikipedia_url: str
     twitter_username: str
     twitter_hashtag: str
-    syobocal_tid: str
-    mal_anime_id: str
-    images: Dict[str, Union[str, Dict[str, str]]]
     episodes_count: int
     watchers_count: int
-    reviews_count: int
-    no_episodes: bool
+    no_episodes: Optional[bool] = None
+    reviews_count: Optional[int] = None
+    syobocal_tid: Optional[str] = None
+    mal_anime_id: Optional[str] = None
+    images: Optional[Dict[str, Union[str, Dict[str, str]]]] = None
     season_name: Optional[str] = None
     season_name_text: Optional[str] = None
 
