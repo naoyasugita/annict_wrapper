@@ -32,4 +32,4 @@ class Organizations:
             raise TypeError("data is not organization")
 
     def to_dict(self) -> list:
-        return [organization.to_dict for organization in self._list]
+        return [l.to_dict() for l in self._list]
