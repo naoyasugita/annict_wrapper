@@ -2,6 +2,9 @@ import pytest
 
 from annict_wrapper.model.cast import Cast
 from annict_wrapper.model.character import Character
+from annict_wrapper.model.episode import Episode
+from annict_wrapper.model.episode import NextEpisode
+from annict_wrapper.model.episode import PrevEpisode
 
 
 @pytest.fixture
@@ -262,3 +265,82 @@ def fixture_character_2():
     }
     character = Character(**character_dict)
     yield {"character": character, "character_dict": character_dict}
+
+
+@pytest.fixture
+def fixture_episode():
+    episode_dict = {
+        "id": 45,
+        "number": None,
+        "number_text": "第1話",
+        "sort_number": 1,
+        "title": "test1",
+        "records_count": 0,
+        "record_comments_count": 0,
+        "work": {
+            "id": 1234,
+            "title": "テストワーク",
+            "title_kana": "てすとわーく",
+            "media": "tv",
+            "media_text": "TV",
+            "released_on": "",
+            "released_on_about": "",
+            "official_site_url": "http://testhoeghoge.com",
+            "wikipedia_url": "http://hogehoge/%E6%9D%B1%E5%B1%B1%E5%A5%88%E5%A4%AE",
+            "twitter_username": "test_hogehoge",
+            "twitter_hashtag": "テスト",
+            "syobocal_tid": "1234",
+            "mal_anime_id": "12345",
+            "images": {
+                "recommended_url": "test.jpg",
+                "facebook": {"og_image_url": "test.jpg"},
+                "twitter": {
+                    "mini_avatar_url": "https://twitter.com/xxxxxxxxxxx/profile_image?size=mini",
+                    "normal_avatar_url": "https://twitter.com/xxxxxxxxxxx/profile_image?size=normal",
+                    "bigger_avatar_url": "https://twitter.com/xxxxxxxxxxx/profile_image?size=bigger",
+                    "original_avatar_url": "https://twitter.com/xxxxxxxxxxx/profile_image?size=original",
+                    "image_url": "",
+                },
+            },
+            "episodes_count": 12,
+            "watchers_count": 1234,
+            "reviews_count": 11,
+            "no_episodes": False,
+            "season_name": "2018-winter",
+            "season_name_text": "2018年冬",
+        },
+        "prev_episode": None,
+        "next_episode": None,
+    }
+    episode = Episode(**episode_dict)
+    yield {"episode": episode, "episode_dict": episode_dict}
+
+
+@pytest.fixture
+def fixture_prev_episode():
+    prev_episode_dict = {
+        "id": 11,
+        "number": None,
+        "number_text": "第1話",
+        "sort_number": 1,
+        "title": "テスト",
+        "records_count": 0,
+        "record_comments_count": 0,
+    }
+    prev_episode = PrevEpisode(**prev_episode_dict)
+    yield {"prev_episode": prev_episode, "prev_episode_dict": prev_episode_dict}
+
+
+@pytest.fixture
+def fixture_next_episode():
+    next_episode_dict = {
+        "id": 11,
+        "number": None,
+        "number_text": "第1話",
+        "sort_number": 1,
+        "title": "テスト",
+        "records_count": 0,
+        "record_comments_count": 0,
+    }
+    next_episode = NextEpisode(**next_episode_dict)
+    yield {"next_episode": next_episode, "next_episode_dict": next_episode_dict}
