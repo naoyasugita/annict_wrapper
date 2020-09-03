@@ -74,3 +74,4 @@ class Works:
         for work in self._list:
             if work.media == target_media:
                 result.append(work.title)
+        return result
