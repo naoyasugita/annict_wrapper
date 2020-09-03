@@ -199,6 +199,45 @@ def fixture_work():
 
 
 @pytest.fixture
+def fixture_work_movie():
+    work_dict = {
+        "id": 1234,
+        "title": "テストワーク",
+        "title_kana": "てすとわーく",
+        "media": "movie",
+        "media_text": "映画",
+        "released_on": "",
+        "released_on_about": "",
+        "official_site_url": "http://testhoeghoge.com",
+        "wikipedia_url": "http://hogehoge/%E6%9D%B1%E5%B1%B1%E5%A5%88%E5%A4%AE",
+        "twitter_username": "test_hogehoge",
+        "twitter_hashtag": "テスト",
+        "syobocal_tid": "1234",
+        "mal_anime_id": "12345",
+        "images": {
+            "recommended_url": "test.jpg",
+            "facebook": {"og_image_url": "test.jpg"},
+            "twitter": {
+                "mini_avatar_url": "https://twitter.com/xxxxxxxxxxx/profile_image?size=mini",
+                "normal_avatar_url": "https://twitter.com/xxxxxxxxxxx/profile_image?size=normal",
+                "bigger_avatar_url": "https://twitter.com/xxxxxxxxxxx/profile_image?size=bigger",
+                "original_avatar_url": "https://twitter.com/xxxxxxxxxxx/profile_image?size=original",
+                "image_url": "",
+            },
+        },
+        "episodes_count": 12,
+        "watchers_count": 1234,
+        "reviews_count": 11,
+        "no_episodes": False,
+        "season_name": "2018-winter",
+        "season_name_text": "2018年冬",
+    }
+
+    work = Work(**work_dict)
+    yield {"work": work, "work_dict": work_dict}
+
+
+@pytest.fixture
 def fixture_program(fixture_work, fixture_episode):
     program_dict = {
         "id": 35387,
