@@ -30,4 +30,3 @@ class TestCastsModel:
         cast_dict = fixture_cast["cast_dict"]
         casts.append(cast)
         assert casts.to_dict() == [cast_dict]
-
