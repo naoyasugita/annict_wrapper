@@ -67,7 +67,7 @@ class Works:
             raise TypeError("data is not work")
 
     def to_dict(self) -> list:
-        return [work.to_dict for work in self._list]
+        return [work.to_dict() for work in self._list]
 
     def find_by_media(self, target_media: str = "tv") -> list:
         result: List[dict] = []
