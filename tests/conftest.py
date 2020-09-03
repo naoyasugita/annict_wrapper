@@ -5,6 +5,7 @@ from annict_wrapper.model.character import Character
 from annict_wrapper.model.episode import Episode
 from annict_wrapper.model.episode import NextEpisode
 from annict_wrapper.model.episode import PrevEpisode
+from annict_wrapper.model.organization import Organization
 
 
 @pytest.fixture
@@ -344,3 +345,23 @@ def fixture_next_episode():
     }
     next_episode = NextEpisode(**next_episode_dict)
     yield {"next_episode": next_episode, "next_episode_dict": next_episode_dict}
+
+
+@pytest.fixture
+def fixture_organization():
+    organization_dict = {
+        "id": 3,
+        "name": "P.A.WORKS",
+        "name_kana": "ぴーえーわーくす",
+        "name_en": "P.A.WORKS",
+        "url": "http://www.pa-works.jp/",
+        "url_en": "https://www.pa-works.jp/en/",
+        "wikipedia_url": "https://ja.wikipedia.org/wiki/%E3%83%94%E3%83%BC%E3%82%A8%E3%83%BC%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B9",
+        "wikipedia_url_en": "",
+        "twitter_username": "PAWORKS_info",
+        "twitter_username_en": "PAWORKS_eng",
+        "favorite_organizations_count": 81,
+        "staffs_count": 23,
+    }
+    organization = Organization(**organization_dict)
+    yield {"organization": organization, "organization_dict": organization_dict}
