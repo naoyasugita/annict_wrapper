@@ -1,8 +1,7 @@
 import dataclasses
-from datetime import datetime
 from typing import Optional
 
-from annict_wrapper.utils import check_date_format
+from annict_wrapper.model.started_at import StartedAt
 from annict_wrapper.utils import delete_none_for_dict
 
 
@@ -87,15 +86,6 @@ class StaffRequestParams:
 
     def to_dict(self):
         return delete_none_for_dict(dataclasses.asdict(self))
-
-
-@dataclasses.dataclass
-class StartedAt:
-    dt: str
-
-    def __post_init__(self):
-        if not check_date_format(self.dt):
-            raise ValueError(f"dt in missed format. correct format is %Y/%m/%d %H:%M.")
 
 
 @dataclasses.dataclass
