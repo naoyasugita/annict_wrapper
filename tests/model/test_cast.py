@@ -6,8 +6,11 @@ from annict_wrapper.model.cast import Casts
 
 class TestCastModel:
     def test_to_dict(self, fixture_cast):
-        cast_dict = fixture_cast["cast_dict"]
-        assert Cast(**cast_dict).to_dict() == cast_dict
+        actual = fixture_cast["cast_dict"]
+
+        excepted = Cast(**actual).to_dict()
+
+        assert actual == excepted
 
 
 class TestCastsModel:
@@ -17,7 +20,11 @@ class TestCastsModel:
         cast_2 = fixture_cast["cast"]
         casts.append(cast)
         casts.append(cast_2)
-        assert len(casts._list) == 2
+        excepted = len(casts._list)
+
+        actual = 2
+
+        assert actual == excepted
 
     def test_casts_append_when_type_error(self):
         casts = Casts()
@@ -27,6 +34,10 @@ class TestCastsModel:
     def test_casts_to_dict(self, fixture_cast):
         casts = Casts()
         cast = fixture_cast["cast"]
-        cast_dict = fixture_cast["cast_dict"]
         casts.append(cast)
-        assert casts.to_dict() == [cast_dict]
+        excepted = casts.to_dict()
+
+        cast_dict = fixture_cast["cast_dict"]
+        actual = [cast_dict]
+
+        assert actual == excepted

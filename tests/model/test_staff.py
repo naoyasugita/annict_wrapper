@@ -6,12 +6,18 @@ from annict_wrapper.model.staff import Staffs
 
 class TestStaffModel:
     def test_to_dict_when_org(self, fixture_staff_when_org):
-        staff_dict = fixture_staff_when_org["staff_dict"]
-        assert Staff(**staff_dict).to_dict() == staff_dict
+        actual = fixture_staff_when_org["staff_dict"]
+
+        excepted = Staff(**actual).to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_person(self, fixture_staff_when_person):
-        staff_dict = fixture_staff_when_person["staff_dict"]
-        assert Staff(**staff_dict).to_dict() == staff_dict
+        actual = fixture_staff_when_person["staff_dict"]
+
+        excepted = Staff(**actual).to_dict()
+
+        assert actual == excepted
 
 
 class TestStaffsModel:
@@ -23,7 +29,11 @@ class TestStaffsModel:
         staff_2 = fixture_staff_when_person["staff"]
         staffs.append(staff)
         staffs.append(staff_2)
-        assert len(staffs._list) == 2
+        excepted = len(staffs._list)
+
+        actual = 2
+
+        assert actual == excepted
 
     def test_staffs_append_when_type_error(self):
         staffs = Staffs()
@@ -34,8 +44,12 @@ class TestStaffsModel:
         staffs = Staffs()
         staff = fixture_staff_when_org["staff"]
         staff2 = fixture_staff_when_person["staff"]
-        staff_dict = fixture_staff_when_org["staff_dict"]
-        staff_dict2 = fixture_staff_when_person["staff_dict"]
         staffs.append(staff)
         staffs.append(staff2)
-        assert staffs.to_dict() == [staff_dict, staff_dict2]
+        excepted = staffs.to_dict()
+
+        staff_dict = fixture_staff_when_org["staff_dict"]
+        staff_dict2 = fixture_staff_when_person["staff_dict"]
+        actual = [staff_dict, staff_dict2]
+
+        assert actual == excepted

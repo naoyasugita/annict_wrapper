@@ -10,34 +10,46 @@ from annict_wrapper.utils import delete_none_for_dict
 
 class TestDeleteNoneForDict:
     def test_delete_none_for_dict_when_not_in_none(self):
-        dic = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
         }
-        assert delete_none_for_dict(dic) == dic
+
+        expected = delete_none_for_dict(actual)
+
+        assert actual == expected
 
     def test_delete_none_for_dict_when_in_none(self):
         dic = {
             "fields": "id",
             "filter_ids": None,
         }
+        expected = delete_none_for_dict(dic)
 
-        assert delete_none_for_dict(dic) == {"fields": "id"}
+        actual = {"fields": "id"}
+
+        assert actual == expected
 
     def test_delete_none_for_dict_when_all_none(self):
         dic = {
             "fields": None,
             "filter_ids": None,
         }
-        assert delete_none_for_dict(dic) == {}
+        expected = delete_none_for_dict(dic)
+
+        actual = {}
+
+        assert actual == expected
 
 
 class TestCreateSeasonByYearAndCool:
     def test_create_season_by_year_and_cool(self):
         year = 2020
         cool = Cool["spring"]
-        actual = str(year) + "-" + cool.name
         expected = create_season_by_year_and_cool(year, cool)
+
+        actual = str(year) + "-" + cool.name
+
         assert actual == expected
 
 

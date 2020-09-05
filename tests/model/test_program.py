@@ -6,8 +6,11 @@ from annict_wrapper.model.program import Programs
 
 class TestProgramModel:
     def test_to_dict(self, fixture_program):
-        program_dict = fixture_program["program_dict"]
-        assert Program(**program_dict).to_dict() == program_dict
+        actual = fixture_program["program_dict"]
+
+        excepted = Program(**actual).to_dict()
+
+        assert actual == excepted
 
 
 class TestProgramsModel:
@@ -17,7 +20,11 @@ class TestProgramsModel:
         program_2 = fixture_program["program"]
         programs.append(program)
         programs.append(program_2)
-        assert len(programs._list) == 2
+        excepted = len(programs._list)
+
+        actual = 2
+
+        assert actual == excepted
 
     def test_programs_append_when_type_error(self):
         programs = Programs()
@@ -27,6 +34,10 @@ class TestProgramsModel:
     def test_programs_to_dict(self, fixture_program):
         programs = Programs()
         program = fixture_program["program"]
-        program_dict = fixture_program["program_dict"]
         programs.append(program)
-        assert programs.to_dict() == [program_dict]
+        excepted = programs.to_dict()
+
+        program_dict = fixture_program["program_dict"]
+        actual = [program_dict]
+
+        assert actual == excepted

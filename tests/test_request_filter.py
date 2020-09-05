@@ -13,7 +13,7 @@ from annict_wrapper.request_filter import WorkRequestParams
 
 class TestCharacterRequestParams:
     def test_to_dict_not_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
             "filter_name": "株式会社",
@@ -21,26 +21,35 @@ class TestCharacterRequestParams:
             "per_page": 30,
             "sort_id": "desc",
         }
-        character_request_params = CharacterRequestParams(**params)
-        assert character_request_params.to_dict() == params
+
+        character_request_params = CharacterRequestParams(**actual)
+        excepted = character_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
         }
-        character_request_params = CharacterRequestParams(**params)
-        assert character_request_params.to_dict() == params
+
+        character_request_params = CharacterRequestParams(**actual)
+        excepted = character_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_empty(self):
-        params = {}
-        character_request_params = CharacterRequestParams(**params)
-        assert character_request_params.to_dict() == params
+        actual = {}
+
+        character_request_params = CharacterRequestParams(**actual)
+        excepted = character_request_params.to_dict()
+
+        assert actual == excepted
 
 
 class TestCastRequestParams:
     def test_to_dict_not_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
             "filter_work_id": 1111,
@@ -49,26 +58,35 @@ class TestCastRequestParams:
             "sort_id": "desc",
             "sort_sort_number": "desc",
         }
-        cast_request_params = CastRequestParams(**params)
-        assert cast_request_params.to_dict() == params
+
+        cast_request_params = CastRequestParams(**actual)
+        excepted = cast_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
         }
-        cast_request_params = CastRequestParams(**params)
-        assert cast_request_params.to_dict() == params
+
+        cast_request_params = CastRequestParams(**actual)
+        excepted = cast_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_empty(self):
-        params = {}
-        cast_request_params = CastRequestParams(**params)
-        assert cast_request_params.to_dict() == params
+        actual = {}
+
+        cast_request_params = CastRequestParams(**actual)
+        excepted = cast_request_params.to_dict()
+
+        assert actual == excepted
 
 
 class TestProgramRequestParams:
     def test_to_dict_not_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
             "filter_channel_ids": 123,
@@ -82,33 +100,43 @@ class TestProgramRequestParams:
             "sort_id": "desc",
             "sort_started_at": "desc",
         }
-        program_request_params = ProgramRequestParams(**params)
-        assert program_request_params.to_dict() == params
+
+        program_request_params = ProgramRequestParams(**actual)
+        excepted = program_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_format_of_started_at_is_different(self):
         params = {
             "filter_started_at_gt": "2016-05-06 21:10",
         }
+
         with pytest.raises(ValueError):
             ProgramRequestParams(**params)
 
     def test_to_dict_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
         }
-        program_request_params = ProgramRequestParams(**params)
-        assert program_request_params.to_dict() == params
+
+        program_request_params = ProgramRequestParams(**actual)
+        excepted = program_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_empty(self):
-        params = {}
-        program_request_params = ProgramRequestParams(**params)
-        assert program_request_params.to_dict() == params
+        actual = {}
+
+        program_request_params = ProgramRequestParams(**actual)
+        excepted = program_request_params.to_dict()
+
+        assert actual == excepted
 
 
 class TestStaffRequestParams:
     def test_to_dict_not_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
             "filter_work_id": 1111,
@@ -117,26 +145,35 @@ class TestStaffRequestParams:
             "sort_id": "desc",
             "sort_sort_number": "desc",
         }
-        staff_request_params = StaffRequestParams(**params)
-        assert staff_request_params.to_dict() == params
+
+        staff_request_params = StaffRequestParams(**actual)
+        excepted = staff_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
         }
-        staff_request_params = StaffRequestParams(**params)
-        assert staff_request_params.to_dict() == params
+
+        staff_request_params = StaffRequestParams(**actual)
+        excepted = staff_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_empty(self):
-        params = {}
-        staff_request_params = StaffRequestParams(**params)
-        assert staff_request_params.to_dict() == params
+        actual = {}
+
+        staff_request_params = StaffRequestParams(**actual)
+        excepted = staff_request_params.to_dict()
+
+        assert actual == excepted
 
 
 class TestEpisodeequestParams:
     def test_to_dict_not_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
             "filter_work_id": 123,
@@ -145,26 +182,35 @@ class TestEpisodeequestParams:
             "sort_id": "desc",
             "sort_sort_number": "desc",
         }
-        episode_request_params = EpisodeRequestParams(**params)
-        assert episode_request_params.to_dict() == params
+
+        episode_request_params = EpisodeRequestParams(**actual)
+        excepted = episode_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
         }
-        episode_request_params = EpisodeRequestParams(**params)
-        assert episode_request_params.to_dict() == params
+
+        episode_request_params = EpisodeRequestParams(**actual)
+        excepted = episode_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_empty(self):
-        params = {}
-        episode_request_params = EpisodeRequestParams(**params)
-        assert episode_request_params.to_dict() == params
+        actual = {}
+
+        episode_request_params = EpisodeRequestParams(**actual)
+        excepted = episode_request_params.to_dict()
+
+        assert actual == excepted
 
 
 class TestSeriesRequestParams:
     def test_to_dict_not_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
             "filter_name": "株式会社",
@@ -172,26 +218,35 @@ class TestSeriesRequestParams:
             "per_page": 30,
             "sort_id": "desc",
         }
-        series_request_params = SeriesRequestParams(**params)
-        assert series_request_params.to_dict() == params
+
+        series_request_params = SeriesRequestParams(**actual)
+        excepted = series_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
         }
-        series_request_params = SeriesRequestParams(**params)
-        assert series_request_params.to_dict() == params
+
+        series_request_params = SeriesRequestParams(**actual)
+        excepted = series_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_empty(self):
-        params = {}
-        series_request_params = SeriesRequestParams(**params)
-        assert series_request_params.to_dict() == params
+        actual = {}
+
+        series_request_params = SeriesRequestParams(**actual)
+        excepted = series_request_params.to_dict()
+
+        assert actual == excepted
 
 
 class TestOrganizationRequestParams:
     def test_to_dict_not_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
             "filter_name": "株式会社",
@@ -199,26 +254,35 @@ class TestOrganizationRequestParams:
             "per_page": 30,
             "sort_id": "desc",
         }
-        organization_request_params = OrganizationRequestParams(**params)
-        assert organization_request_params.to_dict() == params
+
+        organization_request_params = OrganizationRequestParams(**actual)
+        excepted = organization_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
         }
-        organization_request_params = WorkRequestParams(**params)
-        assert organization_request_params.to_dict() == params
+
+        organization_request_params = WorkRequestParams(**actual)
+        excepted = organization_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_empty(self):
-        params = {}
-        organization_request_params = WorkRequestParams(**params)
-        assert organization_request_params.to_dict() == params
+        actual = {}
+
+        organization_request_params = WorkRequestParams(**actual)
+        excepted = organization_request_params.to_dict()
+
+        assert actual == excepted
 
 
 class TestWorkRequestParams:
     def test_to_dict_not_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
             "filter_season": "2016-spring",
@@ -229,26 +293,35 @@ class TestWorkRequestParams:
             "sort_season": "desc",
             "sort_watchers_count": "desc",
         }
-        work_request_params = WorkRequestParams(**params)
-        assert work_request_params.to_dict() == params
+
+        work_request_params = WorkRequestParams(**actual)
+        excepted = work_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
         }
-        work_request_params = WorkRequestParams(**params)
-        assert work_request_params.to_dict() == params
+
+        work_request_params = WorkRequestParams(**actual)
+        excepted = work_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_empty(self):
-        params = {}
-        work_request_params = WorkRequestParams(**params)
-        assert work_request_params.to_dict() == params
+        actual = {}
+
+        work_request_params = WorkRequestParams(**actual)
+        excepted = work_request_params.to_dict()
+
+        assert actual == excepted
 
 
 class TestPeopleRequestParams:
     def test_to_dict_not_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
             "filter_name": "井上",
@@ -256,18 +329,27 @@ class TestPeopleRequestParams:
             "per_page": 30,
             "sort_id": "desc",
         }
-        people_request_params = PeopleRequestParams(**params)
-        assert people_request_params.to_dict() == params
+
+        people_request_params = PeopleRequestParams(**actual)
+        excepted = people_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_in_none(self):
-        params = {
+        actual = {
             "fields": "id",
             "filter_ids": 123,
         }
-        people_request_params = PeopleRequestParams(**params)
-        assert people_request_params.to_dict() == params
+
+        people_request_params = PeopleRequestParams(**actual)
+        excepted = people_request_params.to_dict()
+
+        assert actual == excepted
 
     def test_to_dict_when_empty(self):
-        params = {}
-        people_request_params = PeopleRequestParams(**params)
-        assert people_request_params.to_dict() == params
+        actual = {}
+
+        people_request_params = PeopleRequestParams(**actual)
+        excepted = people_request_params.to_dict()
+
+        assert actual == excepted

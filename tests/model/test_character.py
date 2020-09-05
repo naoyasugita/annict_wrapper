@@ -6,8 +6,11 @@ from annict_wrapper.model.character import Characters
 
 class TestCharacterModel:
     def test_to_dict(self, fixture_character):
-        character_dict = fixture_character["character_dict"]
-        assert Character(**character_dict).to_dict() == character_dict
+        actual = fixture_character["character_dict"]
+
+        excepted = Character(**actual).to_dict()
+
+        assert actual == excepted
 
 
 class TestCharactersModel:
@@ -17,7 +20,11 @@ class TestCharactersModel:
         character_2 = fixture_character["character"]
         characters.append(character)
         characters.append(character_2)
-        assert len(characters._list) == 2
+        excepted = len(characters._list)
+
+        actual = 2
+
+        assert actual == excepted
 
     def test_characters_append_when_type_error(self):
         characters = Characters()
@@ -27,6 +34,10 @@ class TestCharactersModel:
     def test_characters_to_dict(self, fixture_character):
         characters = Characters()
         character = fixture_character["character"]
-        character_dict = fixture_character["character_dict"]
         characters.append(character)
-        assert characters.to_dict() == [character_dict]
+        excepted = characters.to_dict()
+
+        character_dict = fixture_character["character_dict"]
+        actual = [character_dict]
+
+        assert actual == excepted
