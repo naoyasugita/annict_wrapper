@@ -1,5 +1,4 @@
 import pytest
-
 from annict_wrapper.model.work import Cool
 from annict_wrapper.model.work import Work
 from annict_wrapper.model.work import Works
@@ -8,13 +7,22 @@ from annict_wrapper.model.work import Works
 class TestWorkModel:
     def test_to_dict(self, fixture_work):
         actual = fixture_work["work_dict"]
+        work = fixture_work["work"]
 
-        excepted = Work(**actual).to_dict()
+        excepted = work.to_dict()
+
+        assert actual == excepted
+
+    def test_from_dict(self, fixture_work):
+        actual = fixture_work["work"]
+
+        work_dict = fixture_work["work_dict"]
+        excepted = Work.from_dict(work_dict)
 
         assert actual == excepted
 
     def test_get_cool(self, fixture_work):
-        release_year, season = fixture_work["work_dict"]["season_name"].split("-")
+        release_year, season = fixture_work["work"].season_name.value.split("-")
         actual = (int(release_year), Cool[season])
 
         excepted = fixture_work["work"].get_cool()

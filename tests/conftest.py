@@ -1,5 +1,4 @@
 import pytest
-
 from annict_wrapper.model.cast import Cast
 from annict_wrapper.model.character import Character
 from annict_wrapper.model.episode import Episode
@@ -11,6 +10,7 @@ from annict_wrapper.model.program import Program
 from annict_wrapper.model.series import Series
 from annict_wrapper.model.staff import Staff
 from annict_wrapper.model.work import Work
+from annict_wrapper.model.work import WorkId
 
 
 @pytest.fixture
@@ -194,7 +194,7 @@ def fixture_work():
         "season_name_text": "2018年冬",
     }
 
-    work = Work(**work_dict)
+    work = Work.from_dict(work_dict = work_dict)
     yield {"work": work, "work_dict": work_dict}
 
 
@@ -233,7 +233,7 @@ def fixture_work_movie():
         "season_name_text": "2018年冬",
     }
 
-    work = Work(**work_dict)
+    work = Work.from_dict(work_dict = work_dict)
     yield {"work": work, "work_dict": work_dict}
 
 
