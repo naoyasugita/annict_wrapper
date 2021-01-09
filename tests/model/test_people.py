@@ -1,5 +1,4 @@
 import pytest
-
 from annict_wrapper.model.people import People
 from annict_wrapper.model.people import Peoples
 
@@ -8,7 +7,16 @@ class TestPeopleModel:
     def test_to_dict(self, fixture_people):
         actual = fixture_people["people_dict"]
 
-        excepted = People(**actual).to_dict()
+        people = fixture_people["people"]
+        excepted = people.to_dict()
+
+        assert actual == excepted
+
+    def test_from_dict(self, fixture_people):
+        actual = fixture_people["people"]
+
+        people_dict = fixture_people["people_dict"]
+        excepted = People.from_dict(people_dict)
 
         assert actual == excepted
 

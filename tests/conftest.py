@@ -127,7 +127,7 @@ def fixture_organization():
         "favorite_organizations_count": 81,
         "staffs_count": 23,
     }
-    organization = Organization(**organization_dict)
+    organization = Organization.from_dict(organization_dict=organization_dict)
     yield {"organization": organization, "organization_dict": organization_dict}
 
 
@@ -155,7 +155,7 @@ def fixture_people():
         "staffs_count": 0,
         "prefecture": {"id": 13, "name": "東京都"},
     }
-    people = People(**people_dict)
+    people = People.from_dict(people_dict=people_dict)
     yield {"people": people, "people_dict": people_dict}
 
 
@@ -247,7 +247,7 @@ def fixture_program(fixture_work, fixture_episode):
         "work": fixture_work["work_dict"],
         "episode": fixture_episode["episode_dict"],
     }
-    program = Program(**program_dict)
+    program = Program.from_dict(program_dict=program_dict)
     yield {"program": program, "program_dict": program_dict}
 
 
@@ -265,6 +265,10 @@ def fixture_series():
 
 @pytest.fixture
 def fixture_staff_when_org(fixture_work, fixture_organization):
+    work = fixture_work["work_dict"]
+    organization = fixture_organization["organization_dict"]
+
+    # print(work)
     staff_dict = {
         "id": 35319,
         "name": "京都アニメーション",
@@ -273,11 +277,16 @@ def fixture_staff_when_org(fixture_work, fixture_organization):
         "role_other": "",
         "role_other_en": "",
         "sort_number": 200,
-        "work": fixture_work["work_dict"],
-        "organization": fixture_organization["organization_dict"],
+        "work": work,
+        "organization": organization,
         "person": None,
     }
-    staff = Staff(**staff_dict)
+    print("🍷" * 20)
+    # print(staff_dict)
+    # print("🍷" * 20)
+    staff = Staff.from_dict(staff_dict=staff_dict)
+    print(staff)
+    print("🍷" * 20)
     yield {"staff": staff, "staff_dict": staff_dict}
 
 
@@ -295,5 +304,5 @@ def fixture_staff_when_person(fixture_work, fixture_people):
         "organization": None,
         "person": fixture_people["people_dict"],
     }
-    staff = Staff(**staff_dict)
+    staff = Staff.from_dict(staff_dict=staff_dict)
     yield {"staff": staff, "staff_dict": staff_dict}
