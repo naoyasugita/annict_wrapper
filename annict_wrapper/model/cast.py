@@ -9,23 +9,58 @@ from annict_wrapper.model.people import People
 from annict_wrapper.model.work import Work
 
 
+@dataclasses.dataclass(frozen=True)
+class CastId:
+    """ キャストのID """
+    value: int
+
+@dataclasses.dataclass(frozen=True)
+class Name:
+    """ 名前 """
+    value: str
+
+@dataclasses.dataclass(frozen=True)
+class NameEn:
+    """ 名前 (英語表記) """
+    value: str
+
+@dataclasses.dataclass(frozen=True)
+class SortNumber:
+    """ ソート番号 """
+    value: int
+
 @dataclasses.dataclass
 class Cast:
-    id: int
-    name: str
-    name_en: str
-    sort_number: int
-    work: Dict[str, Union[int, str]]
-    character: Optional[Dict[str, Union[int, str]]]
-    person: Optional[Dict[str, Union[int, str]]]
-
-    def __post_init__(self) -> None:
-        self.work = Work(**self.work)
-        self.character = Character(**self.character)
-        self.person = People(**self.person)
+    cast_id: CastId
+    name: Name
+    name_en: NameEn
+    sort_number: SortNumber
+    work: Work
+    character: Character
+    person: People
 
     def to_dict(self) -> dict:
-        return dataclasses.asdict(self)
+        return {
+            "id": dataclasses.asdict(self.cast_id)["value"],
+            "name": dataclasses.asdict(self.name)["value"],
+            "name_en": dataclasses.asdict(self.name_en)["value"],
+            "sort_number": dataclasses.asdict(self.sort_number)["value"],
+            "work": self.work.to_dict(),
+            "character": self.character.to_dict(),
+            "person": self.person.to_dict(),
+        }
+
+    @staticmethod
+    def from_dict(cast_dict: dict) -> "Cast":
+        return Cast(
+            cast_id = CastId(cast_dict["id"]),
+            name = Name(cast_dict["name"]),
+            name_en = NameEn(cast_dict["name_en"]),
+            sort_number = SortNumber(cast_dict["sort_number"]),
+            work = Work.from_dict(cast_dict["work"]),
+            character = Character.from_dict(cast_dict["character"]),
+            person = People.from_dict(cast_dict["person"]),
+        )
 
 
 @dataclasses.dataclass

@@ -24,7 +24,7 @@ def fixture_cast(fixture_work, fixture_character, fixture_people):
         "character": fixture_character["character_dict"],
         "person": fixture_people["people_dict"],
     }
-    cast = Cast(**cast_dict)
+    cast = Cast.from_dict(cast_dict)
     yield {"cast": cast, "cast_dict": cast_dict}
 
 
