@@ -59,7 +59,7 @@ def fixture_character():
         "favorite_characters_count": 123,
         "series": {"id": 12, "name": "Steins;Gate", "name_ro": "", "name_en": ""},
     }
-    character = Character(**character_dict)
+    character = Character.from_dict(character_dict)
     yield {"character": character, "character_dict": character_dict}
 
 

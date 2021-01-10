@@ -1,5 +1,4 @@
 import pytest
-
 from annict_wrapper.model.character import Character
 from annict_wrapper.model.character import Characters
 
@@ -8,10 +7,19 @@ class TestCharacterModel:
     def test_to_dict(self, fixture_character):
         actual = fixture_character["character_dict"]
 
-        excepted = Character(**actual).to_dict()
+        character = fixture_character["character"]
+        excepted = character.to_dict()
 
         assert actual == excepted
 
+
+    def test_from_dict(self, fixture_character):
+        actual = fixture_character["character"]
+
+        character_dict = fixture_character["character_dict"]
+        excepted = Character.from_dict(character_dict)
+
+        assert actual == excepted
 
 class TestCharactersModel:
     def test_characters_append_when_type_ok(self, fixture_character):
