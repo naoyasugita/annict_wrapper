@@ -1,5 +1,4 @@
 import pytest
-
 from annict_wrapper.model.organization import Organization
 from annict_wrapper.model.organization import Organizations
 
@@ -8,7 +7,16 @@ class TestOrganizationModel:
     def test_to_dict(self, fixture_organization):
         actual = fixture_organization["organization_dict"]
 
-        excepted = Organization(**actual).to_dict()
+        organization = fixture_organization["organization"]
+        excepted = organization.to_dict()
+
+        assert actual == excepted
+
+    def test_from_dict(self, fixture_organization):
+        actual = fixture_organization["organization"]
+
+        organization_dict = fixture_organization["organization_dict"]
+        excepted = Organization.from_dict(organization_dict)
 
         assert actual == excepted
 
