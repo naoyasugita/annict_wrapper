@@ -16,8 +16,8 @@ class Name:
 
 
 @dataclasses.dataclass(frozen=True)
-class NameKana:
-    """ 名前 (かな表記) """
+class NameRo:
+    """ 名前 (ローマ字表記) """
 
     value: str
 
@@ -33,7 +33,7 @@ class NameEn:
 class Series:
     series_id: SeriesId
     name: Name
-    name_ro: NameKana
+    name_ro: NameRo
     name_en: NameEn
 
     def to_dict(self) -> dict:
@@ -48,7 +48,7 @@ class Series:
     def from_dict(series_dict: dict) -> "Series":
         return Series(
             series_id=SeriesId(series_dict["id"]),
-            name=SeriesId(series_dict["name"]),
-            name_ro=SeriesId(series_dict["name_ro"]),
-            name_en=SeriesId(series_dict["name_en"]),
+            name=Name(series_dict["name"]),
+            name_ro=NameRo(series_dict["name_ro"]),
+            name_en=NameEn(series_dict["name_en"]),
         )
