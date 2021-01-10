@@ -29,7 +29,6 @@ class NameEn:
     value: str
 
 
-
 @dataclasses.dataclass
 class Series:
     series_id: SeriesId
