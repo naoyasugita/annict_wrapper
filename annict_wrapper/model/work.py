@@ -191,7 +191,6 @@ class Twitter:
             "original_avatar_url": self.original_avatar_url.value,
             "image_url": self.image_url.value,
         }
-        # dataclasses.asdict(self)
 
     @staticmethod
     def from_dict(twitter_dict: dict) -> "Twitter":
