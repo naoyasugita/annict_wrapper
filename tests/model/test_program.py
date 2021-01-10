@@ -1,5 +1,4 @@
 import pytest
-
 from annict_wrapper.model.program import Program
 from annict_wrapper.model.program import Programs
 
@@ -8,7 +7,16 @@ class TestProgramModel:
     def test_to_dict(self, fixture_program):
         actual = fixture_program["program_dict"]
 
-        excepted = Program(**actual).to_dict()
+        program = fixture_program["program"]
+        excepted = program.to_dict()
+
+        assert actual == excepted
+
+    def test_from_dict(self, fixture_program):
+        actual = fixture_program["program"]
+
+        program_dict = fixture_program["program_dict"]
+        excepted = Program.from_dict(program_dict)
 
         assert actual == excepted
 
