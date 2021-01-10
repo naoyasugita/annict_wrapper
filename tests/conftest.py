@@ -77,7 +77,7 @@ def fixture_episode(fixture_work, fixture_prev_episode, fixture_next_episode):
         "prev_episode": fixture_prev_episode["prev_episode_dict"],
         "next_episode": fixture_next_episode["next_episode_dict"],
     }
-    episode = Episode(**episode_dict)
+    episode = Episode.from_dict(episode_dict=episode_dict)
     yield {"episode": episode, "episode_dict": episode_dict}
 
 
@@ -92,7 +92,7 @@ def fixture_prev_episode():
         "records_count": 0,
         "record_comments_count": 0,
     }
-    prev_episode = PrevEpisode(**prev_episode_dict)
+    prev_episode = PrevEpisode.from_dict(prev_episode_dict)
     yield {"prev_episode": prev_episode, "prev_episode_dict": prev_episode_dict}
 
 
@@ -107,7 +107,7 @@ def fixture_next_episode():
         "records_count": 0,
         "record_comments_count": 0,
     }
-    next_episode = NextEpisode(**next_episode_dict)
+    next_episode = NextEpisode.from_dict(next_episode_dict)
     yield {"next_episode": next_episode, "next_episode_dict": next_episode_dict}
 
 
