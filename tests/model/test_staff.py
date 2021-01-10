@@ -1,5 +1,4 @@
 import pytest
-
 from annict_wrapper.model.staff import Staff
 from annict_wrapper.model.staff import Staffs
 
@@ -7,15 +6,17 @@ from annict_wrapper.model.staff import Staffs
 class TestStaffModel:
     def test_to_dict_when_org(self, fixture_staff_when_org):
         actual = fixture_staff_when_org["staff_dict"]
+        staff = fixture_staff_when_org["staff"]
 
-        excepted = Staff(**actual).to_dict()
+        excepted = staff.to_dict()
 
         assert actual == excepted
 
-    def test_to_dict_when_person(self, fixture_staff_when_person):
-        actual = fixture_staff_when_person["staff_dict"]
+    def test_from_dict_when_person(self, fixture_staff_when_person):
+        actual = fixture_staff_when_person["staff"]
 
-        excepted = Staff(**actual).to_dict()
+        staff_dict = fixture_staff_when_person["staff_dict"]
+        excepted = Staff.from_dict(staff_dict)
 
         assert actual == excepted
 

@@ -9,28 +9,104 @@ from annict_wrapper.model.people import People
 from annict_wrapper.model.work import Work
 
 
+@dataclasses.dataclass(frozen=True)
+class StaffId:
+    """ スタッフのID """
+
+    value: int
+
+
+@dataclasses.dataclass(frozen=True)
+class Name:
+    """ 名前 """
+
+    value: str
+
+
+@dataclasses.dataclass(frozen=True)
+class NameEn:
+    """ 名前 (英語表記) """
+
+    value: str
+
+
+@dataclasses.dataclass(frozen=True)
+class RoleText:
+    """ 担当。主要な担当名 (監督やアニメーション制作など) が登録されています。 """
+
+    value: str
+
+
+@dataclasses.dataclass(frozen=True)
+class RoleOther:
+    """ その他の担当 """
+
+    value: str
+
+
+@dataclasses.dataclass(frozen=True)
+class RoleOtherEn:
+    """ その他の担当 (英語表記) """
+
+    value: str
+
+
+@dataclasses.dataclass(frozen=True)
+class SortNumber:
+    """ ソート番号 """
+
+    value: int
+
+
 @dataclasses.dataclass
 class Staff:
-    id: int
-    name: str
-    name_en: str
-    role_text: str
-    role_other: str
-    role_other_en: str
-    sort_number: int
-    work: Dict[str, Union[int, str]]
-    organization: Optional[Dict[str, Union[int, str]]] = None
-    person: Optional[Dict[str, Union[int, str]]] = None
-
-    def __post_init__(self) -> None:
-        self.work = Work(**self.work)
-        if self.organization is not None:
-            self.organization = Organization(**self.organization)
-        if self.person is not None:
-            self.person = People(**self.person)
+    staff_id: StaffId
+    name: Name
+    name_en: NameEn
+    role_text: RoleText
+    role_other: RoleOther
+    role_other_en: RoleOtherEn
+    sort_number: SortNumber
+    work: Work
+    organization: Optional[Organization] = None
+    person: Optional[People] = None
 
     def to_dict(self) -> dict:
-        return dataclasses.asdict(self)
+        return {
+            "id": dataclasses.asdict(self.staff_id)["value"],
+            "name": dataclasses.asdict(self.name)["value"],
+            "name_en": dataclasses.asdict(self.name_en)["value"],
+            "role_text": dataclasses.asdict(self.role_text)["value"],
+            "role_other": dataclasses.asdict(self.role_other)["value"],
+            "role_other_en": dataclasses.asdict(self.role_other_en)["value"],
+            "sort_number": dataclasses.asdict(self.sort_number)["value"],
+            "work": self.work.to_dict(),
+            "organization": self.organization.to_dict()
+            if self.organization is not None
+            else None,
+            "person": self.person.to_dict() if self.person is not None else None,
+        }
+
+    @staticmethod
+    def from_dict(staff_dict: dict) -> "Staff":
+        return Staff(
+            staff_id=StaffId(staff_dict["id"]),
+            name=Name(staff_dict["name"]),
+            name_en=NameEn(staff_dict["name_en"]),
+            role_text=RoleText(staff_dict["role_text"]),
+            role_other=RoleOther(staff_dict["role_other"]),
+            role_other_en=RoleOtherEn(staff_dict["role_other_en"]),
+            sort_number=SortNumber(staff_dict["sort_number"]),
+            work=Work.from_dict(work_dict=staff_dict["work"]),
+            organization=Organization.from_dict(
+                organization_dict=staff_dict["organization"]
+            )
+            if staff_dict.get("organization") is not None
+            else None,
+            person=People.from_dict(people_dict=staff_dict["person"])
+            if staff_dict.get("person") is not None
+            else None,
+        )
 
 
 @dataclasses.dataclass

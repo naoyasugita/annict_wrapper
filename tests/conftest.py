@@ -265,10 +265,6 @@ def fixture_series():
 
 @pytest.fixture
 def fixture_staff_when_org(fixture_work, fixture_organization):
-    work = fixture_work["work_dict"]
-    organization = fixture_organization["organization_dict"]
-
-    # print(work)
     staff_dict = {
         "id": 35319,
         "name": "京都アニメーション",
@@ -277,16 +273,11 @@ def fixture_staff_when_org(fixture_work, fixture_organization):
         "role_other": "",
         "role_other_en": "",
         "sort_number": 200,
-        "work": work,
-        "organization": organization,
+        "work": fixture_work["work_dict"],
+        "organization": fixture_organization["organization_dict"],
         "person": None,
     }
-    print("🍷" * 20)
-    # print(staff_dict)
-    # print("🍷" * 20)
     staff = Staff.from_dict(staff_dict=staff_dict)
-    print(staff)
-    print("🍷" * 20)
     yield {"staff": staff, "staff_dict": staff_dict}
 
 
