@@ -259,7 +259,7 @@ def fixture_series():
         "name_ro": "test",
         "name_en": "test",
     }
-    series = Series(**series_dict)
+    series = Series.from_dict(series_dict=series_dict)
     yield {"series": series, "series_dict": series_dict}
 
 
