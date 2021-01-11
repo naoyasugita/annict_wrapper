@@ -1,11 +1,22 @@
 import dataclasses
 
+from annict_wrapper.utils import from_bool
+from annict_wrapper.utils import from_datetime
+from annict_wrapper.utils import from_int
+from annict_wrapper.utils import from_str
+from annict_wrapper.utils import to_class
+from dacite.config import Config
+from dacite.core import from_dict
+
 
 @dataclasses.dataclass(frozen=True)
 class SeriesId:
     """ シリーズのID """
 
     value: int
+
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -14,6 +25,8 @@ class Name:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class NameRo:
@@ -21,6 +34,8 @@ class NameRo:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class NameEn:
@@ -28,6 +43,8 @@ class NameEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass
 class Series:
