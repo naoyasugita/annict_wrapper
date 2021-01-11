@@ -14,7 +14,7 @@ class StaffService:
         params = StaffRequestParams(filter_ids=staff_id).to_dict()
         res = self.api.staffs(params=params)
         try:
-            return Staff(**res["staffs"][0])
+            return Staff.from_dict(res["staffs"][0])
         except Exception as e:
             raise e
 
@@ -29,5 +29,5 @@ class StaffService:
             res = self.api.staffs(params=params)
             page = res["next_page"]
             for staff in res["staffs"]:
-                staffs.append(Staff(**staff))
+                staffs.append(Staff.from_dict(staff))
         return staffs

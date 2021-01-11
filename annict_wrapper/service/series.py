@@ -13,6 +13,6 @@ class SeriesService:
         params = SeriesRequestParams(filter_ids=series_id).to_dict()
         res = self.api.series(params=params)
         try:
-            return Series(**res["series"][0])
+            return Series.from_dict(res["series"][0])
         except Exception as e:
             raise e

@@ -13,6 +13,6 @@ class EpisodeService:
         params = EpisodeRequestParams(filter_ids=episode_id).to_dict()
         res = self.api.episodes(params=params)
         try:
-            return Episode(**res["episodes"][0])
+            return Episode.from_dict(res["episodes"][0])
         except Exception as e:
             raise e

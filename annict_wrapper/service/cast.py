@@ -14,7 +14,7 @@ class CastService:
         params = CastRequestParams(filter_ids=cast_id).to_dict()
         res = self.api.casts(params=params)
         try:
-            return Cast(**res["casts"][0])
+            return Cast.from_dict(res["casts"][0])
         except Exception as e:
             raise e
 
@@ -28,5 +28,5 @@ class CastService:
             res = self.api.casts(params=params)
             page = res["next_page"]
             for cast in res["casts"]:
-                casts.append(Cast(**cast))
+                casts.append(Cast.from_dict(cast))
         return casts

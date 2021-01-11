@@ -14,7 +14,7 @@ class OrganizationService:
         params = OrganizationRequestParams(filter_ids=organization_id).to_dict()
         res = self.api.organizations(params=params)
         try:
-            return Organization(**res["organizations"][0])
+            return Organization.from_dict(res["organizations"][0])
         except Exception as e:
             raise e
 
@@ -28,5 +28,5 @@ class OrganizationService:
             res = self.api.organizations(params=params)
             page = res["next_page"]
             for o in res["organizations"]:
-                organizations.append(Organization(**o))
+                organizations.append(Organization.from_dict(o))
         return organizations

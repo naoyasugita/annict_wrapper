@@ -14,7 +14,7 @@ class CharacterService:
         params = CharacterRequestParams(filter_ids=character_id).to_dict()
         res = self.api.characters(params=params)
         try:
-            return Character(**res["characters"][0])
+            return Character.from_dict(res["characters"][0])
         except Exception as e:
             raise e
 
@@ -28,5 +28,5 @@ class CharacterService:
             res = self.api.characters(params=params)
             page = res["next_page"]
             for character in res["characters"]:
-                characters.append(Character(**character))
+                characters.append(Character.from_dict(character))
         return characters

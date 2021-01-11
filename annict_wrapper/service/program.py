@@ -14,7 +14,7 @@ class ProgramService:
         params = ProgramRequestParams(filter_ids=program_id).to_dict()
         res = self.api.programs(params=params)
         try:
-            return Program(**res["programs"][0])
+            return Program.from_dict(res["programs"][0])
         except Exception as e:
             raise e
 
@@ -35,6 +35,6 @@ class ProgramService:
         params = ProgramRequestParams(filter_work_ids=word_id).to_dict()
         res = self.api.programs(params=params)
         try:
-            return Program(**res["programs"][0])
+            return Program.from_dict(res["programs"][0])
         except Exception as e:
             raise e

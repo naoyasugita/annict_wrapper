@@ -14,7 +14,7 @@ class PeopleService:
         params = PeopleRequestParams(filter_ids=people_id).to_dict()
         res = self.api.people(params=params)
         try:
-            return People(**res["people"][0])
+            return People.from_dict(res["people"][0])
         except Exception as e:
             raise e
 
@@ -28,5 +28,5 @@ class PeopleService:
             res = self.api.people(params=params)
             page = res["next_page"]
             for people in res["people"]:
-                peoples.append(People(**people))
+                peoples.append(People.from_dict(people))
         return peoples

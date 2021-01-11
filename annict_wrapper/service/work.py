@@ -16,7 +16,7 @@ class WorkService:
         params = WorkRequestParams(filter_ids=work_id).to_dict()
         res = self.api.works(params=params)
         try:
-            return Work(**res["works"][0])
+            return Work.from_dict(res["works"][0])
         except Exception as e:
             raise e
 
@@ -30,7 +30,7 @@ class WorkService:
             res = self.api.works(params=params)
             page = res["next_page"]
             for work in res["works"]:
-                works.append(Work(**work))
+                works.append(Work.from_dict(work))
         return works
 
     def find_work_info_by_season(self, year: int, cool: Cool) -> Works:
@@ -46,5 +46,5 @@ class WorkService:
             res = self.api.works(params=params)
             page = res["next_page"]
             for work in res["works"]:
-                works.append(Work(**work))
+                works.append(Work.from_dict(work))
         return works
