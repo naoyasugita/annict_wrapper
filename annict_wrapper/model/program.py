@@ -6,6 +6,13 @@ from typing import Union
 
 from annict_wrapper.model.episode import Episode
 from annict_wrapper.model.work import Work
+from annict_wrapper.utils import from_bool
+from annict_wrapper.utils import from_datetime
+from annict_wrapper.utils import from_int
+from annict_wrapper.utils import from_str
+from annict_wrapper.utils import to_class
+from dacite.config import Config
+from dacite.core import from_dict
 
 
 @dataclasses.dataclass(frozen=True)
@@ -14,6 +21,8 @@ class ProgramId:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class StartedAt:
@@ -21,6 +30,8 @@ class StartedAt:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class IsRebroadcast:
@@ -28,6 +39,8 @@ class IsRebroadcast:
 
     value: bool
 
+    def __post_init__(self) -> None:
+        from_bool(self.value)
 
 @dataclasses.dataclass
 class Channel:
@@ -36,11 +49,16 @@ class Channel:
     id: int
     name: str
 
+    def __post_init__(self) -> None:
+        from_int(self.id)
+        from_str(self.name)
+
     def to_dict(self) -> dict:
         return {"id": self.id, "name": self.name}
 
     @staticmethod
     def from_dict(channel_dict: dict) -> "Channel":
+        assert isinstance(channel_dict, dict)
         return Channel(id=channel_dict["id"], name=channel_dict["name"])
 
 
@@ -58,13 +76,14 @@ class Program:
             "id": dataclasses.asdict(self.program_id)["value"],
             "started_at": dataclasses.asdict(self.started_at)["value"],
             "is_rebroadcast": dataclasses.asdict(self.is_rebroadcast)["value"],
-            "channel": self.channel.to_dict(),
-            "work": self.work.to_dict(),
-            "episode": self.episode.to_dict(),
+            "channel": to_class(Channel, self.channel),
+            "work": to_class(Work, self.work),
+            "episode": to_class(Episode, self.episode),
         }
 
     @staticmethod
     def from_dict(program_dict: dict) -> "Program":
+        assert isinstance(program_dict, dict)
         return Program(
             program_id=ProgramId(program_dict["id"]),
             started_at=StartedAt(program_dict["started_at"]),
