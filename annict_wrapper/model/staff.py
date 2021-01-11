@@ -25,6 +25,7 @@ class StaffId:
     def __post_init__(self) -> None:
         from_int(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class Name:
     """ 名前 """
@@ -33,6 +34,7 @@ class Name:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class NameEn:
@@ -43,6 +45,7 @@ class NameEn:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class RoleText:
     """ 担当。主要な担当名 (監督やアニメーション制作など) が登録されています。 """
@@ -51,6 +54,7 @@ class RoleText:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class RoleOther:
@@ -61,6 +65,7 @@ class RoleOther:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class RoleOtherEn:
     """ その他の担当 (英語表記) """
@@ -70,6 +75,7 @@ class RoleOtherEn:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class SortNumber:
     """ ソート番号 """
@@ -78,6 +84,7 @@ class SortNumber:
 
     def __post_init__(self) -> None:
         from_int(self.value)
+
 
 @dataclasses.dataclass
 class Staff:
@@ -105,7 +112,9 @@ class Staff:
             "organization": to_class(Organization, self.organization)
             if self.organization is not None
             else None,
-            "person": to_class(People, self.person) if self.person is not None else None,
+            "person": to_class(People, self.person)
+            if self.person is not None
+            else None,
         }
 
     @staticmethod

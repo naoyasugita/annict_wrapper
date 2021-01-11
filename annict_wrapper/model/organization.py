@@ -19,6 +19,7 @@ class OrganizationId:
     def __post_init__(self) -> None:
         from_int(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class Name:
     """ 名前 """
@@ -27,6 +28,7 @@ class Name:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class NameKana:
@@ -37,6 +39,7 @@ class NameKana:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class NameEn:
     """ 名前 (英語表記) """
@@ -45,6 +48,7 @@ class NameEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Url:
@@ -55,6 +59,7 @@ class Url:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class UrlEn:
     """ 公式サイト等のURL (英語圏向け) """
@@ -63,6 +68,7 @@ class UrlEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class WikipediaUrl:
@@ -73,6 +79,7 @@ class WikipediaUrl:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class WikipediaUrlEn:
     """ WikipediaのURL(英語圏向け) """
@@ -81,6 +88,7 @@ class WikipediaUrlEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class TwitterUsername:
@@ -91,6 +99,7 @@ class TwitterUsername:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class TwitterUsernameEn:
     """ Twitterアカウントのusername (英語圏向け) """
@@ -99,6 +108,7 @@ class TwitterUsernameEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class FavoriteOrganizationsCount:
@@ -109,6 +119,7 @@ class FavoriteOrganizationsCount:
     def __post_init__(self) -> None:
         from_int(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class StaffsCount:
     """ スタッフとして登録されている作品の数 """
@@ -117,6 +128,7 @@ class StaffsCount:
 
     def __post_init__(self) -> None:
         from_int(self.value)
+
 
 @dataclasses.dataclass
 class Organization:

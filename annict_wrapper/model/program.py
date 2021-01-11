@@ -24,6 +24,7 @@ class ProgramId:
     def __post_init__(self) -> None:
         from_int(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class StartedAt:
     """ 放送開始日時 """
@@ -33,6 +34,7 @@ class StartedAt:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class IsRebroadcast:
     """ この放送予定が再放送かどうか。再放送の場合は true が、そうでない場合は false が格納されています。 """
@@ -41,6 +43,7 @@ class IsRebroadcast:
 
     def __post_init__(self) -> None:
         from_bool(self.value)
+
 
 @dataclasses.dataclass
 class Channel:

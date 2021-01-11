@@ -43,6 +43,7 @@ class NameKana:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class NameEn:
     """ 名前 (英語表記) """
@@ -51,6 +52,7 @@ class NameEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Nickname:
@@ -61,6 +63,7 @@ class Nickname:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class NicknameEn:
     """ ニックネーム (英語表記) """
@@ -69,6 +72,7 @@ class NicknameEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Birthday:
@@ -79,6 +83,7 @@ class Birthday:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class BirthdayEn:
     """ 誕生日 (英語表記) """
@@ -87,6 +92,7 @@ class BirthdayEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Age:
@@ -97,6 +103,7 @@ class Age:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class AgeEn:
     """ 年齢 (英語表記) """
@@ -105,6 +112,7 @@ class AgeEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class BloodType:
@@ -115,6 +123,7 @@ class BloodType:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class BloodTypeEn:
     """ 血液型 (英語表記) """
@@ -123,6 +132,7 @@ class BloodTypeEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Height:
@@ -133,6 +143,7 @@ class Height:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class HeightEn:
     """ 身長 (英語表記) """
@@ -141,6 +152,7 @@ class HeightEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Weight:
@@ -151,6 +163,7 @@ class Weight:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class WeightEn:
     """ 体重 (英語表記) """
@@ -159,6 +172,7 @@ class WeightEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Nationality:
@@ -169,6 +183,7 @@ class Nationality:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class NationalityEn:
     """ 国籍 (英語表記) """
@@ -177,6 +192,7 @@ class NationalityEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Occupation:
@@ -187,6 +203,7 @@ class Occupation:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class OccupationEn:
     """ 肩書き (英語表記) """
@@ -195,6 +212,7 @@ class OccupationEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Description:
@@ -205,6 +223,7 @@ class Description:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class DescriptionEn:
     """ キャラ紹介 (英語表記) """
@@ -213,6 +232,7 @@ class DescriptionEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class DescriptionSource:
@@ -223,6 +243,7 @@ class DescriptionSource:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class DescriptionSourceEn:
     """ キャラ紹介の引用元 (英語表記) """
@@ -231,6 +252,7 @@ class DescriptionSourceEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class FavoriteCharactersCount:
@@ -241,6 +263,7 @@ class FavoriteCharactersCount:
     def __post_init__(self) -> None:
         from_int(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class Kind:
     """ 作品の種類 """
@@ -249,6 +272,7 @@ class Kind:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass
 class Character:
@@ -317,7 +341,9 @@ class Character:
             "kind": dataclasses.asdict(self.kind)["value"]
             if self.kind is not None
             else None,
-            "series": to_class(Series, self.series) if self.series is not None else None,
+            "series": to_class(Series, self.series)
+            if self.series is not None
+            else None,
         }
 
     @staticmethod

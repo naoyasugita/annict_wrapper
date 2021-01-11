@@ -25,6 +25,7 @@ class CastId:
     def __post_init__(self) -> None:
         from_int(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class Name:
     """ 名前 """
@@ -44,6 +45,7 @@ class NameEn:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class SortNumber:
     """ ソート番号 """
@@ -52,6 +54,7 @@ class SortNumber:
 
     def __post_init__(self) -> None:
         from_int(self.value)
+
 
 @dataclasses.dataclass
 class Cast:

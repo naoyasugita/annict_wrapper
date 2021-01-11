@@ -28,6 +28,7 @@ class Name:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class NameRo:
     """ 名前 (ローマ字表記) """
@@ -37,6 +38,7 @@ class NameRo:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class NameEn:
     """ 名前 (英語表記) """
@@ -45,6 +47,7 @@ class NameEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass
 class Series:

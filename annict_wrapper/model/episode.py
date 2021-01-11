@@ -23,6 +23,7 @@ class EpisodeId:
     def __post_init__(self) -> None:
         from_int(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class Number:
     """ エピソードの話数 """
@@ -35,6 +36,7 @@ class Number:
         else:
             from_none(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class NumberText:
     """ エピソードの話数 (表記用) """
@@ -43,6 +45,7 @@ class NumberText:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class SortNumber:
@@ -53,6 +56,7 @@ class SortNumber:
     def __post_init__(self) -> None:
         from_int(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class Title:
     """ サブタイトル """
@@ -61,6 +65,7 @@ class Title:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class RecordsCount:
@@ -71,6 +76,7 @@ class RecordsCount:
     def __post_init__(self) -> None:
         from_int(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class RecordCommentsCount:
     """ 感想付きの記録数 """
@@ -79,6 +85,7 @@ class RecordCommentsCount:
 
     def __post_init__(self) -> None:
         from_int(self.value)
+
 
 @dataclasses.dataclass
 class PrevEpisode:
