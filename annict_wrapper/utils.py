@@ -28,6 +28,7 @@ def check_date_format(d: str) -> bool:
     except ValueError:
         return False
 
+
 T = TypeVar("T")
 
 
@@ -53,6 +54,7 @@ def to_class(c: Type[T], x: Any) -> dict:
 def from_bool(x: Any) -> bool:
     assert isinstance(x, bool)
     return x
+
 
 def from_none(x: Any) -> Any:
     assert x is None
