@@ -1,11 +1,26 @@
 import dataclasses
+from datetime import datetime
 from enum import Enum
 from enum import auto
+from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
 from typing import Tuple
+from typing import Type
+from typing import TypeVar
 from typing import Union
+from typing import cast
+
+import dateutil.parser
+# 循環インポートでエラーになる！？
+# from annict_wrapper.utils import from_bool
+# from annict_wrapper.utils import from_datetime
+# from annict_wrapper.utils import from_int
+# from annict_wrapper.utils import from_str
+# from annict_wrapper.utils import to_class
+from dacite.config import Config
+from dacite.core import from_dict
 
 
 class Cool(Enum):
@@ -22,6 +37,9 @@ class WorkId:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Title:
@@ -29,13 +47,18 @@ class Title:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class TitleKana:
     """ 作品タイトルの読み仮名 """
 
-    value: int
+    value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 class Media(Enum):
     """ リリース媒体 (表記用) """
@@ -53,6 +76,9 @@ class SeasonName:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
+
     def get_cool(self) -> Tuple[int, Cool]:
         try:
             release_year = int(self.value.split("-")[0])
@@ -68,6 +94,8 @@ class SeasonNameText:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class ReleasedOn:
@@ -75,6 +103,8 @@ class ReleasedOn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class releasedOnAbout:
@@ -82,6 +112,8 @@ class releasedOnAbout:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class OfficialSiteUrl:
@@ -89,6 +121,8 @@ class OfficialSiteUrl:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class WikipediaUrl:
@@ -96,6 +130,8 @@ class WikipediaUrl:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class TwitterUsername:
@@ -103,6 +139,8 @@ class TwitterUsername:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class TwitterHashtag:
@@ -110,6 +148,8 @@ class TwitterHashtag:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class SyobocalTitleId:
@@ -117,6 +157,8 @@ class SyobocalTitleId:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class MyAnimeListAnimeId:
@@ -124,6 +166,8 @@ class MyAnimeListAnimeId:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class MiniAvatarUrl:
@@ -132,6 +176,9 @@ class MiniAvatarUrl:
     """
 
     value: str
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -142,6 +189,8 @@ class NormalAvatarUrl:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class BiggerAvatarUrl:
@@ -151,6 +200,8 @@ class BiggerAvatarUrl:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class OriginalAvatarUrl:
@@ -160,6 +211,8 @@ class OriginalAvatarUrl:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class ImageUrl:
@@ -169,6 +222,8 @@ class ImageUrl:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Twitter:
@@ -183,6 +238,13 @@ class Twitter:
     original_avatar_url: OriginalAvatarUrl
     image_url: ImageUrl
 
+    def __post_init__(self) -> None:
+        assert isinstance(self.mini_avatar_url, MiniAvatarUrl)
+        assert isinstance(self.normal_avatar_url, NormalAvatarUrl)
+        assert isinstance(self.bigger_avatar_url, BiggerAvatarUrl)
+        assert isinstance(self.original_avatar_url, OriginalAvatarUrl)
+        assert isinstance(self.image_url, ImageUrl)
+
     def to_dict(self) -> dict:
         return {
             "mini_avatar_url": self.mini_avatar_url.value,
@@ -194,6 +256,7 @@ class Twitter:
 
     @staticmethod
     def from_dict(twitter_dict: dict) -> "Twitter":
+        assert isinstance(twitter_dict, dict)
         return Twitter(
             MiniAvatarUrl(twitter_dict["mini_avatar_url"]),
             NormalAvatarUrl(twitter_dict["normal_avatar_url"]),
@@ -211,6 +274,8 @@ class OgImageUrl:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Facebook:
@@ -220,12 +285,15 @@ class Facebook:
 
     og_image_url: OgImageUrl
 
+    def __post_init__(self) -> None:
+        assert isinstance(self.og_image_url, OgImageUrl)
+
     def to_dict(self) -> dict:
         return {"og_image_url": self.og_image_url.value}
-        # dataclasses.asdict(self)
 
     @staticmethod
     def from_dict(facebook_dict: dict) -> "Facebook":
+        assert isinstance(facebook_dict, dict)
         return Facebook(
             OgImageUrl(facebook_dict["og_image_url"]),
         )
@@ -237,9 +305,12 @@ class RecommendedUrl:
     facebook.og_image_url, twitter.bigger_avatar_url, twitter.image_url のうち、
     解像度が一番大きい画像のURL。扱いやすい画像のURLが高確率で格納されるプロパティになります
     """
+    # value: Union[OgImageUrl, BiggerAvatarUrl, ImageUrl]
+    value: str
 
-    value: Union[OgImageUrl, BiggerAvatarUrl, ImageUrl]
-
+    def __post_init__(self) -> None:
+        from_str(self.value)
+        # assert isinstance(self.value, (OgImageUrl, BiggerAvatarUrl, ImageUrl))
 
 @dataclasses.dataclass(frozen=True)
 class Images:
@@ -249,15 +320,21 @@ class Images:
     facebook: Facebook
     recommended_url: RecommendedUrl
 
+    def __post_init__(self) -> None:
+        assert isinstance(self.twitter, Twitter)
+        assert isinstance(self.facebook, Facebook)
+        assert isinstance(self.recommended_url, RecommendedUrl)
+
     def to_dict(self) -> dict:
         return {
-            "twitter": self.twitter.to_dict(),
-            "facebook": self.facebook.to_dict(),
+            "twitter": to_class(Twitter, self.twitter),
+            "facebook": to_class(Facebook, self.facebook),
             "recommended_url": self.recommended_url.value,
         }
 
     @staticmethod
     def from_dict(images_dict: dict) -> "Images":
+        assert isinstance(images_dict, dict)
         return Images(
             Twitter.from_dict(images_dict["twitter"]),
             Facebook.from_dict(images_dict["facebook"]),
@@ -271,6 +348,8 @@ class MyAnimeListAnimeId:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class EpisodesCount:
@@ -278,6 +357,8 @@ class EpisodesCount:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class WatchersCount:
@@ -285,6 +366,8 @@ class WatchersCount:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass
 class Work:
@@ -334,7 +417,7 @@ class Work:
             "mal_anime_id": dataclasses.asdict(self.mal_anime_id)["value"]
             if dataclasses.asdict(self.mal_anime_id)["value"] is not None
             else None,
-            "images": self.images.to_dict()
+            "images": to_class(Images, self.images)
             if dataclasses.asdict(self.images) is not None
             else None,
             "season_name": dataclasses.asdict(self.season_name)["value"]
@@ -347,6 +430,7 @@ class Work:
 
     @staticmethod
     def from_dict(work_dict: dict) -> "Work":
+        assert isinstance(work_dict, dict)
         return Work(
             WorkId(work_dict["id"]),
             Title(work_dict["title"]),
@@ -411,3 +495,35 @@ class Works:
             if work.media == target_media:
                 result.append(work.title)
         return result
+
+
+T = TypeVar("T")
+
+
+def from_int(x: Any) -> int:
+    assert isinstance(x, int) and not isinstance(x, bool)
+    return x
+
+
+def from_str(x: Any) -> str:
+    assert isinstance(x, str)
+    return x
+
+
+def from_datetime(x: Any) -> datetime:
+    return dateutil.parser.parse(x)
+
+
+def to_class(c: Type[T], x: Any) -> dict:
+    assert isinstance(x, c)
+    return cast(Any, x).to_dict()
+
+
+def from_bool(x: Any) -> bool:
+    assert isinstance(x, bool)
+    return x
+
+
+def from_none(x: Any) -> Any:
+    assert x is None
+    return x
