@@ -4,6 +4,14 @@ from typing import Optional
 from typing import Union
 
 from annict_wrapper.model.work import Work
+from annict_wrapper.utils import from_bool
+from annict_wrapper.utils import from_datetime
+from annict_wrapper.utils import from_int
+from annict_wrapper.utils import from_none
+from annict_wrapper.utils import from_str
+from annict_wrapper.utils import to_class
+from dacite.config import Config
+from dacite.core import from_dict
 
 
 @dataclasses.dataclass(frozen=True)
@@ -12,6 +20,8 @@ class EpisodeId:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Number:
@@ -19,6 +29,11 @@ class Number:
 
     value: Optional[int]
 
+    def __post_init__(self) -> None:
+        if self.value is not None:
+            from_int(self.value)
+        else:
+            from_none(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class NumberText:
@@ -26,6 +41,8 @@ class NumberText:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class SortNumber:
@@ -33,6 +50,8 @@ class SortNumber:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Title:
@@ -40,6 +59,8 @@ class Title:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class RecordsCount:
@@ -47,6 +68,8 @@ class RecordsCount:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class RecordCommentsCount:
@@ -54,6 +77,8 @@ class RecordCommentsCount:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass
 class PrevEpisode:
@@ -82,6 +107,7 @@ class PrevEpisode:
 
     @staticmethod
     def from_dict(episode_dict: dict) -> "PrevEpisode":
+        assert isinstance(episode_dict, dict)
         return PrevEpisode(
             episode_id=EpisodeId(episode_dict["id"]),
             number=Number(episode_dict["number"])
@@ -122,6 +148,7 @@ class NextEpisode:
 
     @staticmethod
     def from_dict(episode_dict: dict) -> "NextEpisode":
+        assert isinstance(episode_dict, dict)
         return NextEpisode(
             episode_id=EpisodeId(episode_dict["id"]),
             number=Number(episode_dict["number"]),
@@ -159,17 +186,18 @@ class Episode:
             "record_comments_count": dataclasses.asdict(self.record_comments_count)[
                 "value"
             ],
-            "work": self.work.to_dict(),
-            "prev_episode": self.prev_episode.to_dict()
+            "work": to_class(Work, self.work),
+            "prev_episode": to_class(PrevEpisode, self.prev_episode)
             if self.prev_episode is not None
             else None,
-            "next_episode": self.next_episode.to_dict()
+            "next_episode": to_class(NextEpisode, self.next_episode)
             if self.next_episode is not None
             else None,
         }
 
     @staticmethod
     def from_dict(episode_dict: dict) -> "Episode":
+        assert isinstance(episode_dict, dict)
         return Episode(
             episode_id=EpisodeId(episode_dict["id"]),
             number=Number(episode_dict["number"]),
