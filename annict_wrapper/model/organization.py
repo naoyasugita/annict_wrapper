@@ -1,6 +1,14 @@
 import dataclasses
 from typing import List
 
+from annict_wrapper.utils import from_bool
+from annict_wrapper.utils import from_datetime
+from annict_wrapper.utils import from_int
+from annict_wrapper.utils import from_str
+from annict_wrapper.utils import to_class
+from dacite.config import Config
+from dacite.core import from_dict
+
 
 @dataclasses.dataclass(frozen=True)
 class OrganizationId:
@@ -8,6 +16,8 @@ class OrganizationId:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Name:
@@ -15,6 +25,8 @@ class Name:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class NameKana:
@@ -22,6 +34,8 @@ class NameKana:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class NameEn:
@@ -29,6 +43,8 @@ class NameEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Url:
@@ -36,6 +52,8 @@ class Url:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class UrlEn:
@@ -43,6 +61,8 @@ class UrlEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class WikipediaUrl:
@@ -50,6 +70,8 @@ class WikipediaUrl:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class WikipediaUrlEn:
@@ -57,6 +79,8 @@ class WikipediaUrlEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class TwitterUsername:
@@ -64,6 +88,8 @@ class TwitterUsername:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class TwitterUsernameEn:
@@ -71,6 +97,8 @@ class TwitterUsernameEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class FavoriteOrganizationsCount:
@@ -78,6 +106,8 @@ class FavoriteOrganizationsCount:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class StaffsCount:
@@ -85,6 +115,8 @@ class StaffsCount:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass
 class Organization:
@@ -123,6 +155,7 @@ class Organization:
 
     @staticmethod
     def from_dict(organization_dict: dict) -> "Organization":
+        assert isinstance(organization_dict, dict)
         return Organization(
             OrganizationId(organization_dict["id"]),
             Name(organization_dict["name"]),
