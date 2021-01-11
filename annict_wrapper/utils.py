@@ -53,3 +53,7 @@ def to_class(c: Type[T], x: Any) -> dict:
 def from_bool(x: Any) -> bool:
     assert isinstance(x, bool)
     return x
+
+def from_none(x: Any) -> Any:
+    assert x is None
+    return x
