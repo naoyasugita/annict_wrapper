@@ -7,6 +7,13 @@ from typing import Union
 from annict_wrapper.model.organization import Organization
 from annict_wrapper.model.people import People
 from annict_wrapper.model.work import Work
+from annict_wrapper.utils import from_bool
+from annict_wrapper.utils import from_datetime
+from annict_wrapper.utils import from_int
+from annict_wrapper.utils import from_str
+from annict_wrapper.utils import to_class
+from dacite.config import Config
+from dacite.core import from_dict
 
 
 @dataclasses.dataclass(frozen=True)
@@ -15,6 +22,8 @@ class StaffId:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Name:
@@ -22,6 +31,8 @@ class Name:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class NameEn:
@@ -29,6 +40,8 @@ class NameEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class RoleText:
@@ -36,6 +49,8 @@ class RoleText:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class RoleOther:
@@ -43,6 +58,8 @@ class RoleOther:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class RoleOtherEn:
@@ -50,6 +67,8 @@ class RoleOtherEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class SortNumber:
@@ -57,6 +76,8 @@ class SortNumber:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass
 class Staff:
@@ -80,15 +101,16 @@ class Staff:
             "role_other": dataclasses.asdict(self.role_other)["value"],
             "role_other_en": dataclasses.asdict(self.role_other_en)["value"],
             "sort_number": dataclasses.asdict(self.sort_number)["value"],
-            "work": self.work.to_dict(),
-            "organization": self.organization.to_dict()
+            "work": to_class(Work, self.work),
+            "organization": to_class(Organization, self.organization)
             if self.organization is not None
             else None,
-            "person": self.person.to_dict() if self.person is not None else None,
+            "person": to_class(People, self.person) if self.person is not None else None,
         }
 
     @staticmethod
     def from_dict(staff_dict: dict) -> "Staff":
+        assert isinstance(staff_dict, dict)
         return Staff(
             staff_id=StaffId(staff_dict["id"]),
             name=Name(staff_dict["name"]),
