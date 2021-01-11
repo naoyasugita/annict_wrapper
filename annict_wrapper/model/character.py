@@ -5,6 +5,13 @@ from typing import Optional
 from typing import Union
 
 from annict_wrapper.model.series import Series
+from annict_wrapper.utils import from_bool
+from annict_wrapper.utils import from_datetime
+from annict_wrapper.utils import from_int
+from annict_wrapper.utils import from_str
+from annict_wrapper.utils import to_class
+from dacite.config import Config
+from dacite.core import from_dict
 
 
 @dataclasses.dataclass(frozen=True)
@@ -13,12 +20,18 @@ class CharacterId:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Name:
     """ 名前 """
 
     value: str
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -27,6 +40,8 @@ class NameKana:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class NameEn:
@@ -34,6 +49,8 @@ class NameEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Nickname:
@@ -41,6 +58,8 @@ class Nickname:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class NicknameEn:
@@ -48,6 +67,8 @@ class NicknameEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Birthday:
@@ -55,6 +76,8 @@ class Birthday:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class BirthdayEn:
@@ -62,6 +85,8 @@ class BirthdayEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Age:
@@ -69,6 +94,8 @@ class Age:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class AgeEn:
@@ -76,6 +103,8 @@ class AgeEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class BloodType:
@@ -83,6 +112,8 @@ class BloodType:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class BloodTypeEn:
@@ -90,6 +121,8 @@ class BloodTypeEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Height:
@@ -97,6 +130,8 @@ class Height:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class HeightEn:
@@ -104,6 +139,8 @@ class HeightEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Weight:
@@ -111,6 +148,8 @@ class Weight:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class WeightEn:
@@ -118,6 +157,8 @@ class WeightEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Nationality:
@@ -125,6 +166,8 @@ class Nationality:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class NationalityEn:
@@ -132,6 +175,8 @@ class NationalityEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Occupation:
@@ -139,6 +184,8 @@ class Occupation:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class OccupationEn:
@@ -146,6 +193,8 @@ class OccupationEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Description:
@@ -153,6 +202,8 @@ class Description:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class DescriptionEn:
@@ -160,6 +211,8 @@ class DescriptionEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class DescriptionSource:
@@ -167,6 +220,8 @@ class DescriptionSource:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class DescriptionSourceEn:
@@ -174,6 +229,8 @@ class DescriptionSourceEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class FavoriteCharactersCount:
@@ -181,6 +238,8 @@ class FavoriteCharactersCount:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 @dataclasses.dataclass(frozen=True)
 class Kind:
@@ -188,6 +247,8 @@ class Kind:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 @dataclasses.dataclass
 class Character:
@@ -256,11 +317,12 @@ class Character:
             "kind": dataclasses.asdict(self.kind)["value"]
             if self.kind is not None
             else None,
-            "series": self.series.to_dict() if self.series is not None else None,
+            "series": to_class(Series, self.series) if self.series is not None else None,
         }
 
     @staticmethod
     def from_dict(character_dict: dict) -> "Character":
+        assert isinstance(character_dict, dict)
         return Character(
             character_id=CharacterId(character_dict["id"]),
             name=Name(character_dict["name"]),
