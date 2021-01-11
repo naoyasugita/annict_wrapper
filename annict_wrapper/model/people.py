@@ -4,12 +4,23 @@ from typing import List
 from typing import Optional
 from typing import Union
 
+from annict_wrapper.utils import from_bool
+from annict_wrapper.utils import from_datetime
+from annict_wrapper.utils import from_int
+from annict_wrapper.utils import from_str
+from annict_wrapper.utils import to_class
+from dacite.config import Config
+from dacite.core import from_dict
+
 
 @dataclasses.dataclass(frozen=True)
 class PeopleId:
     """ 人物のID """
 
     value: int
+
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -18,12 +29,18 @@ class Name:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class NameKana:
     """ 名前 (かな表記) """
 
     value: str
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -32,12 +49,18 @@ class NameEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Nickname:
     """ ニックネーム """
 
     value: str
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -46,12 +69,18 @@ class NicknameEn:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class GenderText:
     """ 性別 """
 
     value: str
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -60,12 +89,18 @@ class Url:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class UrlEn:
     """ 公式サイト等のURL (英語圏向け) """
 
     value: str
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -74,12 +109,18 @@ class WikipediaUrl:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class WikipediaUrlEn:
     """ WikipediaのURL(英語圏向け) """
 
     value: str
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -88,12 +129,18 @@ class TwitterUsername:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class TwitterUsernameEn:
     """ Twitterアカウントのusername (英語圏向け) """
 
     value: str
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -102,12 +149,18 @@ class Birthday:
 
     value: str
 
+    def __post_init__(self) -> None:
+        from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class BloodType:
     """ 血液型 """
 
     value: str
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -116,6 +169,9 @@ class Height:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class FavoritePeopleCount:
@@ -123,25 +179,38 @@ class FavoritePeopleCount:
 
     value: int
 
+    def __post_init__(self) -> None:
+        from_int(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class CastsCount:
     """ キャストとして登録されている作品の数 """
 
-    value: str
+    value: int
+
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
 class StaffsCount:
     """ スタッフとして登録されている作品の数 """
 
-    value: str
+    value: int
+
+    def __post_init__(self) -> None:
+        from_int(self.value)
 
 
 @dataclasses.dataclass
 class Prefecture:
     id: int
     name: str
+
+    def __post_init__(self) -> None:
+        from_int(self.id)
+        from_str(self.name)
 
     def to_dict(self) -> dict:
         return {
@@ -214,13 +283,14 @@ class People:
             ],
             "casts_count": dataclasses.asdict(self.casts_count)["value"],
             "staffs_count": dataclasses.asdict(self.staffs_count)["value"],
-            "prefecture": self.prefecture.to_dict()
+            "prefecture": to_class(Prefecture, self.prefecture)
             if self.prefecture is not None
             else None,
         }
 
     @staticmethod
     def from_dict(people_dict: dict) -> "People":
+        assert isinstance(people_dict, dict)
         return People(
             people_id=PeopleId(people_dict["id"]),
             name=Name(people_dict["name"]),
