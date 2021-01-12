@@ -13,6 +13,7 @@ from typing import Union
 from typing import cast
 
 import dateutil.parser
+
 # 循環インポートでエラーになる！？
 # from annict_wrapper.utils import from_bool
 # from annict_wrapper.utils import from_datetime
@@ -60,6 +61,7 @@ class TitleKana:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 class Media(Enum):
     """ リリース媒体 (表記用) """
 
@@ -97,6 +99,7 @@ class SeasonNameText:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class ReleasedOn:
     """ リリース日 """
@@ -105,6 +108,7 @@ class ReleasedOn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class releasedOnAbout:
@@ -115,6 +119,7 @@ class releasedOnAbout:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class OfficialSiteUrl:
     """ 公式サイトのURL """
@@ -123,6 +128,7 @@ class OfficialSiteUrl:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class WikipediaUrl:
@@ -133,6 +139,7 @@ class WikipediaUrl:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class TwitterUsername:
     """ 公式Twitterアカウントのusername """
@@ -141,6 +148,7 @@ class TwitterUsername:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class TwitterHashtag:
@@ -151,6 +159,7 @@ class TwitterHashtag:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class SyobocalTitleId:
     """ しょぼいカレンダーのタイトルID """
@@ -160,6 +169,7 @@ class SyobocalTitleId:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class MyAnimeListAnimeId:
     """ MyAnimeListの作品ID """
@@ -168,6 +178,7 @@ class MyAnimeListAnimeId:
 
     def __post_init__(self) -> None:
         from_int(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class MiniAvatarUrl:
@@ -192,6 +203,7 @@ class NormalAvatarUrl:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class BiggerAvatarUrl:
     """
@@ -202,6 +214,7 @@ class BiggerAvatarUrl:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class OriginalAvatarUrl:
@@ -214,6 +227,7 @@ class OriginalAvatarUrl:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class ImageUrl:
     """
@@ -224,6 +238,7 @@ class ImageUrl:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
 
 @dataclasses.dataclass(frozen=True)
 class Twitter:
@@ -277,6 +292,7 @@ class OgImageUrl:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class Facebook:
     """
@@ -305,12 +321,14 @@ class RecommendedUrl:
     facebook.og_image_url, twitter.bigger_avatar_url, twitter.image_url のうち、
     解像度が一番大きい画像のURL。扱いやすい画像のURLが高確率で格納されるプロパティになります
     """
+
     # value: Union[OgImageUrl, BiggerAvatarUrl, ImageUrl]
     value: str
 
     def __post_init__(self) -> None:
         from_str(self.value)
         # assert isinstance(self.value, (OgImageUrl, BiggerAvatarUrl, ImageUrl))
+
 
 @dataclasses.dataclass(frozen=True)
 class Images:
@@ -351,6 +369,7 @@ class MyAnimeListAnimeId:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class EpisodesCount:
     """ エピソード数 """
@@ -360,6 +379,7 @@ class EpisodesCount:
     def __post_init__(self) -> None:
         from_int(self.value)
 
+
 @dataclasses.dataclass(frozen=True)
 class WatchersCount:
     """ 見てる / 見たい / 見た人の数 """
@@ -368,6 +388,7 @@ class WatchersCount:
 
     def __post_init__(self) -> None:
         from_int(self.value)
+
 
 @dataclasses.dataclass
 class Work:
