@@ -24,16 +24,6 @@ class PeopleId:
 
 
 @dataclasses.dataclass(frozen=True)
-class Name:
-    """ 名前 """
-
-    value: str
-
-    def __post_init__(self) -> None:
-        from_str(self.value)
-
-
-@dataclasses.dataclass(frozen=True)
 class NameKana:
     """ 名前 (かな表記) """
 
@@ -54,16 +44,6 @@ class NameEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class Nickname:
-    """ ニックネーム """
-
-    value: str
-
-    def __post_init__(self) -> None:
-        from_str(self.value)
-
-
-@dataclasses.dataclass(frozen=True)
 class NicknameEn:
     """ ニックネーム (英語表記) """
 
@@ -74,18 +54,36 @@ class NicknameEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class GenderText:
-    """ 性別 """
+class Nickname:
+    """ ニックネーム """
 
     value: str
+    english: NicknameEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, NicknameEn)
 
 
 @dataclasses.dataclass(frozen=True)
-class Url:
-    """ 公式サイト等のURL """
+class Name:
+    """ 名前 """
+
+    value: str
+    kana: NameKana
+    english: NameEn
+    nickname: Nickname
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
+        assert isinstance(self.kana, NameKana)
+        assert isinstance(self.english, NameEn)
+        assert isinstance(self.nickname, Nickname)
+
+
+@dataclasses.dataclass(frozen=True)
+class GenderText:
+    """ 性別 """
 
     value: str
 
@@ -104,8 +102,8 @@ class UrlEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class WikipediaUrl:
-    """ WikipediaのURL """
+class WikipediaUrlEn:
+    """ WikipediaのURL(英語圏向け) """
 
     value: str
 
@@ -114,8 +112,44 @@ class WikipediaUrl:
 
 
 @dataclasses.dataclass(frozen=True)
-class WikipediaUrlEn:
+class WikipediaUrl:
+    """ WikipediaのURL """
+
+    value: str
+    english: WikipediaUrlEn
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
+        assert isinstance(self.english, WikipediaUrlEn)
+
+
+@dataclasses.dataclass(frozen=True)
+class Wikipedia:
     """ WikipediaのURL(英語圏向け) """
+
+    url: WikipediaUrl
+
+    def __post_init__(self) -> None:
+        assert isinstance(self.url, WikipediaUrl)
+
+
+@dataclasses.dataclass(frozen=True)
+class Url:
+    """ URL """
+
+    value: str
+    english: UrlEn
+    wikipedia: Wikipedia
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
+        assert isinstance(self.english, UrlEn)
+        assert isinstance(self.wikipedia, Wikipedia)
+
+
+@dataclasses.dataclass(frozen=True)
+class TwitterUsernameEn:
+    """ Twitterアカウントのusername (英語圏向け) """
 
     value: str
 
@@ -128,19 +162,21 @@ class TwitterUsername:
     """ Twitterアカウントのusername """
 
     value: str
+    english: TwitterUsernameEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, TwitterUsernameEn)
 
 
 @dataclasses.dataclass(frozen=True)
-class TwitterUsernameEn:
-    """ Twitterアカウントのusername (英語圏向け) """
+class Twitter:
+    """ Twitter """
 
-    value: str
+    username: TwitterUsername
 
     def __post_init__(self) -> None:
-        from_str(self.value)
+        assert isinstance(self.username, TwitterUsername)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -230,17 +266,18 @@ class Prefecture:
 class People:
     people_id: PeopleId
     name: Name
-    name_kana: NameKana
-    name_en: NameEn
-    nickname: Nickname
-    nickname_en: NicknameEn
+    # name_kana: NameKana
+    # name_en: NameEn
+    # nickname: Nickname
+    # nickname_en: NicknameEn
     gender_text: GenderText
     url: Url
-    url_en: UrlEn
-    wikipedia_url: WikipediaUrl
-    wikipedia_url_en: WikipediaUrlEn
-    twitter_username: TwitterUsername
-    twitter_username_en: TwitterUsernameEn
+    # url_en: UrlEn
+    # wikipedia_url: WikipediaUrl
+    # wikipedia_url_en: WikipediaUrlEn
+    twitter: Twitter
+    # twitter_username: TwitterUsername
+    # twitter_username_en: TwitterUsernameEn
     birthday: Birthday
     blood_type: BloodType
     height: Height
@@ -249,30 +286,30 @@ class People:
     staffs_count: StaffsCount
     prefecture: Optional[Prefecture] = None
 
-    def __post_init__(self) -> None:
-        if self.prefecture is not None:
-            self.prefecture = Prefecture.from_dict(
-                prefecture_dict={
-                    "id": self.prefecture.id,
-                    "name": self.prefecture.name,
-                }
-            )
+    # def __post_init__(self) -> None:
+    #     if self.prefecture is not None:
+    #         self.prefecture = Prefecture.from_dict(
+    #             prefecture_dict={
+    #                 "id": self.prefecture.id,
+    #                 "name": self.prefecture.name,
+    #             }
+    #         )
 
     def to_dict(self) -> dict:
         return {
             "id": dataclasses.asdict(self.people_id)["value"],
             "name": dataclasses.asdict(self.name)["value"],
-            "name_kana": dataclasses.asdict(self.name_kana)["value"],
-            "name_en": dataclasses.asdict(self.name_en)["value"],
-            "nickname": dataclasses.asdict(self.nickname)["value"],
-            "nickname_en": dataclasses.asdict(self.nickname_en)["value"],
+            "name_kana": dataclasses.asdict(self.name.kana)["value"],
+            "name_en": dataclasses.asdict(self.name.english)["value"],
+            "nickname": dataclasses.asdict(self.name.nickname)["value"],
+            "nickname_en": dataclasses.asdict(self.name.nickname.english)["value"],
             "gender_text": dataclasses.asdict(self.gender_text)["value"],
             "url": dataclasses.asdict(self.url)["value"],
-            "url_en": dataclasses.asdict(self.url_en)["value"],
-            "wikipedia_url": dataclasses.asdict(self.wikipedia_url)["value"],
-            "wikipedia_url_en": dataclasses.asdict(self.wikipedia_url_en)["value"],
-            "twitter_username": dataclasses.asdict(self.twitter_username)["value"],
-            "twitter_username_en": dataclasses.asdict(self.twitter_username_en)[
+            "url_en": dataclasses.asdict(self.url.english)["value"],
+            "wikipedia_url": dataclasses.asdict(self.url.wikipedia.url)["value"],
+            "wikipedia_url_en": dataclasses.asdict(self.url.wikipedia.url.english)["value"],
+            "twitter_username": dataclasses.asdict(self.twitter.username)["value"],
+            "twitter_username_en": dataclasses.asdict(self.twitter.username.english)[
                 "value"
             ],
             "birthday": dataclasses.asdict(self.birthday)["value"],
@@ -292,28 +329,46 @@ class People:
     def from_dict(people_dict: dict) -> "People":
         assert isinstance(people_dict, dict)
         return People(
-            people_id=PeopleId(people_dict["id"]),
-            name=Name(people_dict["name"]),
-            name_kana=NameKana(people_dict["name_kana"]),
-            name_en=NameEn(people_dict["name_en"]),
-            nickname=Nickname(people_dict["nickname"]),
-            nickname_en=NicknameEn(people_dict["nickname_en"]),
-            gender_text=GenderText(people_dict["gender_text"]),
-            url=Url(people_dict["url"]),
-            url_en=UrlEn(people_dict["url_en"]),
-            wikipedia_url=WikipediaUrl(people_dict["wikipedia_url"]),
-            wikipedia_url_en=WikipediaUrlEn(people_dict["wikipedia_url_en"]),
-            twitter_username=TwitterUsername(people_dict["twitter_username"]),
-            twitter_username_en=TwitterUsernameEn(people_dict["twitter_username_en"]),
-            birthday=Birthday(people_dict["birthday"]),
-            blood_type=BloodType(people_dict["blood_type"]),
-            height=Height(people_dict["height"]),
-            favorite_people_count=FavoritePeopleCount(
-                people_dict["favorite_people_count"]
+            PeopleId(people_dict["id"]),
+            Name(
+                people_dict["name"],
+                NameKana(people_dict["name_kana"]),
+                NameEn(people_dict["name_en"]),
+                Nickname(
+                    people_dict["nickname"],
+                    NicknameEn(
+                        people_dict["nickname_en"],
+                    ),
+                ),
             ),
-            casts_count=CastsCount(people_dict["casts_count"]),
-            staffs_count=StaffsCount(people_dict["staffs_count"]),
-            prefecture=Prefecture.from_dict(people_dict["prefecture"])
+            GenderText(people_dict["gender_text"]),
+            Url(
+                people_dict["url"],
+                UrlEn(people_dict["url_en"]),
+                Wikipedia(
+                    WikipediaUrl(
+                        people_dict["wikipedia_url"],
+                        WikipediaUrlEn(
+                            people_dict["wikipedia_url_en"],
+                        ),
+                    ),
+                ),
+            ),
+            Twitter(
+                TwitterUsername(
+                    people_dict["twitter_username"],
+                    TwitterUsernameEn(
+                        people_dict["twitter_username_en"],
+                    ),
+                ),
+            ),
+            Birthday(people_dict["birthday"]),
+            BloodType(people_dict["blood_type"]),
+            Height(people_dict["height"]),
+            FavoritePeopleCount(people_dict["favorite_people_count"]),
+            CastsCount(people_dict["casts_count"]),
+            StaffsCount(people_dict["staffs_count"]),
+            Prefecture.from_dict(people_dict["prefecture"])
             if people_dict.get("prefecture") is not None
             else None,
         )
