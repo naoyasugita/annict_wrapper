@@ -266,18 +266,9 @@ class Prefecture:
 class People:
     people_id: PeopleId
     name: Name
-    # name_kana: NameKana
-    # name_en: NameEn
-    # nickname: Nickname
-    # nickname_en: NicknameEn
     gender_text: GenderText
     url: Url
-    # url_en: UrlEn
-    # wikipedia_url: WikipediaUrl
-    # wikipedia_url_en: WikipediaUrlEn
     twitter: Twitter
-    # twitter_username: TwitterUsername
-    # twitter_username_en: TwitterUsernameEn
     birthday: Birthday
     blood_type: BloodType
     height: Height
@@ -285,15 +276,6 @@ class People:
     casts_count: CastsCount
     staffs_count: StaffsCount
     prefecture: Optional[Prefecture] = None
-
-    # def __post_init__(self) -> None:
-    #     if self.prefecture is not None:
-    #         self.prefecture = Prefecture.from_dict(
-    #             prefecture_dict={
-    #                 "id": self.prefecture.id,
-    #                 "name": self.prefecture.name,
-    #             }
-    #         )
 
     def to_dict(self) -> dict:
         return {
@@ -307,7 +289,9 @@ class People:
             "url": dataclasses.asdict(self.url)["value"],
             "url_en": dataclasses.asdict(self.url.english)["value"],
             "wikipedia_url": dataclasses.asdict(self.url.wikipedia.url)["value"],
-            "wikipedia_url_en": dataclasses.asdict(self.url.wikipedia.url.english)["value"],
+            "wikipedia_url_en": dataclasses.asdict(self.url.wikipedia.url.english)[
+                "value"
+            ],
             "twitter_username": dataclasses.asdict(self.twitter.username)["value"],
             "twitter_username_en": dataclasses.asdict(self.twitter.username.english)[
                 "value"
