@@ -27,16 +27,6 @@ class StaffId:
 
 
 @dataclasses.dataclass(frozen=True)
-class Name:
-    """ 名前 """
-
-    value: str
-
-    def __post_init__(self) -> None:
-        from_str(self.value)
-
-
-@dataclasses.dataclass(frozen=True)
 class NameEn:
     """ 名前 (英語表記) """
 
@@ -47,18 +37,19 @@ class NameEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class RoleText:
-    """ 担当。主要な担当名 (監督やアニメーション制作など) が登録されています。 """
+class Name:
+    """ 名前 """
 
     value: str
+    english: NameEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
-class RoleOther:
-    """ その他の担当 """
+class RoleText:
+    """ 担当。主要な担当名 (監督やアニメーション制作など) が登録されています。 """
 
     value: str
 
@@ -77,6 +68,30 @@ class RoleOtherEn:
 
 
 @dataclasses.dataclass(frozen=True)
+class RoleOther:
+    """ その他の担当 """
+
+    value: str
+    english: RoleOtherEn
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
+        assert isinstance(self.english, RoleOtherEn)
+
+
+@dataclasses.dataclass(frozen=True)
+class Role:
+    """ 担当 """
+
+    text: RoleText
+    other: RoleOther
+
+    def __post_init__(self) -> None:
+        assert isinstance(self.text, RoleText)
+        assert isinstance(self.other, RoleOther)
+
+
+@dataclasses.dataclass(frozen=True)
 class SortNumber:
     """ ソート番号 """
 
@@ -90,10 +105,7 @@ class SortNumber:
 class Staff:
     staff_id: StaffId
     name: Name
-    name_en: NameEn
-    role_text: RoleText
-    role_other: RoleOther
-    role_other_en: RoleOtherEn
+    role: Role
     sort_number: SortNumber
     work: Work
     organization: Optional[Organization] = None
@@ -103,10 +115,10 @@ class Staff:
         return {
             "id": dataclasses.asdict(self.staff_id)["value"],
             "name": dataclasses.asdict(self.name)["value"],
-            "name_en": dataclasses.asdict(self.name_en)["value"],
-            "role_text": dataclasses.asdict(self.role_text)["value"],
-            "role_other": dataclasses.asdict(self.role_other)["value"],
-            "role_other_en": dataclasses.asdict(self.role_other_en)["value"],
+            "name_en": dataclasses.asdict(self.name.english)["value"],
+            "role_text": dataclasses.asdict(self.role.text)["value"],
+            "role_other": dataclasses.asdict(self.role.other)["value"],
+            "role_other_en": dataclasses.asdict(self.role.other.english)["value"],
             "sort_number": dataclasses.asdict(self.sort_number)["value"],
             "work": to_class(Work, self.work),
             "organization": to_class(Organization, self.organization)
@@ -122,11 +134,17 @@ class Staff:
         assert isinstance(staff_dict, dict)
         return Staff(
             staff_id=StaffId(staff_dict["id"]),
-            name=Name(staff_dict["name"]),
-            name_en=NameEn(staff_dict["name_en"]),
-            role_text=RoleText(staff_dict["role_text"]),
-            role_other=RoleOther(staff_dict["role_other"]),
-            role_other_en=RoleOtherEn(staff_dict["role_other_en"]),
+            name=Name(
+                staff_dict["name"],
+                NameEn(staff_dict["name_en"]),
+            ),
+            role=Role(
+                RoleText(staff_dict["role_text"]),
+                RoleOther(
+                    staff_dict["role_other"],
+                    RoleOtherEn(staff_dict["role_other_en"]),
+                ),
+            ),
             sort_number=SortNumber(staff_dict["sort_number"]),
             work=Work.from_dict(work_dict=staff_dict["work"]),
             organization=Organization.from_dict(
