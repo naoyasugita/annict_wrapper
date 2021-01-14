@@ -13,6 +13,7 @@ from typing import Union
 from typing import cast
 
 import dateutil.parser
+
 # 循環インポートでエラーになる！？
 # from annict_wrapper.utils import from_bool
 # from annict_wrapper.utils import from_datetime
@@ -65,10 +66,7 @@ class Title:
         return self.kana.value
 
     def to_dict(self) -> dict:
-        return {
-            "value": self.value,
-            "kana": self.kana.value
-        }
+        return {"value": self.value, "kana": self.kana.value}
 
 
 class Media(Enum):
@@ -192,6 +190,7 @@ class Url:
             "official_site": self.official_site.value,
             "wikipedia": self.wikipedia.value,
         }
+
 
 @dataclasses.dataclass(frozen=True)
 class TwitterUsername:
@@ -542,27 +541,21 @@ class Work:
                 work_dict["title"],
                 TitleKana(work_dict["title_kana"]),
             ),
-            # TitleKana(work_dict["title_kana"]),
             Media[work_dict["media"]].name,
             Media[work_dict["media"]].value,
             ReleasedOn(
                 work_dict["released_on"],
                 releasedOnAbout(work_dict["released_on_about"]),
             ),
-            # releasedOnAbout(work_dict["released_on_about"]),
             Url(
                 OfficialSiteUrl(work_dict["official_site_url"]),
                 WikipediaUrl(work_dict["wikipedia_url"]),
             ),
-            # OfficialSiteUrl(work_dict["official_site_url"]),
-            # WikipediaUrl(work_dict["wikipedia_url"]),
             Twitter(
                 TwitterUsername(work_dict["twitter_username"]),
                 TwitterHashtag(work_dict["twitter_hashtag"]),
                 TwitterImage.from_dict(work_dict["images"]["twitter"]),
             ),
-            # TwitterUsername(work_dict["twitter_username"]),
-            # TwitterHashtag(work_dict["twitter_hashtag"]),
             EpisodesCount(work_dict["episodes_count"]),
             WatchersCount(work_dict["watchers_count"]),
             work_dict["no_episodes"]
@@ -591,10 +584,7 @@ class Work:
                 SeasonNameText(work_dict["season_name_text"])
                 if work_dict.get("season_name_text") is not None
                 else None,
-            )
-            # SeasonNameText(work_dict["season_name_text"])
-            # if work_dict.get("season_name_text") is not None
-            # else None,
+            ),
         )
 
     def get_cool(self) -> Tuple[int, Cool]:
