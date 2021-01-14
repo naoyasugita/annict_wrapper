@@ -21,16 +21,6 @@ class OrganizationId:
 
 
 @dataclasses.dataclass(frozen=True)
-class Name:
-    """ 名前 """
-
-    value: str
-
-    def __post_init__(self) -> None:
-        from_str(self.value)
-
-
-@dataclasses.dataclass(frozen=True)
 class NameKana:
     """ 名前 (かな表記) """
 
@@ -51,28 +41,22 @@ class NameEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class Url:
-    """ 公式サイト等のURL """
+class Name:
+    """ 名前 """
 
     value: str
+    kana: NameKana
+    english: NameEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.kana, NameKana)
+        assert isinstance(self.english, NameEn)
 
 
 @dataclasses.dataclass(frozen=True)
 class UrlEn:
     """ 公式サイト等のURL (英語圏向け) """
-
-    value: str
-
-    def __post_init__(self) -> None:
-        from_str(self.value)
-
-
-@dataclasses.dataclass(frozen=True)
-class WikipediaUrl:
-    """ WikipediaのURL """
 
     value: str
 
@@ -91,13 +75,37 @@ class WikipediaUrlEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class TwitterUsername:
-    """ Twitterアカウントのusername """
+class WikipediaUrl:
+    """ WikipediaのURL """
 
     value: str
+    english: WikipediaUrlEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, WikipediaUrlEn)
+
+
+@dataclasses.dataclass(frozen=True)
+class Wikipedia:
+    """ Wikipedia """
+
+    url: WikipediaUrl
+
+    def __post_init__(self) -> None:
+        assert isinstance(self.url, WikipediaUrl)
+
+
+@dataclasses.dataclass(frozen=True)
+class Url:
+    """ 公式サイト等のURL """
+
+    value: str
+    english: UrlEn
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
+        assert isinstance(self.english, UrlEn)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -108,6 +116,28 @@ class TwitterUsernameEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
+
+@dataclasses.dataclass(frozen=True)
+class TwitterUsername:
+    """ Twitterアカウントのusername """
+
+    value: str
+    english: TwitterUsernameEn
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
+        assert isinstance(self.english, TwitterUsernameEn)
+
+
+@dataclasses.dataclass(frozen=True)
+class Twitter:
+    """ Twitter """
+
+    username: TwitterUsername
+
+    def __post_init__(self) -> None:
+        assert isinstance(self.username, TwitterUsername)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -134,14 +164,9 @@ class StaffsCount:
 class Organization:
     organization_id: OrganizationId
     name: Name
-    name_kana: NameKana
-    name_en: NameEn
     url: Url
-    url_en: UrlEn
-    wikipedia_url: WikipediaUrl
-    wikipedia_url_en: WikipediaUrlEn
-    twitter_username: TwitterUsername
-    twitter_username_en: TwitterUsernameEn
+    wikipedia: Wikipedia
+    twitter: Twitter
     favorite_organizations_count: FavoriteOrganizationsCount
     staffs_count: StaffsCount
 
@@ -149,14 +174,14 @@ class Organization:
         return {
             "id": dataclasses.asdict(self.organization_id)["value"],
             "name": dataclasses.asdict(self.name)["value"],
-            "name_kana": dataclasses.asdict(self.name_kana)["value"],
-            "name_en": dataclasses.asdict(self.name_en)["value"],
+            "name_kana": dataclasses.asdict(self.name.kana)["value"],
+            "name_en": dataclasses.asdict(self.name.english)["value"],
             "url": dataclasses.asdict(self.url)["value"],
-            "url_en": dataclasses.asdict(self.url_en)["value"],
-            "wikipedia_url": dataclasses.asdict(self.wikipedia_url)["value"],
-            "wikipedia_url_en": dataclasses.asdict(self.wikipedia_url_en)["value"],
-            "twitter_username": dataclasses.asdict(self.twitter_username)["value"],
-            "twitter_username_en": dataclasses.asdict(self.twitter_username_en)[
+            "url_en": dataclasses.asdict(self.url.english)["value"],
+            "wikipedia_url": dataclasses.asdict(self.wikipedia.url)["value"],
+            "wikipedia_url_en": dataclasses.asdict(self.wikipedia.url.english)["value"],
+            "twitter_username": dataclasses.asdict(self.twitter.username)["value"],
+            "twitter_username_en": dataclasses.asdict(self.twitter.username.english)[
                 "value"
             ],
             "favorite_organizations_count": dataclasses.asdict(
@@ -170,15 +195,27 @@ class Organization:
         assert isinstance(organization_dict, dict)
         return Organization(
             OrganizationId(organization_dict["id"]),
-            Name(organization_dict["name"]),
-            NameKana(organization_dict["name_kana"]),
-            NameEn(organization_dict["name_en"]),
-            Url(organization_dict["url"]),
-            UrlEn(organization_dict["url_en"]),
-            WikipediaUrl(organization_dict["wikipedia_url"]),
-            WikipediaUrlEn(organization_dict["wikipedia_url_en"]),
-            TwitterUsername(organization_dict["twitter_username"]),
-            TwitterUsernameEn(organization_dict["twitter_username_en"]),
+            Name(
+                organization_dict["name"],
+                NameKana(organization_dict["name_kana"]),
+                NameEn(organization_dict["name_en"]),
+            ),
+            Url(
+                organization_dict["url"],
+                UrlEn(organization_dict["url_en"]),
+            ),
+            Wikipedia(
+                WikipediaUrl(
+                    organization_dict["wikipedia_url"],
+                    WikipediaUrlEn(organization_dict["wikipedia_url_en"]),
+                ),
+            ),
+            Twitter(
+                TwitterUsername(
+                    organization_dict["twitter_username"],
+                    TwitterUsernameEn(organization_dict["twitter_username_en"]),
+                ),
+            ),
             FavoriteOrganizationsCount(
                 organization_dict["favorite_organizations_count"]
             ),
