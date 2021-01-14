@@ -13,7 +13,6 @@ from typing import Union
 from typing import cast
 
 import dateutil.parser
-
 # 循環インポートでエラーになる！？
 # from annict_wrapper.utils import from_bool
 # from annict_wrapper.utils import from_datetime
@@ -43,8 +42,8 @@ class WorkId:
 
 
 @dataclasses.dataclass(frozen=True)
-class Title:
-    """ 作品のタイトル """
+class TitleKana:
+    """ 作品タイトルの読み仮名 """
 
     value: str
 
@@ -53,13 +52,23 @@ class Title:
 
 
 @dataclasses.dataclass(frozen=True)
-class TitleKana:
-    """ 作品タイトルの読み仮名 """
+class Title:
+    """ 作品のタイトル """
 
     value: str
+    kana: TitleKana
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
+    def to_kana(self) -> str:
+        return self.kana.value
+
+    def to_dict(self) -> dict:
+        return {
+            "value": self.value,
+            "kana": self.kana.value
+        }
 
 
 class Media(Enum):
@@ -73,10 +82,21 @@ class Media(Enum):
 
 
 @dataclasses.dataclass(frozen=True)
+class SeasonNameText:
+    """ リリース時期 (表記用) """
+
+    value: str
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
+
+
+@dataclasses.dataclass(frozen=True)
 class SeasonName:
     """ リリース時期 """
 
     value: str
+    text: Optional[SeasonNameText]
 
     def __post_init__(self) -> None:
         from_str(self.value)
@@ -89,10 +109,28 @@ class SeasonName:
         except Exception as e:
             raise e
 
+    def to_text(self) -> str:
+        return self.text.value
+
+    def to_dict(self) -> dict:
+        return {
+            "value": self.value,
+            "text": self.text.value if self.text is not None else None,
+        }
+
+    @staticmethod
+    def from_dict(season_dict: dict) -> "SeasonName":
+        return SeasonName(
+            season_dict["season_name"],
+            season_dict["season_name_text"]
+            if season_dict["season_name_text"] is not None
+            else None,
+        )
+
 
 @dataclasses.dataclass(frozen=True)
-class SeasonNameText:
-    """ リリース時期 (表記用) """
+class releasedOnAbout:
+    """ 未確定な大体のリリース日 """
 
     value: str
 
@@ -105,19 +143,19 @@ class ReleasedOn:
     """ リリース日 """
 
     value: str
+    about: releasedOnAbout
 
     def __post_init__(self) -> None:
         from_str(self.value)
 
+    def to_about(self) -> str:
+        return self.about.value
 
-@dataclasses.dataclass(frozen=True)
-class releasedOnAbout:
-    """ 未確定な大体のリリース日 """
-
-    value: str
-
-    def __post_init__(self) -> None:
-        from_str(self.value)
+    def to_dict(self) -> dict:
+        return {
+            "value": self.value,
+            "about": self.about.value,
+        }
 
 
 @dataclasses.dataclass(frozen=True)
@@ -139,6 +177,21 @@ class WikipediaUrl:
     def __post_init__(self) -> None:
         from_str(self.value)
 
+
+@dataclasses.dataclass(frozen=True)
+class Url:
+    official_site: OfficialSiteUrl
+    wikipedia: WikipediaUrl
+
+    def __post_init__(self) -> None:
+        assert isinstance(self.official_site, OfficialSiteUrl)
+        assert isinstance(self.wikipedia, WikipediaUrl)
+
+    def to_dict(self) -> dict:
+        return {
+            "official_site": self.official_site.value,
+            "wikipedia": self.wikipedia.value,
+        }
 
 @dataclasses.dataclass(frozen=True)
 class TwitterUsername:
@@ -241,7 +294,7 @@ class ImageUrl:
 
 
 @dataclasses.dataclass(frozen=True)
-class Twitter:
+class TwitterImage:
     """
     Twitterアカウントのアバター画像。
     mini, normal, bigger, original の4種類のサイズがあります
@@ -270,9 +323,9 @@ class Twitter:
         }
 
     @staticmethod
-    def from_dict(twitter_dict: dict) -> "Twitter":
+    def from_dict(twitter_dict: dict) -> "TwitterImage":
         assert isinstance(twitter_dict, dict)
-        return Twitter(
+        return TwitterImage(
             MiniAvatarUrl(twitter_dict["mini_avatar_url"]),
             NormalAvatarUrl(twitter_dict["normal_avatar_url"]),
             BiggerAvatarUrl(twitter_dict["bigger_avatar_url"]),
@@ -334,18 +387,18 @@ class RecommendedUrl:
 class Images:
     """ 画像 """
 
-    twitter: Twitter
+    twitter: TwitterImage
     facebook: Facebook
     recommended_url: RecommendedUrl
 
     def __post_init__(self) -> None:
-        assert isinstance(self.twitter, Twitter)
+        assert isinstance(self.twitter, TwitterImage)
         assert isinstance(self.facebook, Facebook)
         assert isinstance(self.recommended_url, RecommendedUrl)
 
     def to_dict(self) -> dict:
         return {
-            "twitter": to_class(Twitter, self.twitter),
+            "twitter": to_class(TwitterImage, self.twitter),
             "facebook": to_class(Facebook, self.facebook),
             "recommended_url": self.recommended_url.value,
         }
@@ -354,9 +407,38 @@ class Images:
     def from_dict(images_dict: dict) -> "Images":
         assert isinstance(images_dict, dict)
         return Images(
-            Twitter.from_dict(images_dict["twitter"]),
+            TwitterImage.from_dict(images_dict["twitter"]),
             Facebook.from_dict(images_dict["facebook"]),
             RecommendedUrl(images_dict["recommended_url"]),
+        )
+
+
+@dataclasses.dataclass(frozen=True)
+class Twitter:
+    """ 公式Twitterアカウントのusername """
+
+    username: TwitterUsername
+    hashtag: TwitterHashtag
+    image: TwitterImage
+
+    def __post_init__(self) -> None:
+        assert isinstance(self.username, TwitterUsername)
+        assert isinstance(self.hashtag, TwitterHashtag)
+        assert isinstance(self.image, TwitterImage)
+
+    def to_dict(self) -> dict:
+        return {
+            "username": self.username.value,
+            "hashtag": self.hashtag.value,
+            "image": self.image.to_dict(),
+        }
+
+    @staticmethod
+    def from_dict(twitter_dict: dict) -> "Twitter":
+        return Twitter(
+            TwitterUsername(twitter_dict["username"]),
+            TwitterHashtag(twitter_dict["hashtag"]),
+            TwitterImage.from_dict(twitter_dict["image"]),
         )
 
 
@@ -394,15 +476,17 @@ class WatchersCount:
 class Work:
     word_id: WorkId
     title: Title
-    title_kana: TitleKana
+    # title_kana: TitleKana
     media: str
     media_text: str
     released_on: ReleasedOn
-    released_on_about: releasedOnAbout
-    official_site_url: OfficialSiteUrl
-    wikipedia_url: WikipediaUrl
-    twitter_username: TwitterUsername
-    twitter_hashtag: TwitterHashtag
+    # released_on_about: releasedOnAbout
+    url: Url
+    # official_site_url: OfficialSiteUrl
+    # wikipedia_url: WikipediaUrl
+    twitter: Twitter
+    # twitter_username: TwitterUsername
+    # twitter_hashtag: TwitterHashtag
     episodes_count: EpisodesCount
     watchers_count: WatchersCount
     no_episodes: Optional[bool] = None
@@ -417,15 +501,15 @@ class Work:
         return {
             "id": dataclasses.asdict(self.word_id)["value"],
             "title": dataclasses.asdict(self.title)["value"],
-            "title_kana": dataclasses.asdict(self.title_kana)["value"],
+            "title_kana": dataclasses.asdict(self.title.kana)["value"],
             "media": self.media,
             "media_text": self.media_text,
             "released_on": dataclasses.asdict(self.released_on)["value"],
-            "released_on_about": dataclasses.asdict(self.released_on_about)["value"],
-            "official_site_url": dataclasses.asdict(self.official_site_url)["value"],
-            "wikipedia_url": dataclasses.asdict(self.wikipedia_url)["value"],
-            "twitter_username": dataclasses.asdict(self.twitter_username)["value"],
-            "twitter_hashtag": dataclasses.asdict(self.twitter_hashtag)["value"],
+            "released_on_about": dataclasses.asdict(self.released_on.about)["value"],
+            "official_site_url": dataclasses.asdict(self.url.official_site)["value"],
+            "wikipedia_url": dataclasses.asdict(self.url.wikipedia)["value"],
+            "twitter_username": dataclasses.asdict(self.twitter.username)["value"],
+            "twitter_hashtag": dataclasses.asdict(self.twitter.hashtag)["value"],
             "episodes_count": dataclasses.asdict(self.episodes_count)["value"],
             "watchers_count": dataclasses.asdict(self.watchers_count)["value"],
             "no_episodes": self.no_episodes if self.no_episodes is not None else None,
@@ -444,8 +528,8 @@ class Work:
             "season_name": dataclasses.asdict(self.season_name)["value"]
             if dataclasses.asdict(self.season_name)["value"] is not None
             else None,
-            "season_name_text": dataclasses.asdict(self.season_name_text)["value"]
-            if dataclasses.asdict(self.season_name_text)["value"] is not None
+            "season_name_text": dataclasses.asdict(self.season_name.text)["value"]
+            if dataclasses.asdict(self.season_name.text)["value"] is not None
             else None,
         }
 
@@ -454,16 +538,31 @@ class Work:
         assert isinstance(work_dict, dict)
         return Work(
             WorkId(work_dict["id"]),
-            Title(work_dict["title"]),
-            TitleKana(work_dict["title_kana"]),
+            Title(
+                work_dict["title"],
+                TitleKana(work_dict["title_kana"]),
+            ),
+            # TitleKana(work_dict["title_kana"]),
             Media[work_dict["media"]].name,
             Media[work_dict["media"]].value,
-            ReleasedOn(work_dict["released_on"]),
-            releasedOnAbout(work_dict["released_on_about"]),
-            OfficialSiteUrl(work_dict["official_site_url"]),
-            WikipediaUrl(work_dict["wikipedia_url"]),
-            TwitterUsername(work_dict["twitter_username"]),
-            TwitterHashtag(work_dict["twitter_hashtag"]),
+            ReleasedOn(
+                work_dict["released_on"],
+                releasedOnAbout(work_dict["released_on_about"]),
+            ),
+            # releasedOnAbout(work_dict["released_on_about"]),
+            Url(
+                OfficialSiteUrl(work_dict["official_site_url"]),
+                WikipediaUrl(work_dict["wikipedia_url"]),
+            ),
+            # OfficialSiteUrl(work_dict["official_site_url"]),
+            # WikipediaUrl(work_dict["wikipedia_url"]),
+            Twitter(
+                TwitterUsername(work_dict["twitter_username"]),
+                TwitterHashtag(work_dict["twitter_hashtag"]),
+                TwitterImage.from_dict(work_dict["images"]["twitter"]),
+            ),
+            # TwitterUsername(work_dict["twitter_username"]),
+            # TwitterHashtag(work_dict["twitter_hashtag"]),
             EpisodesCount(work_dict["episodes_count"]),
             WatchersCount(work_dict["watchers_count"]),
             work_dict["no_episodes"]
@@ -479,18 +578,23 @@ class Work:
             if work_dict.get("mal_anime_id") is not None
             else None,
             Images(
-                Twitter.from_dict(work_dict["images"]["twitter"]),
+                TwitterImage.from_dict(work_dict["images"]["twitter"]),
                 Facebook.from_dict(work_dict["images"]["facebook"]),
                 RecommendedUrl(work_dict["images"]["recommended_url"]),
             )
             if work_dict.get("images") is not None
             else None,
-            SeasonName(work_dict["season_name"])
-            if work_dict.get("season_name") is not None
-            else None,
-            SeasonNameText(work_dict["season_name_text"])
-            if work_dict.get("season_name_text") is not None
-            else None,
+            SeasonName(
+                work_dict["season_name"]
+                if work_dict.get("season_name") is not None
+                else None,
+                SeasonNameText(work_dict["season_name_text"])
+                if work_dict.get("season_name_text") is not None
+                else None,
+            )
+            # SeasonNameText(work_dict["season_name_text"])
+            # if work_dict.get("season_name_text") is not None
+            # else None,
         )
 
     def get_cool(self) -> Tuple[int, Cool]:

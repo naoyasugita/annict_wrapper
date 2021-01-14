@@ -11,6 +11,10 @@ class TestWorkModel:
 
         excepted = work.to_dict()
 
+        print(actual)
+        print('===================')
+        print(excepted)
+
         assert actual == excepted
 
     def test_from_dict(self, fixture_work):
