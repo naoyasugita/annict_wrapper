@@ -444,8 +444,7 @@ class Character:
         assert isinstance(character_dict, dict)
         return Character(
             CharacterId(character_dict["id"]),
-            Profile.from_dict(character_dict
-            ),
+            Profile.from_dict(character_dict),
             FavoriteCharactersCount(character_dict["favorite_characters_count"]),
             Kind(character_dict["kind"])
             if character_dict.get("kind") is not None
