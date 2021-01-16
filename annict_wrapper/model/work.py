@@ -13,7 +13,6 @@ from typing import Union
 from typing import cast
 
 import dateutil.parser
-
 # 循環インポートでエラーになる！？
 # from annict_wrapper.utils import from_bool
 # from annict_wrapper.utils import from_datetime
@@ -374,12 +373,10 @@ class RecommendedUrl:
     解像度が一番大きい画像のURL。扱いやすい画像のURLが高確率で格納されるプロパティになります
     """
 
-    # value: Union[OgImageUrl, BiggerAvatarUrl, ImageUrl]
     value: str
 
     def __post_init__(self) -> None:
         from_str(self.value)
-        # assert isinstance(self.value, (OgImageUrl, BiggerAvatarUrl, ImageUrl))
 
 
 @dataclasses.dataclass(frozen=True)
@@ -475,17 +472,11 @@ class WatchersCount:
 class Work:
     word_id: WorkId
     title: Title
-    # title_kana: TitleKana
     media: str
     media_text: str
     released_on: ReleasedOn
-    # released_on_about: releasedOnAbout
     url: Url
-    # official_site_url: OfficialSiteUrl
-    # wikipedia_url: WikipediaUrl
     twitter: Twitter
-    # twitter_username: TwitterUsername
-    # twitter_hashtag: TwitterHashtag
     episodes_count: EpisodesCount
     watchers_count: WatchersCount
     no_episodes: Optional[bool] = None
