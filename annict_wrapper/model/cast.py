@@ -27,8 +27,8 @@ class CastId:
 
 
 @dataclasses.dataclass(frozen=True)
-class Name:
-    """ 名前 """
+class NameEn:
+    """ 名前 (英語表記) """
 
     value: str
 
@@ -37,13 +37,15 @@ class Name:
 
 
 @dataclasses.dataclass(frozen=True)
-class NameEn:
-    """ 名前 (英語表記) """
+class Name:
+    """ 名前 """
 
     value: str
+    english: NameEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, NameEn)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -60,7 +62,6 @@ class SortNumber:
 class Cast:
     cast_id: CastId
     name: Name
-    name_en: NameEn
     sort_number: SortNumber
     work: Work
     character: Character
@@ -70,7 +71,7 @@ class Cast:
         return {
             "id": dataclasses.asdict(self.cast_id)["value"],
             "name": dataclasses.asdict(self.name)["value"],
-            "name_en": dataclasses.asdict(self.name_en)["value"],
+            "name_en": dataclasses.asdict(self.name.english)["value"],
             "sort_number": dataclasses.asdict(self.sort_number)["value"],
             "work": to_class(Work, self.work),
             "character": to_class(Character, self.character),
@@ -81,13 +82,15 @@ class Cast:
     def from_dict(cast_dict: dict) -> "Cast":
         assert isinstance(cast_dict, dict)
         return Cast(
-            cast_id=CastId(cast_dict["id"]),
-            name=Name(cast_dict["name"]),
-            name_en=NameEn(cast_dict["name_en"]),
-            sort_number=SortNumber(cast_dict["sort_number"]),
-            work=Work.from_dict(cast_dict["work"]),
-            character=Character.from_dict(cast_dict["character"]),
-            person=People.from_dict(cast_dict["person"]),
+            CastId(cast_dict["id"]),
+            Name(
+                cast_dict["name"],
+                NameEn(cast_dict["name_en"]),
+            ),
+            SortNumber(cast_dict["sort_number"]),
+            Work.from_dict(cast_dict["work"]),
+            Character.from_dict(cast_dict["character"]),
+            People.from_dict(cast_dict["person"]),
         )
 
 
