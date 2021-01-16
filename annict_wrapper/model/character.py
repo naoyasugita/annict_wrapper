@@ -25,16 +25,6 @@ class CharacterId:
 
 
 @dataclasses.dataclass(frozen=True)
-class Name:
-    """ 名前 """
-
-    value: str
-
-    def __post_init__(self) -> None:
-        from_str(self.value)
-
-
-@dataclasses.dataclass(frozen=True)
 class NameKana:
     """ 名前 (かな表記) """
 
@@ -55,16 +45,6 @@ class NameEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class Nickname:
-    """ ニックネーム """
-
-    value: str
-
-    def __post_init__(self) -> None:
-        from_str(self.value)
-
-
-@dataclasses.dataclass(frozen=True)
 class NicknameEn:
     """ ニックネーム (英語表記) """
 
@@ -75,13 +55,30 @@ class NicknameEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class Birthday:
-    """ 誕生日 """
+class Nickname:
+    """ ニックネーム """
 
     value: str
+    english: NicknameEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
+
+@dataclasses.dataclass(frozen=True)
+class Name:
+    """ 名前 """
+
+    value: str
+    kana: NameKana
+    english: NameEn
+    nickname: Nickname
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
+        assert isinstance(self.kana, NameKana)
+        assert isinstance(self.english, NameEn)
+        assert isinstance(self.nickname, Nickname)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -95,13 +92,15 @@ class BirthdayEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class Age:
-    """ 年齢 """
+class Birthday:
+    """ 誕生日 """
 
     value: str
+    english: BirthdayEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, BirthdayEn)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -115,13 +114,15 @@ class AgeEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class BloodType:
-    """ 血液型 """
+class Age:
+    """ 年齢 """
 
     value: str
+    english: AgeEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, AgeEn)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -135,13 +136,15 @@ class BloodTypeEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class Height:
-    """ 身長 """
+class BloodType:
+    """ 血液型 """
 
     value: str
+    english: BloodTypeEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, BloodTypeEn)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -155,13 +158,15 @@ class HeightEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class Weight:
-    """ 体重 """
+class Height:
+    """ 身長 """
 
     value: str
+    english: HeightEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, HeightEn)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -175,13 +180,15 @@ class WeightEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class Nationality:
-    """ 国籍 """
+class Weight:
+    """ 体重 """
 
     value: str
+    english: WeightEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, WeightEn)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -195,13 +202,15 @@ class NationalityEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class Occupation:
-    """ 肩書き """
+class Nationality:
+    """ 国籍 """
 
     value: str
+    english: NationalityEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, NationalityEn)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -215,13 +224,15 @@ class OccupationEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class Description:
-    """ キャラ紹介 """
+class Occupation:
+    """ 肩書き """
 
     value: str
+    english: OccupationEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, OccupationEn)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -235,13 +246,20 @@ class DescriptionEn:
 
 
 @dataclasses.dataclass(frozen=True)
-class DescriptionSource:
-    """ キャラ紹介の引用元 """
+class Description:
+    """ キャラ紹介 """
 
     value: str
+    english: DescriptionEn
 
     def __post_init__(self) -> None:
         from_str(self.value)
+        assert isinstance(self.english, DescriptionEn)
+
+
+# @dataclasses.dataclass(frozen=True)
+# class Profile:
+#     """ キャラクタープロフィール """
 
 
 @dataclasses.dataclass(frozen=True)
@@ -252,6 +270,18 @@ class DescriptionSourceEn:
 
     def __post_init__(self) -> None:
         from_str(self.value)
+
+
+@dataclasses.dataclass(frozen=True)
+class DescriptionSource:
+    """ キャラ紹介の引用元 """
+
+    value: str
+    english: DescriptionSourceEn
+
+    def __post_init__(self) -> None:
+        from_str(self.value)
+        assert isinstance(self.english, DescriptionSourceEn)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -278,28 +308,28 @@ class Kind:
 class Character:
     character_id: CharacterId
     name: Name
-    name_kana: NameKana
-    name_en: NameEn
-    nickname: Nickname
-    nickname_en: NicknameEn
+    # name_kana: NameKana
+    # name_en: NameEn
+    # nickname: Nickname
+    # nickname_en: NicknameEn
     birthday: Birthday
-    birthday_en: BirthdayEn
+    # birthday_en: BirthdayEn
     age: Age
-    age_en: AgeEn
+    # age_en: AgeEn
     blood_type: BloodType
-    blood_type_en: BloodTypeEn
+    # blood_type_en: BloodTypeEn
     height: Height
-    height_en: HeightEn
+    # height_en: HeightEn
     weight: Weight
-    weight_en: WeightEn
+    # weight_en: WeightEn
     nationality: Nationality
-    nationality_en: NationalityEn
+    # nationality_en: NationalityEn
     occupation: Occupation
-    occupation_en: OccupationEn
+    # occupation_en: OccupationEn
     description: Description
-    description_en: DescriptionEn
+    # description_en: DescriptionEn
     description_source: DescriptionSource
-    description_source_en: DescriptionSourceEn
+    # description_source_en: DescriptionSourceEn
     favorite_characters_count: FavoriteCharactersCount
     kind: Optional[Kind] = None
     series: Optional[Series] = None
@@ -308,33 +338,33 @@ class Character:
         return {
             "id": dataclasses.asdict(self.character_id)["value"],
             "name": dataclasses.asdict(self.name)["value"],
-            "name_kana": dataclasses.asdict(self.name_kana)["value"],
-            "name_en": dataclasses.asdict(self.name_en)["value"],
-            "nickname": dataclasses.asdict(self.nickname)["value"],
-            "nickname_en": dataclasses.asdict(self.nickname_en)["value"],
+            "name_kana": dataclasses.asdict(self.name.kana)["value"],
+            "name_en": dataclasses.asdict(self.name.english)["value"],
+            "nickname": dataclasses.asdict(self.name.nickname)["value"],
+            "nickname_en": dataclasses.asdict(self.name.nickname.english)["value"],
             "birthday": dataclasses.asdict(self.birthday)["value"],
-            "birthday_en": dataclasses.asdict(self.birthday_en)["value"],
+            "birthday_en": dataclasses.asdict(self.birthday.english)["value"],
             "age": dataclasses.asdict(self.age)["value"],
-            "age_en": dataclasses.asdict(self.age_en)["value"],
+            "age_en": dataclasses.asdict(self.age.english)["value"],
             "blood_type": dataclasses.asdict(self.blood_type)["value"],
-            "blood_type_en": dataclasses.asdict(self.blood_type_en)["value"],
+            "blood_type_en": dataclasses.asdict(self.blood_type.english)["value"],
             "height": dataclasses.asdict(self.height)["value"],
-            "height_en": dataclasses.asdict(self.height_en)["value"],
+            "height_en": dataclasses.asdict(self.height.english)["value"],
             "weight": dataclasses.asdict(self.weight)["value"],
-            "weight_en": dataclasses.asdict(self.weight_en)["value"],
+            "weight_en": dataclasses.asdict(self.weight.english)["value"],
             "nationality": dataclasses.asdict(self.nationality)["value"],
-            "nationality_en": dataclasses.asdict(self.nationality_en)["value"],
+            "nationality_en": dataclasses.asdict(self.nationality.english)["value"],
             "occupation": dataclasses.asdict(self.occupation)["value"],
-            "occupation_en": dataclasses.asdict(self.occupation_en)["value"],
+            "occupation_en": dataclasses.asdict(self.occupation.english)["value"],
             "description": dataclasses.asdict(self.description)["value"],
-            "description_en": dataclasses.asdict(self.description_en)["value"],
+            "description_en": dataclasses.asdict(self.description.english)["value"],
             "description_source": dataclasses.asdict(self.description_source)["value"],
-            "description_source_en": dataclasses.asdict(self.description_source_en)[
-                "value"
-            ],
-            "description_source_en": dataclasses.asdict(self.description_source_en)[
-                "value"
-            ],
+            "description_source_en": dataclasses.asdict(
+                self.description_source.english
+            )["value"],
+            # "description_source_en": dataclasses.asdict(self.description_source_en)[
+            #     "value"
+            # ],
             "favorite_characters_count": dataclasses.asdict(
                 self.favorite_characters_count
             )["value"],
@@ -350,39 +380,57 @@ class Character:
     def from_dict(character_dict: dict) -> "Character":
         assert isinstance(character_dict, dict)
         return Character(
-            character_id=CharacterId(character_dict["id"]),
-            name=Name(character_dict["name"]),
-            name_kana=NameKana(character_dict["name_kana"]),
-            name_en=NameEn(character_dict["name_en"]),
-            nickname=Nickname(character_dict["nickname"]),
-            nickname_en=NicknameEn(character_dict["nickname_en"]),
-            birthday=Birthday(character_dict["birthday"]),
-            birthday_en=BirthdayEn(character_dict["birthday_en"]),
-            age=Age(character_dict["age"]),
-            age_en=AgeEn(character_dict["age_en"]),
-            blood_type=BloodType(character_dict["blood_type"]),
-            blood_type_en=BloodTypeEn(character_dict["blood_type_en"]),
-            height=Height(character_dict["height"]),
-            height_en=HeightEn(character_dict["height_en"]),
-            weight=Weight(character_dict["weight"]),
-            weight_en=WeightEn(character_dict["weight_en"]),
-            nationality=Nationality(character_dict["nationality"]),
-            nationality_en=NationalityEn(character_dict["nationality_en"]),
-            occupation=Occupation(character_dict["occupation"]),
-            occupation_en=OccupationEn(character_dict["occupation_en"]),
-            description=Description(character_dict["description"]),
-            description_en=DescriptionEn(character_dict["description_en"]),
-            description_source=DescriptionSource(character_dict["description_source"]),
-            description_source_en=DescriptionSourceEn(
-                character_dict["description_source_en"]
+            CharacterId(character_dict["id"]),
+            Name(
+                character_dict["name"],
+                NameKana(character_dict["name_kana"]),
+                NameEn(character_dict["name_en"]),
+                Nickname(
+                    character_dict["nickname"],
+                    NicknameEn(character_dict["nickname_en"]),
+                ),
             ),
-            favorite_characters_count=FavoriteCharactersCount(
-                character_dict["favorite_characters_count"]
+            Birthday(
+                character_dict["birthday"],
+                BirthdayEn(character_dict["birthday_en"]),
             ),
-            kind=Kind(character_dict["kind"])
+            Age(
+                character_dict["age"],
+                AgeEn(character_dict["age_en"]),
+            ),
+            BloodType(
+                character_dict["blood_type"],
+                BloodTypeEn(character_dict["blood_type_en"]),
+            ),
+            Height(
+                character_dict["height"],
+                HeightEn(character_dict["height_en"]),
+            ),
+            Weight(
+                character_dict["weight"],
+                WeightEn(character_dict["weight_en"]),
+            ),
+            Nationality(
+                character_dict["nationality"],
+                NationalityEn(character_dict["nationality_en"]),
+            ),
+            Occupation(
+                character_dict["occupation"],
+                OccupationEn(character_dict["occupation_en"]),
+            ),
+            Description(
+                character_dict["description"],
+                DescriptionEn(character_dict["description_en"]),
+            ),
+            DescriptionSource(
+                character_dict["description_source"],
+                DescriptionSourceEn(character_dict["description_source_en"]),
+            ),
+            FavoriteCharactersCount(character_dict["favorite_characters_count"]),
+            Kind(character_dict["kind"])
             if character_dict.get("kind") is not None
             else None,
-            series=Series.from_dict(character_dict["series"])
+            Series.from_dict(character_dict["series"])
             if character_dict.get("series") is not None
             else None,
         )
