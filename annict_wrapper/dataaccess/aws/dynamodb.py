@@ -19,8 +19,8 @@ class DynamoDBClient:
 
     def batch_weiter(self, items: List[dict]) -> None:
         with dynamo_table.batch_writer() as batch:
-        for item in items:
-            batch.put_item(Item=item)
+            for item in items:
+                batch.put_item(Item=item)
 
     def delete_item(self, key_name: str, key_value: str) -> None:
         self.table.delete_item(Key={key_name: key_value})
@@ -34,7 +34,7 @@ class DynamoDBClient:
         elif isinstance(obj, Binary):
             return obj.value
         elif isinstance(obj, bytes):
-            return obj.decode(encoding='default')
+            return obj.decode(encoding="default")
         elif isinstance(obj, set):
             return list(obj)
         try:
