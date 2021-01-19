@@ -13,6 +13,7 @@ from typing import Union
 from typing import cast
 
 import dateutil.parser
+
 # 循環インポートでエラーになる！？
 # from annict_wrapper.utils import from_bool
 # from annict_wrapper.utils import from_datetime
