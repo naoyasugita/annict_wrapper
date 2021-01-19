@@ -13,7 +13,6 @@ from typing import Union
 from typing import cast
 
 import dateutil.parser
-
 # 循環インポートでエラーになる！？
 # from annict_wrapper.utils import from_bool
 # from annict_wrapper.utils import from_datetime
@@ -469,6 +468,63 @@ class WatchersCount:
         from_int(self.value)
 
 
+@dataclasses.dataclass(frozen=True)
+class ReleaseYear:
+    """ 放送された年 """
+
+    value: int
+
+    def __post_init__(self) -> None:
+        from_int(self.value)
+
+
+@dataclasses.dataclass(frozen=True)
+class ReleaseCool:
+    """ 放送されたクール """
+
+    value: str
+
+    def __post_init__(self) -> None:
+        assert self.value in Cool.__members__
+
+
+@dataclasses.dataclass(frozen=True)
+class Release:
+    """ リリース時期 """
+
+    year: ReleaseYear
+    cool: ReleaseCool
+
+    def __post_init__(self) -> None:
+        assert isinstance(self.year, ReleaseYear)
+        assert isinstance(self.cool, ReleaseCool)
+
+    def to_dict(self) -> dict:
+        return {
+            "year": self.year.value,
+            "cool": self.cool.value,
+        }
+
+    @staticmethod
+    def from_dict(release_dict: dict) -> "Release":
+        year, cool = Release.parse_season_dict(release_dict)
+        return Release(
+            ReleaseYear(year),
+            ReleaseCool(cool),
+        )
+
+    @staticmethod
+    def parse_season_dict(release_dict: dict) -> Tuple[int, str]:
+        year, cool = release_dict.split("-")
+        return (int(year), cool)
+
+    def to_year(self) -> int:
+        return self.year.value
+
+    def to_cool(self) -> str:
+        return self.cool.value
+
+
 @dataclasses.dataclass
 class Work:
     word_id: WorkId
@@ -480,6 +536,7 @@ class Work:
     twitter: Twitter
     episodes_count: EpisodesCount
     watchers_count: WatchersCount
+    # release: Release
     no_episodes: Optional[bool] = None
     reviews_count: Optional[int] = None
     syobocal_tid: Optional[SyobocalTitleId] = None
@@ -503,6 +560,7 @@ class Work:
             "twitter_hashtag": dataclasses.asdict(self.twitter.hashtag)["value"],
             "episodes_count": dataclasses.asdict(self.episodes_count)["value"],
             "watchers_count": dataclasses.asdict(self.watchers_count)["value"],
+            # "release": to_class(Release, self.release),
             "no_episodes": self.no_episodes if self.no_episodes is not None else None,
             "reviews_count": self.reviews_count
             if self.reviews_count is not None
@@ -550,6 +608,9 @@ class Work:
             ),
             EpisodesCount(work_dict["episodes_count"]),
             WatchersCount(work_dict["watchers_count"]),
+            # Release.from_dict(work_dict["season_name"])
+            # if work_dict.get("season_name") is not None
+            # else None,
             work_dict["no_episodes"]
             if work_dict.get("no_episodes") is not None
             else None,
