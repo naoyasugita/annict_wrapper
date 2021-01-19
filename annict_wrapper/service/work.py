@@ -6,6 +6,7 @@ from annict_wrapper.model.work import Works
 from annict_wrapper.request import ApiRequests
 from annict_wrapper.request_filter import WorkRequestParams
 from annict_wrapper.utils import create_season_by_year_and_cool
+from tqdm import tqdm
 
 
 @dataclasses.dataclass
@@ -36,7 +37,7 @@ class WorkService:
     def find_work_info_by_season(self, year: int, cool: Cool) -> Works:
         # TODO データ永続化処理で使用する
         works = Works()
-        per_page = 10  # limit_count
+        per_page = 50  # limit_count
         page = 1  # init_page
         filter_season = create_season_by_year_and_cool(year, cool)
         while page is not None:
@@ -45,6 +46,6 @@ class WorkService:
             ).to_dict()
             res = self.api.works(params=params)
             page = res["next_page"]
-            for work in res["works"]:
+            for work in tqdm(res["works"]):
                 works.append(Work.from_dict(work))
         return works
