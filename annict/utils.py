@@ -6,7 +6,7 @@ from typing import cast
 
 import dateutil.parser
 
-from annict_wrapper.model.work import Cool
+from annict.model.work import Cool
 
 
 def delete_none_for_dict(dic: dict):

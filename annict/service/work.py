@@ -1,11 +1,11 @@
 import dataclasses
 
-from annict_wrapper.model.work import Cool
-from annict_wrapper.model.work import Work
-from annict_wrapper.model.work import Works
-from annict_wrapper.request import ApiRequests
-from annict_wrapper.request_filter import WorkRequestParams
-from annict_wrapper.utils import create_season_by_year_and_cool
+from annict.model.work import Cool
+from annict.model.work import Work
+from annict.model.work import Works
+from annict.request import ApiRequests
+from annict.request_filter import WorkRequestParams
+from annict.utils import create_season_by_year_and_cool
 from tqdm import tqdm
 
 

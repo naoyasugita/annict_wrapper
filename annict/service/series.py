@@ -1,8 +1,8 @@
 import dataclasses
 
-from annict_wrapper.model.series import Series
-from annict_wrapper.request import ApiRequests
-from annict_wrapper.request_filter import SeriesRequestParams
+from annict.model.series import Series
+from annict.request import ApiRequests
+from annict.request_filter import SeriesRequestParams
 
 
 @dataclasses.dataclass

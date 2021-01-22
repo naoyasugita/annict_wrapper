@@ -1,6 +1,6 @@
 import dataclasses
 
-from annict_wrapper.utils import check_date_format
+from annict.utils import check_date_format
 
 
 @dataclasses.dataclass

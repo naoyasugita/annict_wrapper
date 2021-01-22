@@ -1,8 +1,8 @@
 import dataclasses
 from typing import Optional
 
-from annict_wrapper.model.started_at import StartedAt
-from annict_wrapper.utils import delete_none_for_dict
+from annict.model.started_at import StartedAt
+from annict.utils import delete_none_for_dict
 
 
 @dataclasses.dataclass

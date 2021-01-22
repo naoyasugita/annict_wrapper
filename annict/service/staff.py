@@ -1,9 +1,9 @@
 import dataclasses
 
-from annict_wrapper.model.staff import Staff
-from annict_wrapper.model.staff import Staffs
-from annict_wrapper.request import ApiRequests
-from annict_wrapper.request_filter import StaffRequestParams
+from annict.model.staff import Staff
+from annict.model.staff import Staffs
+from annict.request import ApiRequests
+from annict.request_filter import StaffRequestParams
 
 
 @dataclasses.dataclass

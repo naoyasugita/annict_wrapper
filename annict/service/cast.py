@@ -1,9 +1,9 @@
 import dataclasses
 
-from annict_wrapper.model.cast import Cast
-from annict_wrapper.model.cast import Casts
-from annict_wrapper.request import ApiRequests
-from annict_wrapper.request_filter import CastRequestParams
+from annict.model.cast import Cast
+from annict.model.cast import Casts
+from annict.request import ApiRequests
+from annict.request_filter import CastRequestParams
 
 
 @dataclasses.dataclass

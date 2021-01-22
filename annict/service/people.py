@@ -1,9 +1,9 @@
 import dataclasses
 
-from annict_wrapper.model.people import People
-from annict_wrapper.model.people import Peoples
-from annict_wrapper.request import ApiRequests
-from annict_wrapper.request_filter import PeopleRequestParams
+from annict.model.people import People
+from annict.model.people import Peoples
+from annict.request import ApiRequests
+from annict.request_filter import PeopleRequestParams
 
 
 @dataclasses.dataclass

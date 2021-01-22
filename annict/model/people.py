@@ -4,11 +4,11 @@ from typing import List
 from typing import Optional
 from typing import Union
 
-from annict_wrapper.utils import from_bool
-from annict_wrapper.utils import from_datetime
-from annict_wrapper.utils import from_int
-from annict_wrapper.utils import from_str
-from annict_wrapper.utils import to_class
+from annict.utils import from_bool
+from annict.utils import from_datetime
+from annict.utils import from_int
+from annict.utils import from_str
+from annict.utils import to_class
 from dacite.config import Config
 from dacite.core import from_dict
 
