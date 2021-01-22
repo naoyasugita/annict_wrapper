@@ -2,9 +2,9 @@ from datetime import datetime
 
 import pytest
 from annict.model.series import Series
-from annict.model.work import Cool
+from annict.model.work import Cours
 from annict.utils import check_date_format
-from annict.utils import create_season_by_year_and_cool
+from annict.utils import create_season_by_year_and_cours
 from annict.utils import delete_none_for_dict
 from annict.utils import from_bool
 from annict.utils import from_datetime
@@ -48,13 +48,13 @@ class TestDeleteNoneForDict:
         assert actual == expected
 
 
-class TestCreateSeasonByYearAndCool:
-    def test_create_season_by_year_and_cool(self):
+class TestCreateSeasonByYearAndCours:
+    def test_create_season_by_year_and_cours(self):
         year = 2020
-        cool = Cool["spring"]
-        expected = create_season_by_year_and_cool(year, cool)
+        cours = Cours["spring"]
+        expected = create_season_by_year_and_cours(year, cours)
 
-        actual = str(year) + "-" + cool.name
+        actual = str(year) + "-" + cours.name
 
         assert actual == expected
 

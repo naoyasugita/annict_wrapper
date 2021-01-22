@@ -11,17 +11,17 @@ inputs:
       AttributeType: N
     - AttributeName: release_year
       AttributeType: N
-    - AttributeName: release_cool
+    - AttributeName: release_cours
       AttributeType: S
   keySchema:
     - AttributeName: id
       KeyType: HASH
   globalSecondaryIndexes:
-    - IndexName: 'ReleaseYear-ReleaseCool-Index'
+    - IndexName: 'ReleaseYear-ReleaseCours-Index'
       KeySchema:
         - AttributeName: release_year
           KeyType: HASH
-        - AttributeName: release_cool
+        - AttributeName: release_cours
           KeyType: RANGE
       Projection:
         ProjectionType: 'ALL'

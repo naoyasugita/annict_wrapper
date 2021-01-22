@@ -1,5 +1,5 @@
 import pytest
-from annict.model.work import Cool
+from annict.model.work import Cours
 from annict.model.work import Work
 from annict.model.work import Works
 
@@ -21,11 +21,11 @@ class TestWorkModel:
 
         assert actual == excepted
 
-    def test_get_cool(self, fixture_work):
+    def test_get_cours(self, fixture_work):
         release_year, season = fixture_work["work"].season_name.value.split("-")
-        actual = (int(release_year), Cool[season])
+        actual = (int(release_year), Cours[season])
 
-        excepted = fixture_work["work"].get_cool()
+        excepted = fixture_work["work"].get_cours()
 
         assert actual == excepted
 

@@ -13,7 +13,6 @@ from typing import Union
 from typing import cast
 
 import dateutil.parser
-
 # 循環インポートでエラーになる！？
 # from annict.utils import from_bool
 # from annict.utils import from_datetime
@@ -24,7 +23,7 @@ from dacite.config import Config
 from dacite.core import from_dict
 
 
-class Cool(Enum):
+class Cours(Enum):
     spring = auto()
     summer = auto()
     autumn = auto()
@@ -99,10 +98,10 @@ class SeasonName:
     def __post_init__(self) -> None:
         from_str(self.value)
 
-    def get_cool(self) -> Tuple[int, Cool]:
+    def get_cours(self) -> Tuple[int, Cours]:
         try:
             release_year = int(self.value.split("-")[0])
-            season = Cool[self.value.split("-")[1]]
+            season = Cours[self.value.split("-")[1]]
             return (release_year, season)
         except Exception as e:
             raise e
@@ -480,13 +479,13 @@ class ReleaseYear:
 
 
 @dataclasses.dataclass(frozen=True)
-class ReleaseCool:
+class ReleaseCours:
     """ 放送されたクール """
 
     value: str
 
     def __post_init__(self) -> None:
-        assert self.value in Cool.__members__
+        assert self.value in Cours.__members__
 
 
 @dataclasses.dataclass(frozen=True)
@@ -494,36 +493,36 @@ class Release:
     """ リリース時期 """
 
     year: ReleaseYear
-    cool: ReleaseCool
+    cours: ReleaseCours
 
     def __post_init__(self) -> None:
         assert isinstance(self.year, ReleaseYear)
-        assert isinstance(self.cool, ReleaseCool)
+        assert isinstance(self.cours, ReleaseCours)
 
     def to_dict(self) -> dict:
         return {
             "year": self.year.value,
-            "cool": self.cool.value,
+            "cours": self.cours.value,
         }
 
     @staticmethod
     def from_dict(release_dict: dict) -> "Release":
-        year, cool = Release.parse_season_dict(release_dict)
+        year, cours = Release.parse_season_dict(release_dict)
         return Release(
             ReleaseYear(year),
-            ReleaseCool(cool),
+            ReleaseCours(cours),
         )
 
     @staticmethod
     def parse_season_dict(release_dict: dict) -> Tuple[int, str]:
-        year, cool = release_dict.split("-")
-        return (int(year), cool)
+        year, cours = release_dict.split("-")
+        return (int(year), cours)
 
     def to_year(self) -> int:
         return self.year.value
 
-    def to_cool(self) -> str:
-        return self.cool.value
+    def to_cours(self) -> str:
+        return self.cours.value
 
 
 @dataclasses.dataclass
@@ -641,8 +640,8 @@ class Work:
             ),
         )
 
-    def get_cool(self) -> Tuple[int, Cool]:
-        return self.season_name.get_cool()
+    def get_cours(self) -> Tuple[int, Cours]:
+        return self.season_name.get_cours()
 
 
 @dataclasses.dataclass

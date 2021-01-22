@@ -6,7 +6,7 @@ from typing import cast
 
 import dateutil.parser
 
-from annict.model.work import Cool
+from annict.model.work import Cours
 
 
 def delete_none_for_dict(dic: dict):
@@ -17,8 +17,8 @@ def delete_none_for_dict(dic: dict):
     return new_dic
 
 
-def create_season_by_year_and_cool(year: int, cool: Cool) -> str:
-    return str(year) + "-" + cool.name
+def create_season_by_year_and_cours(year: int, cours: Cours) -> str:
+    return str(year) + "-" + cours.name
 
 
 def check_date_format(d: str) -> bool:
