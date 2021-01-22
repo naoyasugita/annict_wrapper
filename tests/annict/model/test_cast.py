@@ -1,6 +1,6 @@
 import pytest
-from annict_wrapper.model.cast import Cast
-from annict_wrapper.model.cast import Casts
+from annict.model.cast import Cast
+from annict.model.cast import Casts
 
 
 class TestCastModel:

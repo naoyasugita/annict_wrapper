@@ -1,14 +1,14 @@
 import pytest
 
-from annict_wrapper.request_filter import CastRequestParams
-from annict_wrapper.request_filter import CharacterRequestParams
-from annict_wrapper.request_filter import EpisodeRequestParams
-from annict_wrapper.request_filter import OrganizationRequestParams
-from annict_wrapper.request_filter import PeopleRequestParams
-from annict_wrapper.request_filter import ProgramRequestParams
-from annict_wrapper.request_filter import SeriesRequestParams
-from annict_wrapper.request_filter import StaffRequestParams
-from annict_wrapper.request_filter import WorkRequestParams
+from annict.request_filter import CastRequestParams
+from annict.request_filter import CharacterRequestParams
+from annict.request_filter import EpisodeRequestParams
+from annict.request_filter import OrganizationRequestParams
+from annict.request_filter import PeopleRequestParams
+from annict.request_filter import ProgramRequestParams
+from annict.request_filter import SeriesRequestParams
+from annict.request_filter import StaffRequestParams
+from annict.request_filter import WorkRequestParams
 
 
 class TestCharacterRequestParams:

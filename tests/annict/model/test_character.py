@@ -1,6 +1,6 @@
 import pytest
-from annict_wrapper.model.character import Character
-from annict_wrapper.model.character import Characters
+from annict.model.character import Character
+from annict.model.character import Characters
 
 
 class TestCharacterModel:

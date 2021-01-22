@@ -1,17 +1,17 @@
 from datetime import datetime
 
 import pytest
-from annict_wrapper.model.series import Series
-from annict_wrapper.model.work import Cool
-from annict_wrapper.utils import check_date_format
-from annict_wrapper.utils import create_season_by_year_and_cool
-from annict_wrapper.utils import delete_none_for_dict
-from annict_wrapper.utils import from_bool
-from annict_wrapper.utils import from_datetime
-from annict_wrapper.utils import from_int
-from annict_wrapper.utils import from_none
-from annict_wrapper.utils import from_str
-from annict_wrapper.utils import to_class
+from annict.model.series import Series
+from annict.model.work import Cool
+from annict.utils import check_date_format
+from annict.utils import create_season_by_year_and_cool
+from annict.utils import delete_none_for_dict
+from annict.utils import from_bool
+from annict.utils import from_datetime
+from annict.utils import from_int
+from annict.utils import from_none
+from annict.utils import from_str
+from annict.utils import to_class
 
 
 class TestDeleteNoneForDict:

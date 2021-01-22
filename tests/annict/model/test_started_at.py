@@ -1,6 +1,6 @@
 import pytest
 
-from annict_wrapper.model.started_at import StartedAt
+from annict.model.started_at import StartedAt
 
 
 class TestStartedAt:

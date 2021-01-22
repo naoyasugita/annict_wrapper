@@ -1,6 +1,6 @@
 import pytest
-from annict_wrapper.model.organization import Organization
-from annict_wrapper.model.organization import Organizations
+from annict.model.organization import Organization
+from annict.model.organization import Organizations
 
 
 class TestOrganizationModel:

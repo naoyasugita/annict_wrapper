@@ -1,6 +1,6 @@
 import pytest
-from annict_wrapper.model.people import People
-from annict_wrapper.model.people import Peoples
+from annict.model.people import People
+from annict.model.people import Peoples
 
 
 class TestPeopleModel:

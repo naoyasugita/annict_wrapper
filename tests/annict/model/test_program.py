@@ -1,6 +1,6 @@
 import pytest
-from annict_wrapper.model.program import Program
-from annict_wrapper.model.program import Programs
+from annict.model.program import Program
+from annict.model.program import Programs
 
 
 class TestProgramModel:

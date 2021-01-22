@@ -1,4 +1,4 @@
-from annict_wrapper.model.series import Series
+from annict.model.series import Series
 
 
 class TestSeriesModel:

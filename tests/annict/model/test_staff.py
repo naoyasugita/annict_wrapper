@@ -1,6 +1,6 @@
 import pytest
-from annict_wrapper.model.staff import Staff
-from annict_wrapper.model.staff import Staffs
+from annict.model.staff import Staff
+from annict.model.staff import Staffs
 
 
 class TestStaffModel:

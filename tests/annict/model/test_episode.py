@@ -1,6 +1,6 @@
-from annict_wrapper.model.episode import Episode
-from annict_wrapper.model.episode import NextEpisode
-from annict_wrapper.model.episode import PrevEpisode
+from annict.model.episode import Episode
+from annict.model.episode import NextEpisode
+from annict.model.episode import PrevEpisode
 
 
 class TestPrevEpisodeModel:

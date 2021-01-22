@@ -1,7 +1,7 @@
 import pytest
-from annict_wrapper.model.work import Cool
-from annict_wrapper.model.work import Work
-from annict_wrapper.model.work import Works
+from annict.model.work import Cool
+from annict.model.work import Work
+from annict.model.work import Works
 
 
 class TestWorkModel:

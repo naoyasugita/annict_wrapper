@@ -1,16 +1,16 @@
 import pytest
-from annict_wrapper.model.cast import Cast
-from annict_wrapper.model.character import Character
-from annict_wrapper.model.episode import Episode
-from annict_wrapper.model.episode import NextEpisode
-from annict_wrapper.model.episode import PrevEpisode
-from annict_wrapper.model.organization import Organization
-from annict_wrapper.model.people import People
-from annict_wrapper.model.program import Program
-from annict_wrapper.model.series import Series
-from annict_wrapper.model.staff import Staff
-from annict_wrapper.model.work import Work
-from annict_wrapper.model.work import WorkId
+from annict.model.cast import Cast
+from annict.model.character import Character
+from annict.model.episode import Episode
+from annict.model.episode import NextEpisode
+from annict.model.episode import PrevEpisode
+from annict.model.organization import Organization
+from annict.model.people import People
+from annict.model.program import Program
+from annict.model.series import Series
+from annict.model.staff import Staff
+from annict.model.work import Work
+from annict.model.work import WorkId
 
 
 @pytest.fixture
