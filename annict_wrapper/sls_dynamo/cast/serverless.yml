@@ -1,0 +1,32 @@
+app: annict
+name: cast
+component: aws-dynamodb
+stage: dev
+
+inputs:
+  name: ${stage}-${app}-${name}
+  deletionPolicy: delete # allows table to be removed. This property is a safe guard.
+  attributeDefinitions:
+    - AttributeName: id
+      AttributeType: N
+    # - AttributeName: release_year
+    #   AttributeType: N
+    # - AttributeName: release_cool
+    #   AttributeType: S
+  keySchema:
+    - AttributeName: id
+      KeyType: HASH
+  # globalSecondaryIndexes:
+  #   - IndexName: 'ReleaseYear-ReleaseCool-Index'
+  #     KeySchema:
+  #       - AttributeName: release_year
+  #         KeyType: HASH
+  #       - AttributeName: release_cool
+  #         KeyType: RANGE
+  #     Projection:
+  #       ProjectionType: 'ALL'
+  region: ap-northeast-1
+  BillingMode: PAY_PER_REQUEST
+  # ProvisionedThroughput:
+  #   ReadCapacityUnits: 5
+  #   WriteCapacityUnits: 5
