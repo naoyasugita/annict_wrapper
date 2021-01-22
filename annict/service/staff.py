@@ -2,13 +2,13 @@ import dataclasses
 
 from annict.model.staff import Staff
 from annict.model.staff import Staffs
-from annict.request import ApiRequests
+from annict.request import AnnictApiClient
 from annict.request_filter import StaffRequestParams
 
 
 @dataclasses.dataclass
 class StaffService:
-    api: ApiRequests
+    api: AnnictApiClient
 
     def find_staff_info(self, staff_id: int) -> Staff:
         params = StaffRequestParams(filter_ids=staff_id).to_dict()

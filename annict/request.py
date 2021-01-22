@@ -3,7 +3,7 @@ import os
 import requests
 
 
-class ApiRequests:
+class AnnictApiClient:
     base_url = "https://api.annict.com/v1/"
     access_token = os.environ["ACCESS_TOKEN"]
 

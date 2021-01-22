@@ -2,13 +2,13 @@ import dataclasses
 
 from annict.model.people import People
 from annict.model.people import Peoples
-from annict.request import ApiRequests
+from annict.request import AnnictApiClient
 from annict.request_filter import PeopleRequestParams
 
 
 @dataclasses.dataclass
 class PeopleService:
-    api: ApiRequests
+    api: AnnictApiClient
 
     def find_people_info(self, people_id: int) -> People:
         params = PeopleRequestParams(filter_ids=people_id).to_dict()

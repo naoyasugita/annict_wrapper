@@ -1,13 +1,13 @@
 import dataclasses
 
 from annict.model.episode import Episode
-from annict.request import ApiRequests
+from annict.request import AnnictApiClient
 from annict.request_filter import EpisodeRequestParams
 
 
 @dataclasses.dataclass
 class EpisodeService:
-    api: ApiRequests
+    api: AnnictApiClient
 
     def find_episode_info(self, episode_id: int) -> Episode:
         params = EpisodeRequestParams(filter_ids=episode_id).to_dict()

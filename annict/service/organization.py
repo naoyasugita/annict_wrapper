@@ -2,13 +2,13 @@ import dataclasses
 
 from annict.model.organization import Organization
 from annict.model.organization import Organizations
-from annict.request import ApiRequests
+from annict.request import AnnictApiClient
 from annict.request_filter import OrganizationRequestParams
 
 
 @dataclasses.dataclass
 class OrganizationService:
-    api: ApiRequests
+    api: AnnictApiClient
 
     def find_organization_info(self, organization_id: int) -> Organization:
         params = OrganizationRequestParams(filter_ids=organization_id).to_dict()

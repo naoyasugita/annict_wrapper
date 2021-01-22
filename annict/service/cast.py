@@ -2,13 +2,13 @@ import dataclasses
 
 from annict.model.cast import Cast
 from annict.model.cast import Casts
-from annict.request import ApiRequests
+from annict.request import AnnictApiClient
 from annict.request_filter import CastRequestParams
 
 
 @dataclasses.dataclass
 class CastService:
-    api: ApiRequests
+    api: AnnictApiClient
 
     def find_cast_info(self, cast_id: int) -> Cast:
         params = CastRequestParams(filter_ids=cast_id).to_dict()

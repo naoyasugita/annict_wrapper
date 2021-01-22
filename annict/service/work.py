@@ -3,7 +3,7 @@ import dataclasses
 from annict.model.work import Cool
 from annict.model.work import Work
 from annict.model.work import Works
-from annict.request import ApiRequests
+from annict.request import AnnictApiClient
 from annict.request_filter import WorkRequestParams
 from annict.utils import create_season_by_year_and_cool
 from tqdm import tqdm
@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 @dataclasses.dataclass
 class WorkService:
-    api: ApiRequests
+    api: AnnictApiClient
 
     def find_work_info(self, work_id: int) -> Work:
         params = WorkRequestParams(filter_ids=work_id).to_dict()

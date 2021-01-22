@@ -2,13 +2,13 @@ import dataclasses
 
 from annict.model.program import Program
 from annict.model.program import Programs
-from annict.request import ApiRequests
+from annict.request import AnnictApiClient
 from annict.request_filter import ProgramRequestParams
 
 
 @dataclasses.dataclass
 class ProgramService:
-    api: ApiRequests
+    api: AnnictApiClient
 
     def find_program_info(self, program_id: int) -> Program:
         params = ProgramRequestParams(filter_ids=program_id).to_dict()

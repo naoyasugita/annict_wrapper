@@ -2,13 +2,13 @@ import dataclasses
 
 from annict.model.character import Character
 from annict.model.character import Characters
-from annict.request import ApiRequests
+from annict.request import AnnictApiClient
 from annict.request_filter import CharacterRequestParams
 
 
 @dataclasses.dataclass
 class CharacterService:
-    api: ApiRequests
+    api: AnnictApiClient
 
     def find_character_info(self, character_id: int) -> Character:
         params = CharacterRequestParams(filter_ids=character_id).to_dict()
