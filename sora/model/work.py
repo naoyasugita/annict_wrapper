@@ -98,9 +98,9 @@ class Title:
         assert isinstance(title_dict, dict)
         return Title(
             TitleName(title_dict.get("name")),
-            TitleShortOne(title_dict.get("short_one", None)),
-            TitleShortTwo(title_dict.get("short_two", None)),
-            TitleShortThree(title_dict.get("short_three", None)),
+            TitleShortOne(title_dict.get("title_short1", None)),
+            TitleShortTwo(title_dict.get("title_short2", None)),
+            TitleShortThree(title_dict.get("title_short3", None)),
         )
 
 
@@ -152,11 +152,11 @@ class Twitter:
         }
 
     @staticmethod
-    def from_dict(title_dict: dict) -> "Twitter":
-        assert isinstance(title_dict, dict)
+    def from_dict(twitter_dict: dict) -> "Twitter":
+        assert isinstance(twitter_dict, dict)
         return Twitter(
-            TwitterAccount(title_dict.get("account")),
-            TwitterHashTag(title_dict.get("hash_tag")),
+            TwitterAccount(twitter_dict.get("account")),
+            TwitterHashTag(twitter_dict.get("hash_tag")),
         )
 
 
@@ -170,7 +170,7 @@ class CoursId:
         from_int(self.value)
 
 
-@dataclasses.dataclass(frozen=True)
+@dataclasses.dataclass()
 class CreatedAt:
     """ データの作成日時 """
 
@@ -178,10 +178,10 @@ class CreatedAt:
     value: datetime
 
     def __post_init__(self) -> None:
-        from_datetime(self.value)
+        self.value = from_datetime(self.value)
 
 
-@dataclasses.dataclass(frozen=True)
+@dataclasses.dataclass()
 class UpdatedAt:
     """ データの更新日時 """
 
@@ -189,7 +189,7 @@ class UpdatedAt:
     value: datetime
 
     def __post_init__(self) -> None:
-        from_datetime(self.value)
+        self.value = from_datetime(self.value)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -262,11 +262,11 @@ class City:
         }
 
     @staticmethod
-    def from_dict(title_dict: dict) -> "City":
-        assert isinstance(title_dict, dict)
+    def from_dict(city_dict: dict) -> "City":
+        assert isinstance(city_dict, dict)
         return City(
-            CityCode(title_dict.get("code", None)),
-            CityName(title_dict.get("name", None)),
+            CityCode(city_dict.get("city_code", None)),
+            CityName(city_dict.get("city_name", None)),
         )
 
 
@@ -283,7 +283,7 @@ class ProductCompanies:
             from_none(self.value)
 
 
-@dataclass
+@dataclasses.dataclass(frozen=True)
 class Work:
     work_id: WorkId
     title: Title
@@ -295,7 +295,22 @@ class Work:
     sex: Sex
     sequel: Sequel
     city: City
-    product_companies: ProductCompanies
+    product_companies: Optional[ProductCompanies] = None
+
+    def to_dict(self) -> dict:
+        return {
+            "id": dataclasses.asdict(self.work_id)["value"],
+            "title": to_class(Title, self.title),
+            "public_url": dataclasses.asdict(self.public_url)["value"],
+            "twitter": to_class(Twitter, self.twitter),
+            "cours_id": dataclasses.asdict(self.cours_id)["value"],
+            "created_at": dataclasses.asdict(self.created_at)["value"].isoformat(),
+            "updated_at": dataclasses.asdict(self.updated_at)["value"].isoformat(),
+            "sex": dataclasses.asdict(self.sex)["value"],
+            "sequel": dataclasses.asdict(self.sequel)["value"],
+            "city": to_class(City, self.city),
+            "product_companies": dataclasses.asdict(self.product_companies)["value"],
+        }
 
     @staticmethod
     def from_dict(work_dict: dict) -> "Work":
@@ -303,7 +318,7 @@ class Work:
         return Work(
             WorkId(work_dict.get("id")),
             Title(
-                work_dict.get("title"),
+                TitleName(work_dict.get("title")),
                 TitleShortOne(work_dict.get("title_short1", None)),
                 TitleShortTwo(work_dict.get("title_short2", None)),
                 TitleShortThree(work_dict.get("title_short3", None)),
@@ -319,7 +334,7 @@ class Work:
             CreatedAt(work_dict.get("created_at")),
             UpdatedAt(work_dict.get("updated_at")),
             Sex(work_dict.get("sex", None)),
-            Sequel(work_dict.get("sequel"), None),
+            Sequel(work_dict.get("sequel", None)),
             City(
                 CityCode(work_dict.get("city_code", None)),
                 CityName(work_dict.get("city_name", None)),
