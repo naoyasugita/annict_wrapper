@@ -1,6 +1,7 @@
 import dataclasses
 from datetime import datetime
 from typing import Any
+from typing import List
 from typing import Optional
 
 import dateutil.parser
@@ -342,17 +343,16 @@ class Work:
             ProductCompanies(work_dict.get("product_companies", None)),
         )
 
-    def to_dict(self) -> dict:
-        return {
-            "id": dataclasses.asdict(self.word_id)["value"],
-            "title": to_class(Title, self.title),
-            "public_url": dataclasses.asdict(self.public_url)["value"],
-            "twitter": to_class(Twitter, self.twitter),
-            "cours_id": dataclasses.asdict(self.cours_id)["value"],
-            "created_at": dataclasses.asdict(self.created_at)["value"].isoformat(),
-            "updated_at": dataclasses.asdict(self.updated_at)["value"].isoformat(),
-            "sex": dataclasses.asdict(self.sex)["value"],
-            "sequel": dataclasses.asdict(self.sequel)["value"],
-            "city": to_class(City, self.city),
-            "product_companies": dataclasses.asdict(self.product_companies)["value"],
-        }
+
+@dataclasses.dataclass
+class Works:
+    _list: List[Work] = dataclasses.field(default_factory=list)
+
+    def append(self, work: Work) -> None:
+        if isinstance(work, Work):
+            self._list.append(work)
+        else:
+            raise TypeError("data is not work")
+
+    def to_dict(self) -> list:
+        return [work.to_dict() for work in self._list]
