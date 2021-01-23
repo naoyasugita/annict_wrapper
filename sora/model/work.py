@@ -175,7 +175,6 @@ class CoursId:
 class CreatedAt:
     """ データの作成日時 """
 
-    # value: str
     value: datetime
 
     def __post_init__(self) -> None:
@@ -186,7 +185,6 @@ class CreatedAt:
 class UpdatedAt:
     """ データの更新日時 """
 
-    # value: str
     value: datetime
 
     def __post_init__(self) -> None:
