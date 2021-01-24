@@ -24,10 +24,10 @@ from dacite.core import from_dict
 
 
 class Cours(Enum):
+    winter = auto()
     spring = auto()
     summer = auto()
     autumn = auto()
-    winter = auto()
     all = auto()
 
 
