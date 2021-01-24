@@ -194,7 +194,7 @@ def fixture_work():
         "season_name_text": "2018年冬",
     }
 
-    work = Work.from_dict(work_dict = work_dict)
+    work = Work.from_dict(work_dict=work_dict)
     yield {"work": work, "work_dict": work_dict}
 
 
@@ -233,7 +233,7 @@ def fixture_work_movie():
         "season_name_text": "2018年冬",
     }
 
-    work = Work.from_dict(work_dict = work_dict)
+    work = Work.from_dict(work_dict=work_dict)
     yield {"work": work, "work_dict": work_dict}
 
 

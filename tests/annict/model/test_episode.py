@@ -20,6 +20,7 @@ class TestPrevEpisodeModel:
 
         assert actual == excepted
 
+
 class TestNextEpisodeModel:
     def test_to_dict(self, fixture_next_episode):
         actual = fixture_next_episode["next_episode_dict"]
@@ -36,6 +37,7 @@ class TestNextEpisodeModel:
         excepted = NextEpisode.from_dict(next_episode_dict)
 
         assert actual == excepted
+
 
 class TestEpisodeModel:
     def test_to_dict(self, fixture_episode):

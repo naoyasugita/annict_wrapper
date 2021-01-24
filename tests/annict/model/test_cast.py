@@ -20,6 +20,7 @@ class TestCastModel:
 
         assert actual == excepted
 
+
 class TestCastsModel:
     def test_casts_append_when_type_ok(self, fixture_cast):
         casts = Casts()

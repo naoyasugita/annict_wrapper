@@ -93,7 +93,6 @@ class TestCheckDateFormat:
         assert actual == expected
 
 
-
 class TestTypeChecker:
     def test_from_int_when_int(self):
         actual = 1
@@ -108,7 +107,6 @@ class TestTypeChecker:
     def test_from_int_when_bool(self):
         with pytest.raises(AssertionError):
             expected = from_int(True)
-
 
     def test_from_str_when_str(self):
         actual = "test"
@@ -182,5 +180,3 @@ class TestTypeChecker:
         work = fixture_work["work"]
         with pytest.raises(AssertionError):
             expected = to_class(Series, work)
-
-
