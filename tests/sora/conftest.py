@@ -1,5 +1,7 @@
 import pytest
 
+from sora.model.cours import Cours
+
 # from annict.model.cast import Cast
 # from annict.model.character import Character
 # from annict.model.episode import Episode
@@ -200,7 +202,34 @@ def fixture_work():
     }
 
     work = Work.from_dict(work_dict=work_dict)
-    yield {"work": work, "work_dict": work_dict, "to_dict": to_dict_result}
+    yield {
+        "work": work,
+        "work_dict": work_dict,
+        "to_dict": to_dict_result,
+    }
+
+
+@pytest.fixture
+def fixture_cours():
+
+    to_dict_result = {
+        "id": 4,
+        "year": 2014,
+        "season": 4,
+    }
+
+    cours_dict = {
+        "id": 4,
+        "year": 2014,
+        "cours": 4,
+    }
+
+    cours = Cours.from_dict(cours_dict=cours_dict)
+    yield {
+        "cours": cours,
+        "cours_dict": cours_dict,
+        "to_dict": to_dict_result,
+    }
 
 
 # @pytest.fixture
