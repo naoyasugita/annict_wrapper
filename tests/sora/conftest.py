@@ -1,7 +1,6 @@
 import pytest
 
 from sora.model.cours import Cours
-
 # from annict.model.cast import Cast
 # from annict.model.character import Character
 # from annict.model.episode import Episode
@@ -13,6 +12,7 @@ from sora.model.cours import Cours
 # from annict.model.series import Series
 # from annict.model.staff import Staff
 from sora.model.work import Work
+from sora.model.work_light import WorkLight
 
 # @pytest.fixture
 # def fixture_cast(fixture_work, fixture_character, fixture_people):
@@ -205,6 +205,27 @@ def fixture_work():
     yield {
         "work": work,
         "work_dict": work_dict,
+        "to_dict": to_dict_result,
+    }
+
+
+@pytest.fixture
+def fixture_work_light():
+
+    to_dict_result = {
+        "id": 126,
+        "title": "冴えない彼女の育てかた",
+    }
+
+    work_light_dict = {
+        "id": 126,
+        "title": "冴えない彼女の育てかた",
+    }
+
+    work_light = WorkLight.from_dict(work_light_dict=work_light_dict)
+    yield {
+        "work_light": work_light,
+        "work_light_dict": work_light_dict,
         "to_dict": to_dict_result,
     }
 
