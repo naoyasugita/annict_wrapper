@@ -1,6 +1,4 @@
 import pytest
-
-# from sora.model.work import Cours
 from sora.model.work import Work
 from sora.model.work import Works
 
@@ -21,14 +19,6 @@ class TestWorkModel:
         excepted = Work.from_dict(work_dict)
 
         assert actual == excepted
-
-    # def test_get_cours(self, fixture_work):
-    #     release_year, season = fixture_work["work"].season_name.value.split("-")
-    #     actual = (int(release_year), Cours[season])
-
-    #     excepted = fixture_work["work"].get_cours()
-
-    #     assert actual == excepted
 
 
 class TestWorksModel:
