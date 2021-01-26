@@ -55,7 +55,7 @@ class WorkLight:
 
 
 @dataclasses.dataclass
-class WorkLightList:
+class MultiWorkLight:
     _list: List[WorkLight] = dataclasses.field(default_factory=list)
 
     def append(self, work_light: WorkLight) -> None:

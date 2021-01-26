@@ -1,6 +1,7 @@
 import pytest
 
 from sora.model.cours import Cours
+
 # from annict.model.cast import Cast
 # from annict.model.character import Character
 # from annict.model.episode import Episode

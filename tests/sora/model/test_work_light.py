@@ -1,6 +1,6 @@
 import pytest
 from sora.model.work_light import WorkLight
-from sora.model.work_light import WorkLightList
+from sora.model.work_light import MultiWorkLight
 
 
 class TestWorkLightModel:
@@ -21,9 +21,9 @@ class TestWorkLightModel:
         assert actual == excepted
 
 
-class TestWorkLightListModel:
+class TestMultiWorkLightModel:
     def test_work_light_list_append_when_type_ok(self, fixture_work_light):
-        work_light_list = WorkLightList()
+        work_light_list = MultiWorkLight()
         work_light = fixture_work_light["work_light"]
         work_light_2 = fixture_work_light["work_light"]
         work_light_list.append(work_light)
@@ -36,12 +36,12 @@ class TestWorkLightListModel:
         assert actual == excepted
 
     def test_work_light_list_append_when_type_error(self):
-        work_light_list = WorkLightList()
+        work_light_list = MultiWorkLight()
         with pytest.raises(TypeError):
             work_light_list.append("dammy")
 
     def test_work_light_list_to_dict(self, fixture_work_light):
-        work_light_list = WorkLightList()
+        work_light_list = MultiWorkLight()
         work_light = fixture_work_light["work_light"]
         work_light_list.append(work_light)
         excepted = work_light_list.to_dict()
