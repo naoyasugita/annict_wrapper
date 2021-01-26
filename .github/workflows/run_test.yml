@@ -8,7 +8,7 @@ on:
       - [master]
 
 jobs:
-  build:
+  run test:
 
     runs-on: ubuntu-latest
     strategy:
@@ -31,3 +31,6 @@ jobs:
     - name: Test with pytest
       run: |
         pipenv run tests
+    - name: Check code style with Black
+      run: |
+        pipenv run fmt .
