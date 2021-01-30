@@ -102,3 +102,9 @@ class CoursList:
 
     def to_dict(self) -> list:
         return [cours.to_dict() for cours in self._list]
+
+    def find_specific_cours(self, year: int, season: str) -> Optional[Cours]:
+        for cours in self._list:
+            if cours.year.value == year and cours.season.value.name == season:
+                return cours
+        raise Exception(f"not found cours [year:{str(year)}, season:{season}].")
