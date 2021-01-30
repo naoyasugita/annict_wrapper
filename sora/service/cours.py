@@ -29,6 +29,13 @@ class CoursService:
         except Exception as e:
             raise e
 
+    def find_cours_by_year_season(self, year: int, season: str) -> Cours:
+        try:
+            cours_list = self.fetch_all_cours_info()
+            return  cours_list.find_specific_cours(year, season)
+        except Exception as e:
+            raise e
+
     # def find_work_info(self, work_id: int) -> Work:
     #     params = WorkRequestParams(filter_ids=work_id).to_dict()
     #     res = self.api.works(params=params)
