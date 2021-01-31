@@ -89,6 +89,9 @@ class Cours:
             SeasonValue(cours_dict.get("cours")),
         )
 
+    def is_target_cours(self, year: int, season: str) -> bool:
+        return self.year.value == year and self.season.name.value == season
+
 
 @dataclasses.dataclass
 class CoursList:
@@ -105,6 +108,6 @@ class CoursList:
 
     def find_specific_cours(self, year: int, season: str) -> Optional[Cours]:
         for cours in self._list:
-            if cours.year.value == year and cours.season.value.name == season:
+            if cours.is_target_cours(year, season):
                 return cours
         raise Exception(f"not found cours [year:{str(year)}, season:{season}].")
