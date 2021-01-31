@@ -32,7 +32,7 @@ class CoursService:
     def find_cours_by_year_season(self, year: int, season: str) -> Cours:
         try:
             cours_list = self.fetch_all_cours_info()
-            return  cours_list.find_specific_cours(year, season)
+            return cours_list.find_specific_cours(year, season)
         except Exception as e:
             raise e
 
