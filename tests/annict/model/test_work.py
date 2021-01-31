@@ -9,25 +9,25 @@ class TestWorkModel:
         actual = fixture_work["work_dict"]
         work = fixture_work["work"]
 
-        excepted = work.to_dict()
+        expected = work.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_from_dict(self, fixture_work):
         actual = fixture_work["work"]
 
         work_dict = fixture_work["work_dict"]
-        excepted = Work.from_dict(work_dict)
+        expected = Work.from_dict(work_dict)
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_get_cours(self, fixture_work):
         release_year, season = fixture_work["work"].season_name.value.split("-")
         actual = (int(release_year), Cours[season])
 
-        excepted = fixture_work["work"].get_cours()
+        expected = fixture_work["work"].get_cours()
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestWorksModel:
@@ -38,11 +38,11 @@ class TestWorksModel:
         works.append(work)
         works.append(work_2)
 
-        excepted = len(works._list)
+        expected = len(works._list)
 
         actual = 2
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_works_append_when_type_error(self):
         works = Works()
@@ -53,12 +53,12 @@ class TestWorksModel:
         works = Works()
         work = fixture_work["work"]
         works.append(work)
-        excepted = works.to_dict()
+        expected = works.to_dict()
 
         work_dict = fixture_work["work_dict"]
         actual = [work_dict]
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_find_by_media(self, fixture_work, fixture_work_movie):
         works = Works()
@@ -67,8 +67,8 @@ class TestWorksModel:
         works.append(fixture_work["work"])  # tv
         works.append(fixture_work_movie["work"])  # movie
 
-        excepted = len(works.find_by_media("tv"))
+        expected = len(works.find_by_media("tv"))
 
         actual = 3
 
-        assert actual == excepted
+        assert actual == expected

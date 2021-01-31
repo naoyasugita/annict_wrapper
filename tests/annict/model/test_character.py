@@ -8,17 +8,17 @@ class TestCharacterModel:
         actual = fixture_character["character_dict"]
 
         character = fixture_character["character"]
-        excepted = character.to_dict()
+        expected = character.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_from_dict(self, fixture_character):
         actual = fixture_character["character"]
 
         character_dict = fixture_character["character_dict"]
-        excepted = Character.from_dict(character_dict)
+        expected = Character.from_dict(character_dict)
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestCharactersModel:
@@ -28,11 +28,11 @@ class TestCharactersModel:
         character_2 = fixture_character["character"]
         characters.append(character)
         characters.append(character_2)
-        excepted = len(characters._list)
+        expected = len(characters._list)
 
         actual = 2
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_characters_append_when_type_error(self):
         characters = Characters()
@@ -43,9 +43,9 @@ class TestCharactersModel:
         characters = Characters()
         character = fixture_character["character"]
         characters.append(character)
-        excepted = characters.to_dict()
+        expected = characters.to_dict()
 
         character_dict = fixture_character["character_dict"]
         actual = [character_dict]
 
-        assert actual == excepted
+        assert actual == expected

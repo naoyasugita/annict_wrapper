@@ -8,17 +8,17 @@ class TestProgramModel:
         actual = fixture_program["program_dict"]
 
         program = fixture_program["program"]
-        excepted = program.to_dict()
+        expected = program.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_from_dict(self, fixture_program):
         actual = fixture_program["program"]
 
         program_dict = fixture_program["program_dict"]
-        excepted = Program.from_dict(program_dict)
+        expected = Program.from_dict(program_dict)
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestProgramsModel:
@@ -28,11 +28,11 @@ class TestProgramsModel:
         program_2 = fixture_program["program"]
         programs.append(program)
         programs.append(program_2)
-        excepted = len(programs._list)
+        expected = len(programs._list)
 
         actual = 2
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_programs_append_when_type_error(self):
         programs = Programs()
@@ -43,9 +43,9 @@ class TestProgramsModel:
         programs = Programs()
         program = fixture_program["program"]
         programs.append(program)
-        excepted = programs.to_dict()
+        expected = programs.to_dict()
 
         program_dict = fixture_program["program_dict"]
         actual = [program_dict]
 
-        assert actual == excepted
+        assert actual == expected

@@ -8,17 +8,17 @@ class TestStaffModel:
         actual = fixture_staff_when_org["staff_dict"]
         staff = fixture_staff_when_org["staff"]
 
-        excepted = staff.to_dict()
+        expected = staff.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_from_dict_when_person(self, fixture_staff_when_person):
         actual = fixture_staff_when_person["staff"]
 
         staff_dict = fixture_staff_when_person["staff_dict"]
-        excepted = Staff.from_dict(staff_dict)
+        expected = Staff.from_dict(staff_dict)
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestStaffsModel:
@@ -30,11 +30,11 @@ class TestStaffsModel:
         staff_2 = fixture_staff_when_person["staff"]
         staffs.append(staff)
         staffs.append(staff_2)
-        excepted = len(staffs._list)
+        expected = len(staffs._list)
 
         actual = 2
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_staffs_append_when_type_error(self):
         staffs = Staffs()
@@ -47,10 +47,10 @@ class TestStaffsModel:
         staff2 = fixture_staff_when_person["staff"]
         staffs.append(staff)
         staffs.append(staff2)
-        excepted = staffs.to_dict()
+        expected = staffs.to_dict()
 
         staff_dict = fixture_staff_when_org["staff_dict"]
         staff_dict2 = fixture_staff_when_person["staff_dict"]
         actual = [staff_dict, staff_dict2]
 
-        assert actual == excepted
+        assert actual == expected

@@ -8,17 +8,17 @@ class TestOrganizationModel:
         actual = fixture_organization["organization_dict"]
 
         organization = fixture_organization["organization"]
-        excepted = organization.to_dict()
+        expected = organization.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_from_dict(self, fixture_organization):
         actual = fixture_organization["organization"]
 
         organization_dict = fixture_organization["organization_dict"]
-        excepted = Organization.from_dict(organization_dict)
+        expected = Organization.from_dict(organization_dict)
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestOrganizationsModel:
@@ -28,11 +28,11 @@ class TestOrganizationsModel:
         organization_2 = fixture_organization["organization"]
         organizations.append(organization)
         organizations.append(organization_2)
-        excepted = len(organizations._list)
+        expected = len(organizations._list)
 
         actual = 2
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_organizations_append_when_type_error(self):
         organizations = Organizations()
@@ -43,9 +43,9 @@ class TestOrganizationsModel:
         organizations = Organizations()
         org = fixture_organization["organization"]
         organizations.append(org)
-        excepted = organizations.to_dict()
+        expected = organizations.to_dict()
 
         organization_dict = fixture_organization["organization_dict"]
         actual = [organization_dict]
 
-        assert actual == excepted
+        assert actual == expected

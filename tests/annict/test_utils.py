@@ -62,11 +62,11 @@ class TestCreateSeasonByYearAndCours:
 class TestCheckDateFormat:
     def test_check_date_format(self):
         dt = "2016/05/06 21:10"
-        excepted = check_date_format(dt)
+        expected = check_date_format(dt)
 
         actual = True
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_check_date_format_when_missed_format_1(self):
         dt = "2016-05-06 21:10"

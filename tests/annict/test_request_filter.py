@@ -23,9 +23,9 @@ class TestCharacterRequestParams:
         }
 
         character_request_params = CharacterRequestParams(**actual)
-        excepted = character_request_params.to_dict()
+        expected = character_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_in_none(self):
         actual = {
@@ -34,17 +34,17 @@ class TestCharacterRequestParams:
         }
 
         character_request_params = CharacterRequestParams(**actual)
-        excepted = character_request_params.to_dict()
+        expected = character_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_when_empty(self):
         actual = {}
 
         character_request_params = CharacterRequestParams(**actual)
-        excepted = character_request_params.to_dict()
+        expected = character_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestCastRequestParams:
@@ -60,9 +60,9 @@ class TestCastRequestParams:
         }
 
         cast_request_params = CastRequestParams(**actual)
-        excepted = cast_request_params.to_dict()
+        expected = cast_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_in_none(self):
         actual = {
@@ -71,17 +71,17 @@ class TestCastRequestParams:
         }
 
         cast_request_params = CastRequestParams(**actual)
-        excepted = cast_request_params.to_dict()
+        expected = cast_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_when_empty(self):
         actual = {}
 
         cast_request_params = CastRequestParams(**actual)
-        excepted = cast_request_params.to_dict()
+        expected = cast_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestProgramRequestParams:
@@ -102,9 +102,9 @@ class TestProgramRequestParams:
         }
 
         program_request_params = ProgramRequestParams(**actual)
-        excepted = program_request_params.to_dict()
+        expected = program_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_when_format_of_started_at_is_different(self):
         params = {
@@ -121,17 +121,17 @@ class TestProgramRequestParams:
         }
 
         program_request_params = ProgramRequestParams(**actual)
-        excepted = program_request_params.to_dict()
+        expected = program_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_when_empty(self):
         actual = {}
 
         program_request_params = ProgramRequestParams(**actual)
-        excepted = program_request_params.to_dict()
+        expected = program_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestStaffRequestParams:
@@ -147,9 +147,9 @@ class TestStaffRequestParams:
         }
 
         staff_request_params = StaffRequestParams(**actual)
-        excepted = staff_request_params.to_dict()
+        expected = staff_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_in_none(self):
         actual = {
@@ -158,17 +158,17 @@ class TestStaffRequestParams:
         }
 
         staff_request_params = StaffRequestParams(**actual)
-        excepted = staff_request_params.to_dict()
+        expected = staff_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_when_empty(self):
         actual = {}
 
         staff_request_params = StaffRequestParams(**actual)
-        excepted = staff_request_params.to_dict()
+        expected = staff_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestEpisodeequestParams:
@@ -184,9 +184,9 @@ class TestEpisodeequestParams:
         }
 
         episode_request_params = EpisodeRequestParams(**actual)
-        excepted = episode_request_params.to_dict()
+        expected = episode_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_in_none(self):
         actual = {
@@ -195,17 +195,17 @@ class TestEpisodeequestParams:
         }
 
         episode_request_params = EpisodeRequestParams(**actual)
-        excepted = episode_request_params.to_dict()
+        expected = episode_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_when_empty(self):
         actual = {}
 
         episode_request_params = EpisodeRequestParams(**actual)
-        excepted = episode_request_params.to_dict()
+        expected = episode_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestSeriesRequestParams:
@@ -220,9 +220,9 @@ class TestSeriesRequestParams:
         }
 
         series_request_params = SeriesRequestParams(**actual)
-        excepted = series_request_params.to_dict()
+        expected = series_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_in_none(self):
         actual = {
@@ -231,17 +231,17 @@ class TestSeriesRequestParams:
         }
 
         series_request_params = SeriesRequestParams(**actual)
-        excepted = series_request_params.to_dict()
+        expected = series_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_when_empty(self):
         actual = {}
 
         series_request_params = SeriesRequestParams(**actual)
-        excepted = series_request_params.to_dict()
+        expected = series_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestOrganizationRequestParams:
@@ -256,9 +256,9 @@ class TestOrganizationRequestParams:
         }
 
         organization_request_params = OrganizationRequestParams(**actual)
-        excepted = organization_request_params.to_dict()
+        expected = organization_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_in_none(self):
         actual = {
@@ -267,17 +267,17 @@ class TestOrganizationRequestParams:
         }
 
         organization_request_params = WorkRequestParams(**actual)
-        excepted = organization_request_params.to_dict()
+        expected = organization_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_when_empty(self):
         actual = {}
 
         organization_request_params = WorkRequestParams(**actual)
-        excepted = organization_request_params.to_dict()
+        expected = organization_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestWorkRequestParams:
@@ -295,9 +295,9 @@ class TestWorkRequestParams:
         }
 
         work_request_params = WorkRequestParams(**actual)
-        excepted = work_request_params.to_dict()
+        expected = work_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_in_none(self):
         actual = {
@@ -306,17 +306,17 @@ class TestWorkRequestParams:
         }
 
         work_request_params = WorkRequestParams(**actual)
-        excepted = work_request_params.to_dict()
+        expected = work_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_when_empty(self):
         actual = {}
 
         work_request_params = WorkRequestParams(**actual)
-        excepted = work_request_params.to_dict()
+        expected = work_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestPeopleRequestParams:
@@ -331,9 +331,9 @@ class TestPeopleRequestParams:
         }
 
         people_request_params = PeopleRequestParams(**actual)
-        excepted = people_request_params.to_dict()
+        expected = people_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_in_none(self):
         actual = {
@@ -342,14 +342,14 @@ class TestPeopleRequestParams:
         }
 
         people_request_params = PeopleRequestParams(**actual)
-        excepted = people_request_params.to_dict()
+        expected = people_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_to_dict_when_empty(self):
         actual = {}
 
         people_request_params = PeopleRequestParams(**actual)
-        excepted = people_request_params.to_dict()
+        expected = people_request_params.to_dict()
 
-        assert actual == excepted
+        assert actual == expected

@@ -6,14 +6,14 @@ class TestSeriesModel:
         actual = fixture_series["series_dict"]
 
         series = fixture_series["series"]
-        excepted = series.to_dict()
+        expected = series.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_from_dict(self, fixture_series):
         actual = fixture_series["series"]
 
         series_dict = fixture_series["series_dict"]
-        excepted = Series.from_dict(series_dict)
+        expected = Series.from_dict(series_dict)
 
-        assert actual == excepted
+        assert actual == expected

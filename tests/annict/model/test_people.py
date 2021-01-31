@@ -8,17 +8,17 @@ class TestPeopleModel:
         actual = fixture_people["people_dict"]
 
         people = fixture_people["people"]
-        excepted = people.to_dict()
+        expected = people.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_from_dict(self, fixture_people):
         actual = fixture_people["people"]
 
         people_dict = fixture_people["people_dict"]
-        excepted = People.from_dict(people_dict)
+        expected = People.from_dict(people_dict)
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestPeoplesModel:
@@ -28,11 +28,11 @@ class TestPeoplesModel:
         people_2 = fixture_people["people"]
         peoples.append(people)
         peoples.append(people_2)
-        excepted = len(peoples._list)
+        expected = len(peoples._list)
 
         actual = 2
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_peoples_append_when_type_error(self):
         peoples = Peoples()
@@ -43,9 +43,9 @@ class TestPeoplesModel:
         peoples = Peoples()
         people = fixture_people["people"]
         peoples.append(people)
-        excepted = peoples.to_dict()
+        expected = peoples.to_dict()
 
         people_dict = fixture_people["people_dict"]
         actual = [people_dict]
 
-        assert actual == excepted
+        assert actual == expected

@@ -8,17 +8,17 @@ class TestPrevEpisodeModel:
         actual = fixture_prev_episode["prev_episode_dict"]
 
         episode = fixture_prev_episode["prev_episode"]
-        excepted = episode.to_dict()
+        expected = episode.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_from_dict(self, fixture_prev_episode):
         actual = fixture_prev_episode["prev_episode"]
 
         prev_episode_dict = fixture_prev_episode["prev_episode_dict"]
-        excepted = PrevEpisode.from_dict(prev_episode_dict)
+        expected = PrevEpisode.from_dict(prev_episode_dict)
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestNextEpisodeModel:
@@ -26,17 +26,17 @@ class TestNextEpisodeModel:
         actual = fixture_next_episode["next_episode_dict"]
 
         episode = fixture_next_episode["next_episode"]
-        excepted = episode.to_dict()
+        expected = episode.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_from_dict(self, fixture_next_episode):
         actual = fixture_next_episode["next_episode"]
 
         next_episode_dict = fixture_next_episode["next_episode_dict"]
-        excepted = NextEpisode.from_dict(next_episode_dict)
+        expected = NextEpisode.from_dict(next_episode_dict)
 
-        assert actual == excepted
+        assert actual == expected
 
 
 class TestEpisodeModel:
@@ -44,14 +44,14 @@ class TestEpisodeModel:
         actual = fixture_episode["episode_dict"]
 
         episode = fixture_episode["episode"]
-        excepted = episode.to_dict()
+        expected = episode.to_dict()
 
-        assert actual == excepted
+        assert actual == expected
 
     def test_from_dict(self, fixture_episode):
         actual = fixture_episode["episode"]
 
         episode_dict = fixture_episode["episode_dict"]
-        excepted = Episode.from_dict(episode_dict)
+        expected = Episode.from_dict(episode_dict)
 
-        assert actual == excepted
+        assert actual == expected
