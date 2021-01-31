@@ -47,6 +47,13 @@ class Name:
         from_str(self.value)
         assert isinstance(self.english, NameEn)
 
+    @staticmethod
+    def from_dict(name_dict: dict) -> "Name":
+        assert isinstance(name_dict, dict)
+        return Name(
+                name_dict["name"],
+                NameEn(name_dict.get("name_en")),
+            )
 
 @dataclasses.dataclass(frozen=True)
 class SortNumber:
@@ -83,10 +90,7 @@ class Cast:
         assert isinstance(cast_dict, dict)
         return Cast(
             CastId(cast_dict["id"]),
-            Name(
-                cast_dict["name"],
-                NameEn(cast_dict["name_en"]),
-            ),
+            Name.from_dict(cast_dict),
             SortNumber(cast_dict["sort_number"]),
             Work.from_dict(cast_dict["work"]),
             Character.from_dict(cast_dict["character"]),
