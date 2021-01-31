@@ -98,6 +98,22 @@ class TestCoursModel:
 
         assert actual == excepted
 
+    def test_is_target_cours_when_true(self, fixture_cours):
+        actual = True
+
+        cours = fixture_cours["cours"]
+        expected = cours.is_target_cours(2014, "autumn")
+
+        assert actual == expected
+
+    def test_is_target_cours_when_false(self, fixture_cours):
+        actual = False
+
+        cours = fixture_cours["cours"]
+        expected = cours.is_target_cours(2015, "autumn")
+
+        assert actual == expected
+
 
 class TestCoursModel:
     def test_cours_list_append_when_type_ok(self, fixture_cours):
