@@ -64,6 +64,20 @@ class Nickname:
         from_str(self.value)
         assert isinstance(self.english, NicknameEn)
 
+    def to_dict(self) -> dict:
+        return {
+            "nickname": self.value,
+            "english": self.english.value,
+        }
+
+    @staticmethod
+    def from_dict(nickname_dict: dict) -> "Nickname":
+        assert isinstance(nickname_dict, dict)
+        return Nickname(
+            nickname_dict.get("nickname"),
+            NicknameEn(nickname_dict.get("nickname_en")),
+        )
+
 
 @dataclasses.dataclass(frozen=True)
 class Name:
@@ -72,13 +86,26 @@ class Name:
     value: str
     kana: NameKana
     english: NameEn
-    nickname: Nickname
 
     def __post_init__(self) -> None:
         from_str(self.value)
         assert isinstance(self.kana, NameKana)
         assert isinstance(self.english, NameEn)
-        assert isinstance(self.nickname, Nickname)
+
+    def to_dict(self) -> dict:
+        return {
+            "name": self.value,
+            "kana": self.kana.value,
+            "english": self.english.value,
+        }
+
+    def from_dict(name_dict: dict) -> "Name":
+        assert isinstance(name_dict, dict)
+        return Name(
+            name_dict.get("name"),
+            NameKana(name_dict.get("name_kana")),
+            NameEn(name_dict.get("name_en")),
+        )
 
 
 @dataclasses.dataclass(frozen=True)
@@ -263,29 +290,64 @@ class Prefecture:
 
 
 @dataclasses.dataclass
-class People:
-    people_id: PeopleId
+class Profile:
     name: Name
-    gender_text: GenderText
-    url: Url
-    twitter: Twitter
+    nickname: Nickname
+    gender: GenderText
     birthday: Birthday
     blood_type: BloodType
     height: Height
+    prefecture: Optional[Prefecture] = None
+
+    def __post_init__(self) -> None:
+        assert isinstance(self.name, Name)
+        assert isinstance(self.nickname, Nickname)
+        assert isinstance(self.gender, GenderText)
+        assert isinstance(self.birthday, Birthday)
+        assert isinstance(self.blood_type, BloodType)
+        assert isinstance(self.height, Height)
+        if self.prefecture is not None:
+            assert isinstance(self.prefecture, Prefecture)
+
+    def to_dict(self) -> dict:
+        return {
+            "name": to_class(Name, self.name),
+            "nickname": to_class(Nickname, self.nickname),
+            "gender": self.gender.value,
+            "birthday": self.birthday.value,
+            "blood_type": self.blood_type.value,
+            "height": self.height.value,
+            "prefecture": to_class(Prefecture, self.prefecture),
+        }
+
+    @staticmethod
+    def from_dict(profile_dict: dict) -> "Profile":
+        assert isinstance(profile_dict, dict)
+        return Profile(
+            Name.from_dict(profile_dict),
+            Nickname.from_dict(profile_dict),
+            GenderText(profile_dict.get("gender_text")),
+            Birthday(profile_dict.get("birthday")),
+            BloodType(profile_dict.get("blood_type")),
+            Height(profile_dict.get("height")),
+            Prefecture.from_dict(profile_dict),
+        )
+
+
+@dataclasses.dataclass
+class People:
+    people_id: PeopleId
+    profile: Profile
+    url: Url
+    twitter: Twitter
     favorite_people_count: FavoritePeopleCount
     casts_count: CastsCount
     staffs_count: StaffsCount
-    prefecture: Optional[Prefecture] = None
 
     def to_dict(self) -> dict:
         return {
             "id": dataclasses.asdict(self.people_id)["value"],
-            "name": dataclasses.asdict(self.name)["value"],
-            "name_kana": dataclasses.asdict(self.name.kana)["value"],
-            "name_en": dataclasses.asdict(self.name.english)["value"],
-            "nickname": dataclasses.asdict(self.name.nickname)["value"],
-            "nickname_en": dataclasses.asdict(self.name.nickname.english)["value"],
-            "gender_text": dataclasses.asdict(self.gender_text)["value"],
+            "profile": to_class(Profile, self.profile),
             "url": dataclasses.asdict(self.url)["value"],
             "url_en": dataclasses.asdict(self.url.english)["value"],
             "wikipedia_url": dataclasses.asdict(self.url.wikipedia.url)["value"],
@@ -296,17 +358,11 @@ class People:
             "twitter_username_en": dataclasses.asdict(self.twitter.username.english)[
                 "value"
             ],
-            "birthday": dataclasses.asdict(self.birthday)["value"],
-            "blood_type": dataclasses.asdict(self.blood_type)["value"],
-            "height": dataclasses.asdict(self.height)["value"],
             "favorite_people_count": dataclasses.asdict(self.favorite_people_count)[
                 "value"
             ],
             "casts_count": dataclasses.asdict(self.casts_count)["value"],
             "staffs_count": dataclasses.asdict(self.staffs_count)["value"],
-            "prefecture": to_class(Prefecture, self.prefecture)
-            if self.prefecture is not None
-            else None,
         }
 
     @staticmethod
@@ -314,18 +370,7 @@ class People:
         assert isinstance(people_dict, dict)
         return People(
             PeopleId(people_dict["id"]),
-            Name(
-                people_dict["name"],
-                NameKana(people_dict["name_kana"]),
-                NameEn(people_dict["name_en"]),
-                Nickname(
-                    people_dict["nickname"],
-                    NicknameEn(
-                        people_dict["nickname_en"],
-                    ),
-                ),
-            ),
-            GenderText(people_dict["gender_text"]),
+            Profile.from_dict(people_dict),
             Url(
                 people_dict["url"],
                 UrlEn(people_dict["url_en"]),
@@ -346,15 +391,9 @@ class People:
                     ),
                 ),
             ),
-            Birthday(people_dict["birthday"]),
-            BloodType(people_dict["blood_type"]),
-            Height(people_dict["height"]),
             FavoritePeopleCount(people_dict["favorite_people_count"]),
             CastsCount(people_dict["casts_count"]),
             StaffsCount(people_dict["staffs_count"]),
-            Prefecture.from_dict(people_dict["prefecture"])
-            if people_dict.get("prefecture") is not None
-            else None,
         )
 
 
