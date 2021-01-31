@@ -5,7 +5,7 @@ from annict.model.cast import Casts
 
 class TestCastModel:
     def test_to_dict(self, fixture_cast):
-        actual = fixture_cast["cast_dict"]
+        actual = fixture_cast["to_dict"]
 
         cast = fixture_cast["cast"]
         expected = cast.to_dict()
@@ -45,7 +45,7 @@ class TestCastsModel:
         casts.append(cast)
         expected = casts.to_dict()
 
-        cast_dict = fixture_cast["cast_dict"]
+        cast_dict = fixture_cast["to_dict"]
         actual = [cast_dict]
 
         assert actual == expected

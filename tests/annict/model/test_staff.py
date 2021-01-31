@@ -49,8 +49,8 @@ class TestStaffsModel:
         staffs.append(staff2)
         expected = staffs.to_dict()
 
-        staff_dict = fixture_staff_when_org["staff_dict"]
-        staff_dict2 = fixture_staff_when_person["staff_dict"]
+        staff_dict = fixture_staff_when_org["to_dict"]
+        staff_dict2 = fixture_staff_when_person["to_dict"]
         actual = [staff_dict, staff_dict2]
 
         assert actual == expected

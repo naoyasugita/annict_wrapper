@@ -5,7 +5,7 @@ from annict.model.people import Peoples
 
 class TestPeopleModel:
     def test_to_dict(self, fixture_people):
-        actual = fixture_people["people_dict"]
+        actual = fixture_people["to_dict"]
 
         people = fixture_people["people"]
         expected = people.to_dict()
@@ -45,7 +45,7 @@ class TestPeoplesModel:
         peoples.append(people)
         expected = peoples.to_dict()
 
-        people_dict = fixture_people["people_dict"]
+        people_dict = fixture_people["to_dict"]
         actual = [people_dict]
 
         assert actual == expected
