@@ -51,9 +51,10 @@ class Name:
     def from_dict(name_dict: dict) -> "Name":
         assert isinstance(name_dict, dict)
         return Name(
-                name_dict["name"],
-                NameEn(name_dict.get("name_en")),
-            )
+            name_dict["name"],
+            NameEn(name_dict.get("name_en")),
+        )
+
 
 @dataclasses.dataclass(frozen=True)
 class SortNumber:
