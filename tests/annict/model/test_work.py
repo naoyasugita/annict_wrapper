@@ -6,7 +6,7 @@ from annict.model.work import Works
 
 class TestWorkModel:
     def test_to_dict(self, fixture_work):
-        actual = fixture_work["work_dict"]
+        actual = fixture_work["to_dict"]
         work = fixture_work["work"]
 
         expected = work.to_dict()
@@ -18,14 +18,6 @@ class TestWorkModel:
 
         work_dict = fixture_work["work_dict"]
         expected = Work.from_dict(work_dict)
-
-        assert actual == expected
-
-    def test_get_cours(self, fixture_work):
-        release_year, season = fixture_work["work"].season_name.value.split("-")
-        actual = (int(release_year), Cours[season])
-
-        expected = fixture_work["work"].get_cours()
 
         assert actual == expected
 
@@ -55,7 +47,7 @@ class TestWorksModel:
         works.append(work)
         expected = works.to_dict()
 
-        work_dict = fixture_work["work_dict"]
+        work_dict = fixture_work["to_dict"]
         actual = [work_dict]
 
         assert actual == expected

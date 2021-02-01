@@ -5,7 +5,7 @@ from annict.model.staff import Staffs
 
 class TestStaffModel:
     def test_to_dict_when_org(self, fixture_staff_when_org):
-        actual = fixture_staff_when_org["staff_dict"]
+        actual = fixture_staff_when_org["to_dict"]
         staff = fixture_staff_when_org["staff"]
 
         expected = staff.to_dict()

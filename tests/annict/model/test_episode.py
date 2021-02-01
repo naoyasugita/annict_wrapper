@@ -41,7 +41,7 @@ class TestNextEpisodeModel:
 
 class TestEpisodeModel:
     def test_to_dict(self, fixture_episode):
-        actual = fixture_episode["episode_dict"]
+        actual = fixture_episode["to_dict"]
 
         episode = fixture_episode["episode"]
         expected = episode.to_dict()

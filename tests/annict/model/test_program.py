@@ -5,7 +5,7 @@ from annict.model.program import Programs
 
 class TestProgramModel:
     def test_to_dict(self, fixture_program):
-        actual = fixture_program["program_dict"]
+        actual = fixture_program["to_dict"]
 
         program = fixture_program["program"]
         expected = program.to_dict()
@@ -45,7 +45,7 @@ class TestProgramsModel:
         programs.append(program)
         expected = programs.to_dict()
 
-        program_dict = fixture_program["program_dict"]
+        program_dict = fixture_program["to_dict"]
         actual = [program_dict]
 
         assert actual == expected
