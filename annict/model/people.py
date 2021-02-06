@@ -237,15 +237,43 @@ class TwitterUsername:
         from_str(self.value)
         assert isinstance(self.english, TwitterUsernameEn)
 
+    def to_dict(self) -> dict:
+        return {
+            "username": self.value,
+            "english": self.english.value,
+        }
 
-@dataclasses.dataclass(frozen=True)
-class Twitter:
-    """ Twitter """
+    @staticmethod
+    def from_dict(twitter_dict: dict) -> "TwitterUsername":
+        assert isinstance(twitter_dict, dict)
+        return TwitterUsername(
+            twitter_dict.get("twitter_username"),
+            TwitterUsernameEn(twitter_dict.get("twitter_username_en")),
+        )
 
-    username: TwitterUsername
 
-    def __post_init__(self) -> None:
-        assert isinstance(self.username, TwitterUsername)
+# @dataclasses.dataclass(frozen=True)
+# class Twitter:
+#     """ Twitter """
+
+#     username: TwitterUsername
+
+#     def __post_init__(self) -> None:
+#         assert isinstance(self.username, TwitterUsername)
+
+#     def to_dict(self) -> dict:
+#         return {
+#             "username": self.username.value,
+#             "english": self.username.english.value,
+#         }
+
+#     @staticmethod
+#     def from_dict(twitter_dict: dict) -> "Twitter":
+#         assert isinstance(twitter_dict, dict)
+#         return Twitter(
+#             TwitterUsernameEn(twitter_dict.get("twitter_username")),
+#             TwitterUsernameEn(twitter_dict.get("twitter_username_en")),
+#         )
 
 
 @dataclasses.dataclass(frozen=True)
@@ -335,6 +363,7 @@ class Prefecture:
 class Profile:
     name: Name
     nickname: Nickname
+    twitter_username: TwitterUsername
     gender: GenderText
     birthday: Birthday
     blood_type: BloodType
@@ -344,6 +373,7 @@ class Profile:
     def __post_init__(self) -> None:
         assert isinstance(self.name, Name)
         assert isinstance(self.nickname, Nickname)
+        assert isinstance(self.twitter_username, TwitterUsername)
         assert isinstance(self.gender, GenderText)
         assert isinstance(self.birthday, Birthday)
         assert isinstance(self.blood_type, BloodType)
@@ -355,6 +385,7 @@ class Profile:
         return {
             "name": to_class(Name, self.name),
             "nickname": to_class(Nickname, self.nickname),
+            "twitter_username": to_class(TwitterUsername, self.twitter_username),
             "gender": self.gender.value,
             "birthday": self.birthday.value,
             "blood_type": self.blood_type.value,
@@ -368,6 +399,7 @@ class Profile:
         return Profile(
             Name.from_dict(profile_dict),
             Nickname.from_dict(profile_dict),
+            TwitterUsername.from_dict(profile_dict),
             GenderText(profile_dict.get("gender_text")),
             Birthday(profile_dict.get("birthday")),
             BloodType(profile_dict.get("blood_type")),
@@ -381,7 +413,7 @@ class People:
     people_id: PeopleId
     profile: Profile
     url: Url
-    twitter: Twitter
+    # twitter: Twitter
     favorite_people_count: FavoritePeopleCount
     casts_count: CastsCount
     staffs_count: StaffsCount
@@ -391,10 +423,10 @@ class People:
             "id": dataclasses.asdict(self.people_id)["value"],
             "profile": to_class(Profile, self.profile),
             "url": to_class(Url, self.url),
-            "twitter_username": dataclasses.asdict(self.twitter.username)["value"],
-            "twitter_username_en": dataclasses.asdict(self.twitter.username.english)[
-                "value"
-            ],
+            # "twitter_username": dataclasses.asdict(self.twitter.username)["value"],
+            # "twitter_username_en": dataclasses.asdict(self.twitter.username.english)[
+            #     "value"
+            # ],
             "favorite_people_count": dataclasses.asdict(self.favorite_people_count)[
                 "value"
             ],
@@ -408,17 +440,10 @@ class People:
         return People(
             PeopleId(people_dict["id"]),
             Profile.from_dict(people_dict),
-            Url.from_dict(
-                people_dict,
-            ),
-            Twitter(
-                TwitterUsername(
-                    people_dict["twitter_username"],
-                    TwitterUsernameEn(
-                        people_dict["twitter_username_en"],
-                    ),
-                ),
-            ),
+            Url.from_dict(people_dict),
+            # TwitterUsername.from_dict(
+            #     people_dict
+            # ),
             FavoritePeopleCount(people_dict["favorite_people_count"]),
             CastsCount(people_dict["casts_count"]),
             StaffsCount(people_dict["staffs_count"]),

@@ -204,6 +204,10 @@ def fixture_people():
                 "nickname": "てすとん",
                 "english": "",
             },
+            "twitter_username": {
+                "username": "test",
+                "english": "",
+            },
             "gender": "女性",
             "birthday": "1995-12-02",
             "blood_type": "b",
@@ -223,8 +227,6 @@ def fixture_people():
                 "english": "",
             },
         },
-        "twitter_username": "test",
-        "twitter_username_en": "",
         "favorite_people_count": 74,
         "casts_count": 58,
         "staffs_count": 0,
@@ -252,6 +254,7 @@ def fixture_people():
         "prefecture": {"id": 13, "name": "東京都"},
     }
     people = People.from_dict(people_dict=people_dict)
+    print(people.to_dict())
     yield {
         "people": people,
         "people_dict": people_dict,
