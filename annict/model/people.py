@@ -119,7 +119,7 @@ class GenderText:
 
 
 @dataclasses.dataclass(frozen=True)
-class UrlEn:
+class OfficialSiteUrlEnglish:
     """ 公式サイト等のURL (英語圏向け) """
 
     value: str
@@ -149,29 +149,71 @@ class WikipediaUrl:
         from_str(self.value)
         assert isinstance(self.english, WikipediaUrlEn)
 
+    def to_dict(self) -> dict:
+        return {
+            "value": self.value,
+            "english": self.english.value,
+        }
+
+    @staticmethod
+    def from_dict(url_dict: dict) -> "WikipediaUrl":
+        assert isinstance(url_dict, dict)
+        return WikipediaUrl(
+            url_dict.get("wikipedia_url"),
+            WikipediaUrlEn(url_dict.get("wikipedia_url_en")),
+        )
+
 
 @dataclasses.dataclass(frozen=True)
-class Wikipedia:
-    """ WikipediaのURL(英語圏向け) """
+class OfficialSiteUrl:
+    """ 公式サイトのURL """
 
-    url: WikipediaUrl
+    value: str
+    english: OfficialSiteUrlEnglish
 
     def __post_init__(self) -> None:
-        assert isinstance(self.url, WikipediaUrl)
+        from_str(self.value)
+        assert isinstance(self.english, OfficialSiteUrlEnglish)
+
+    def to_dict(self) -> dict:
+        return {
+            "value": self.value,
+            "english": self.english.value,
+        }
+
+    @staticmethod
+    def from_dict(url_dict: dict) -> "OfficialSiteUrl":
+        assert isinstance(url_dict, dict)
+        return OfficialSiteUrl(
+            url_dict.get("url"),
+            OfficialSiteUrlEnglish(url_dict.get("url_en")),
+        )
 
 
 @dataclasses.dataclass(frozen=True)
 class Url:
     """ URL """
 
-    value: str
-    english: UrlEn
-    wikipedia: Wikipedia
+    official_site: OfficialSiteUrl
+    wikipedia: WikipediaUrl
 
     def __post_init__(self) -> None:
-        from_str(self.value)
-        assert isinstance(self.english, UrlEn)
-        assert isinstance(self.wikipedia, Wikipedia)
+        assert isinstance(self.official_site, OfficialSiteUrl)
+        assert isinstance(self.wikipedia, WikipediaUrl)
+
+    def to_dict(self) -> dict:
+        return {
+            "official_site": self.official_site.to_dict(),
+            "wikipedia": self.wikipedia.to_dict(),
+        }
+
+    @staticmethod
+    def from_dict(url_dict: dict) -> "Url":
+        assert isinstance(url_dict, dict)
+        return Url(
+            OfficialSiteUrl.from_dict(url_dict),
+            WikipediaUrl.from_dict((url_dict)),
+        )
 
 
 @dataclasses.dataclass(frozen=True)
@@ -348,12 +390,7 @@ class People:
         return {
             "id": dataclasses.asdict(self.people_id)["value"],
             "profile": to_class(Profile, self.profile),
-            "url": dataclasses.asdict(self.url)["value"],
-            "url_en": dataclasses.asdict(self.url.english)["value"],
-            "wikipedia_url": dataclasses.asdict(self.url.wikipedia.url)["value"],
-            "wikipedia_url_en": dataclasses.asdict(self.url.wikipedia.url.english)[
-                "value"
-            ],
+            "url": to_class(Url, self.url),
             "twitter_username": dataclasses.asdict(self.twitter.username)["value"],
             "twitter_username_en": dataclasses.asdict(self.twitter.username.english)[
                 "value"
@@ -371,17 +408,8 @@ class People:
         return People(
             PeopleId(people_dict["id"]),
             Profile.from_dict(people_dict),
-            Url(
-                people_dict["url"],
-                UrlEn(people_dict["url_en"]),
-                Wikipedia(
-                    WikipediaUrl(
-                        people_dict["wikipedia_url"],
-                        WikipediaUrlEn(
-                            people_dict["wikipedia_url_en"],
-                        ),
-                    ),
-                ),
+            Url.from_dict(
+                people_dict,
             ),
             Twitter(
                 TwitterUsername(

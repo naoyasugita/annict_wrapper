@@ -195,18 +195,34 @@ def fixture_people():
     to_dict_result = {
         "id": 1234,
         "profile": {
-            "name": {"name": "テスト", "kana": "てすと", "english": "te, suto"},
-            "nickname": {"nickname": "てすとん", "english": ""},
+            "name": {
+                "name": "テスト",
+                "kana": "てすと",
+                "english": "te, suto",
+            },
+            "nickname": {
+                "nickname": "てすとん",
+                "english": "",
+            },
             "gender": "女性",
             "birthday": "1995-12-02",
             "blood_type": "b",
             "height": 154,
-            "prefecture": {"id": 1234, "name": "テスト"},
+            "prefecture": {
+                "id": 1234,
+                "name": "テスト",
+            },
         },
-        "url": "hogehoge1234.html",
-        "url_en": "",
-        "wikipedia_url": "http://hogehoge/%E6%9D%B1%E5%B1%B1%E5%A5%88%E5%A4%AE",
-        "wikipedia_url_en": "",
+        "url": {
+            "official_site": {
+                "value": "hogehoge1234.html",
+                "english": "",
+            },
+            "wikipedia": {
+                "value": "http://hogehoge/%E6%9D%B1%E5%B1%B1%E5%A5%88%E5%A4%AE",
+                "english": "",
+            },
+        },
         "twitter_username": "test",
         "twitter_username_en": "",
         "favorite_people_count": 74,
