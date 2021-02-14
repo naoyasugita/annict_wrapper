@@ -1,4 +1,6 @@
+import json
 from datetime import datetime
+from decimal import Decimal
 from typing import Any
 from typing import Type
 from typing import TypeVar
@@ -59,3 +61,9 @@ def from_bool(x: Any) -> bool:
 def from_none(x: Any) -> Any:
     assert x is None
     return x
+
+class CustomJsonEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return int(obj)
+        return super(CustomJsonEncoder, self).default(obj)
