@@ -1,11 +1,12 @@
 import pytest
+from annict.anticorruption.character import CharacterTranslator
 from annict.model.character import Character
 from annict.model.character import Characters
 
 
 class TestCharacterModel:
     def test_to_dict(self, fixture_character):
-        actual = fixture_character["character_dict"]
+        actual = fixture_character["to_dict"]
 
         character = fixture_character["character"]
         expected = character.to_dict()
@@ -15,8 +16,8 @@ class TestCharacterModel:
     def test_from_dict(self, fixture_character):
         actual = fixture_character["character"]
 
-        character_dict = fixture_character["character_dict"]
-        expected = Character.from_dict(character_dict)
+        translated_dict = CharacterTranslator().translate(fixture_character["character_dict"])
+        expected = Character.from_dict(translated_dict)
 
         assert actual == expected
 
@@ -45,7 +46,7 @@ class TestCharactersModel:
         characters.append(character)
         expected = characters.to_dict()
 
-        character_dict = fixture_character["character_dict"]
+        character_dict = fixture_character["to_dict"]
         actual = [character_dict]
 
         assert actual == expected
