@@ -1,5 +1,5 @@
 app: annict
-name: work
+name: character
 component: aws-dynamodb
 stage: dev
 
@@ -9,22 +9,22 @@ inputs:
   attributeDefinitions:
     - AttributeName: id
       AttributeType: N
-    - AttributeName: year
-      AttributeType: N
-    - AttributeName: cours
-      AttributeType: S
+    # - AttributeName: release_year
+    #   AttributeType: N
+    # - AttributeName: release_cours
+    #   AttributeType: S
   keySchema:
     - AttributeName: id
       KeyType: HASH
-  globalSecondaryIndexes:
-    - IndexName: 'ReleaseYear-ReleaseCours-Index'
-      KeySchema:
-        - AttributeName: year
-          KeyType: HASH
-        - AttributeName: cours
-          KeyType: RANGE
-      Projection:
-        ProjectionType: 'ALL'
+  # globalSecondaryIndexes:
+  #   - IndexName: 'ReleaseYear-ReleaseCours-Index'
+  #     KeySchema:
+  #       - AttributeName: release_year
+  #         KeyType: HASH
+  #       - AttributeName: release_cours
+  #         KeyType: RANGE
+  #     Projection:
+  #       ProjectionType: 'ALL'
   region: ap-northeast-1
   BillingMode: PAY_PER_REQUEST
   # ProvisionedThroughput:
