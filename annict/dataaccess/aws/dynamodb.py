@@ -1,9 +1,11 @@
 import dataclasses
+import json
 import os
 from typing import List
 from typing import Optional
 
 import boto3
+from annict.utils import CustomJsonEncoder
 from tqdm import tqdm
 
 os.environ["AWS_DEFAULT_REGION"] = "ap-northeast-1"
@@ -18,17 +20,16 @@ class DynamoDBClient:
 
     def get_item(self, key_name: str, key_value: str) -> Optional[dict]:
         try:
-            response = self.table.get_item(Key={key_name: key_value})
+            response = self.table.get_item(Key={key_name: key_value})["Item"]
         except Exception as e:
             print(e)
         else:
-            return response
+            return json.loads(json.dumps(response, cls=CustomJsonEncoder))
 
     def put_item(self, item: dict) -> None:
         return self.table.put_item(Item=item)
 
     def batch_writer(self, items: List[dict]) -> None:
-        max_count = len(items)
         with self.table.batch_writer() as batch:
             for item in tqdm(items, desc=f"insert {self.table_name}"):
                 try:
