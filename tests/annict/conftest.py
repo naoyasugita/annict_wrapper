@@ -1,5 +1,6 @@
 import pytest
 
+from annict.anticorruption.character import CharacterTranslator
 from annict.model.cast import Cast
 from annict.model.character import Character
 from annict.model.episode import Episode
@@ -16,41 +17,15 @@ from annict.model.work import WorkId
 
 @pytest.fixture
 def fixture_cast(fixture_work, fixture_character, fixture_people):
+    character_dict = CharacterTranslator().translate(fixture_character["character_dict"])
+
     to_dict_result = {
         "id": 12345,
         "name": "テスト太郎",
         "name_en": "Test, Taro",
         "sort_number": 1,
         "work": fixture_work["to_dict"],
-        "character": {
-            "id": 1234,
-            "name": "テスト太郎",
-            "name_kana": "テストたろう",
-            "name_en": "Test, Taro",
-            "nickname": "テストタロウ",
-            "nickname_en": "Test, Taro",
-            "birthday": "12月1日",
-            "birthday_en": "December 1",
-            "age": "18歳",
-            "age_en": "18",
-            "blood_type": "A型",
-            "blood_type_en": "A",
-            "height": "177 cm",
-            "height_en": "177 cm",
-            "weight": "59 kg",
-            "weight_en": "59 kg",
-            "nationality": "日本",
-            "nationality_en": "Japan",
-            "occupation": "テストテストテストテスト",
-            "occupation_en": "test test test test",
-            "description": "サンプル",
-            "description_en": "",
-            "description_source": " てスト",
-            "description_source_en": "",
-            "favorite_characters_count": 123,
-            "kind": "HogeHoge",
-            "series": {"id": 12, "name": "Steins;Gate", "name_ro": "", "name_en": ""},
-        },
+        "character": fixture_character["to_dict"],
         "person": fixture_people["to_dict"],
     }
 
@@ -60,7 +35,7 @@ def fixture_cast(fixture_work, fixture_character, fixture_people):
         "name_en": "Test, Taro",
         "sort_number": 1,
         "work": fixture_work["work_dict"],
-        "character": fixture_character["character_dict"],
+        "character": character_dict,
         "person": fixture_people["people_dict"],
     }
     cast = Cast.from_dict(cast_dict)
@@ -73,6 +48,27 @@ def fixture_cast(fixture_work, fixture_character, fixture_people):
 
 @pytest.fixture
 def fixture_character():
+    to_dict_result = {
+        "id": 1234,
+        "profile": {
+            "name": "テスト太郎",
+            "birthday": "12月1日",
+            "age": "18歳",
+            "blood_type": "A型",
+            "height": "177 cm",
+            "weight": "59 kg",
+            "nationality": "日本",
+            "occupation": "テストテストテストテスト",
+            "description": "サンプル",
+            "description_source": " てスト",
+        },
+        "series": {
+            "id": 12,
+            "name": "Steins;Gate",
+            "name_ro": "",
+            "name_en": "",
+        },
+    }
     character_dict = {
         "id": 1234,
         "name": "テスト太郎",
@@ -100,10 +96,21 @@ def fixture_character():
         "description_source": " てスト",
         "description_source_en": "",
         "favorite_characters_count": 123,
-        "series": {"id": 12, "name": "Steins;Gate", "name_ro": "", "name_en": ""},
+        "series": {
+            "id": 12,
+            "name": "Steins;Gate",
+            "name_ro": "",
+            "name_en": "",
+        },
     }
-    character = Character.from_dict(character_dict)
-    yield {"character": character, "character_dict": character_dict}
+    # character = CharacterTranslator().translate(character_dict)
+    translated_dict = CharacterTranslator().translate(character_dict)
+    character = Character.from_dict(translated_dict)
+    yield {
+        "character": character,
+        "character_dict": character_dict,
+        "to_dict": to_dict_result,
+    }
 
 
 @pytest.fixture
@@ -289,10 +296,12 @@ def fixture_work():
         },
         "episodes_count": 12,
         "watchers_count": 1234,
-        "release": {
-            "year": 2018,
-            "cours": "winter",
-        },
+        "year": 2018,
+        "cours": "winter",
+        # "release": {
+        #     "year": 2018,
+        #     "cours": "winter",
+        # },
         "no_episodes": False,
         "reviews_count": 11,
         "syobocal_tid": "1234",
