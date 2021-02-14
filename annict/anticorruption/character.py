@@ -14,16 +14,16 @@ class CharacterTranslator:
     def _create_profile(self, data: dict) -> dict:
         profile_dict = {}
 
-        profile_dict['name'] = data.get("name")
-        profile_dict['birthday'] = data.get("birthday")
-        profile_dict['age'] = data.get("age")
-        profile_dict['blood_type'] = data.get("blood_type")
-        profile_dict['height'] = data.get("height")
-        profile_dict['weight'] = data.get("weight")
-        profile_dict['nationality'] = data.get("nationality")
-        profile_dict['occupation'] = data.get("occupation")
-        profile_dict['description'] = data.get("description")
-        profile_dict['description_source'] = data.get("description_source")
+        profile_dict["name"] = data.get("name")
+        profile_dict["birthday"] = data.get("birthday")
+        profile_dict["age"] = data.get("age")
+        profile_dict["blood_type"] = data.get("blood_type")
+        profile_dict["height"] = data.get("height")
+        profile_dict["weight"] = data.get("weight")
+        profile_dict["nationality"] = data.get("nationality")
+        profile_dict["occupation"] = data.get("occupation")
+        profile_dict["description"] = data.get("description")
+        profile_dict["description_source"] = data.get("description_source")
 
         return profile_dict
 

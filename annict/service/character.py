@@ -16,11 +16,12 @@ class CharacterService:
     def find_character_by_id(self, character_id: int) -> dict:
         return self.dynamo.get_item("id", character_id)
 
-
     def fetch_character_info(self, character_id: int) -> Character:
         params = CharacterRequestParams(filter_ids=character_id).to_dict()
         res: dict = self.api.characters(params=params)
-        translated_response: dict = CharacterTranslator().translate(res["characters"][0])
+        translated_response: dict = CharacterTranslator().translate(
+            res["characters"][0]
+        )
 
         try:
             response = Character.from_dict(translated_response)

@@ -62,6 +62,7 @@ def from_none(x: Any) -> Any:
     assert x is None
     return x
 
+
 class CustomJsonEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Decimal):
