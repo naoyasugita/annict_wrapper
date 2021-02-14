@@ -518,6 +518,7 @@ class ReleaseCours:
         assert self.value in Cours.__members__
 
 
+# GSIで使えなくなるためモデルを修正
 @dataclasses.dataclass(frozen=True)
 class Release:
     """ リリース時期 """
@@ -582,7 +583,9 @@ class Work:
             "twitter": to_class(Twitter, self.twitter),
             "episodes_count": dataclasses.asdict(self.episodes_count)["value"],
             "watchers_count": dataclasses.asdict(self.watchers_count)["value"],
-            "release": to_class(Release, self.release),
+            "year": self.release.year.value,
+            "cours": self.release.cours.value,
+            # "release": to_class(Release, self.release),
             "no_episodes": self.no_episodes if self.no_episodes is not None else None,
             "reviews_count": self.reviews_count
             if self.reviews_count is not None
